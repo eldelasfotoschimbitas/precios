@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es-CO">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>El de las Fotos Chimbitas</title>
+<meta name="description" content="El de las Fotos Chimbitas — fotografía y video de eventos.">
+<meta property="og:title" content="El de las Fotos Chimbitas">
+<meta property="og:description" content="Fotografía y video de eventos. Mira todos los precios.">
+<meta property="og:type" content="website">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&family=Raleway:wght@300;500&display=swap" rel="stylesheet">
+<style>
+:root{--vino:#1c060a;--vino2:#3d0a12;--vino3:#57101b;--oro:#e9b949;--crema:#f5ede4;--gris:#b9a9a9}
+*{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{background:var(--vino);color:var(--crema);font-family:'Raleway',sans-serif;overflow:hidden}
+#stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
+  background:radial-gradient(120% 90% at 50% 38%, var(--vino3) 0%, var(--vino2) 45%, #120405 70%, #0d0305 100%);
+  background-color:var(--vino);transition:opacity .7s ease}
+#stage.out{opacity:0}
+.script{font-family:'WindSong',cursive;font-weight:500;font-size:clamp(2.6rem,9vw,5.4rem);line-height:1.25;
+  color:var(--crema);text-shadow:0 0 22px rgba(233,185,73,.28),0 2px 14px rgba(0,0,0,.55);
+  opacity:0;filter:blur(10px);transform:translateY(18px) scale(.97);padding:0 .5em;text-align:center;
+  animation:inScript 1.15s .25s cubic-bezier(.2,.7,.2,1) forwards}
+@keyframes inScript{to{opacity:1;filter:blur(0);transform:none}}
+.line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--oro),transparent);margin:1.1rem 0;
+  animation:inLine .8s 1.15s ease forwards}
+@keyframes inLine{to{width:min(62vw,340px)}}
+.caps{font-weight:300;letter-spacing:.65em;text-indent:.65em;color:var(--oro);
+  font-size:clamp(.85rem,3.2vw,1.15rem);text-transform:uppercase;opacity:0;transform:translateY(10px);
+  animation:inCaps .8s 1.5s ease forwards}
+@keyframes inCaps{to{opacity:1;transform:none}}
+.hint{position:absolute;bottom:2.2rem;font-size:.66rem;letter-spacing:.3em;color:var(--gris);opacity:0;
+  text-transform:uppercase;animation:inCaps 1s 2.2s ease forwards}
+.spin{position:absolute;bottom:1.1rem;width:22px;height:22px;border:2px solid rgba(233,185,73,.25);
+  border-top-color:var(--oro);border-radius:50%;opacity:0;animation:inCaps .6s 2.2s ease forwards, spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+@media (prefers-reduced-motion: reduce){.script,.line,.caps,.hint{animation-duration:.01s;animation-delay:0s;opacity:1;filter:none;transform:none}}
+</style>
+</head>
+<body>
+<a id="stage" href="https://davidberon.pro/edsonpenagos" aria-label="Ver todos los precios">
+  <div class="script">El de las Fotos</div>
+  <div class="line"></div>
+  <div class="caps">Chimbitas</div>
+  <div class="hint">abriendo mis precios…</div>
+  <div class="spin"></div>
+</a>
+<script>
+const DEST = "https://davidberon.pro/edsonpenagos";
+const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+const stage = document.getElementById("stage");
+let done = false;
+function go(){ if (done) return; done = true; stage.classList.add("out"); setTimeout(()=>{ window.location.replace(DEST); }, 650); }
+stage.addEventListener("click", e => { e.preventDefault(); go(); });   // tocar = ir ya
+setTimeout(go, reduced ? 300 : 3000);                                  // auto tras la animación
+</script>
+</body>
+</html>

@@ -18,7 +18,9 @@ html,body{height:100%}
 body{background:var(--vino);color:var(--crema);font-family:'Raleway',sans-serif;overflow:hidden}
 #stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
   background:radial-gradient(120% 90% at 50% 38%, var(--vino3) 0%, var(--vino2) 45%, #120405 70%, #0d0305 100%);
-  background-color:var(--vino);transition:opacity .7s ease}
+  background-color:var(--vino);transition:opacity .7s ease;
+  text-decoration:none;-webkit-tap-highlight-color:transparent;color:var(--crema)}
+#stage,#stage *{text-decoration:none}
 #stage.out{opacity:0}
 .script{font-family:'WindSong',cursive;font-weight:500;font-size:clamp(2.6rem,9vw,5.4rem);line-height:1.25;
   color:var(--crema);text-shadow:0 0 22px rgba(233,185,73,.28),0 2px 14px rgba(0,0,0,.55);

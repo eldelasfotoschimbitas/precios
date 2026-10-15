@@ -3,61 +3,396 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>El de las Fotos Chimbitas</title>
-<meta name="description" content="El de las Fotos Chimbitas — fotografía y video de eventos.">
-<meta property="og:title" content="El de las Fotos Chimbitas">
-<meta property="og:description" content="Fotografía y video de eventos. Mira todos los precios.">
+<title>Precios · El de las Fotos Chimbitas</title>
+<meta name="description" content="Todos los precios de Edson Penagos (El de las Fotos Chimbitas): XV años, sesiones, eventos, video, dron, grados, deportivo, impresiones, invitaciones e IA.">
+<meta property="og:title" content="Precios · El de las Fotos Chimbitas">
+<meta property="og:description" content="Fotografía, video y dron para XV, grados, bodas y eventos. Todos los paquetes y precios en un solo lugar.">
 <meta property="og:type" content="website">
+<meta property="og:image" content="https://eldelasfotoschimbitas.github.io/precios/img/roja.jpg">
+<meta name="theme-color" content="#22231f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=WindSong:wght@400;500&family=Raleway:wght@300;500&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Archivo:wdth,wght@75..100,400..700&family=Caveat+Brush&display=swap" rel="stylesheet">
 <style>
-:root{--vino:#1c060a;--vino2:#3d0a12;--vino3:#57101b;--oro:#e9b949;--crema:#f5ede4;--gris:#b9a9a9}
+:root{
+  --mesa:#22231f;      /* la mesa de trabajo */
+  --mesa2:#2c2d28;
+  --luz:#f4f3ee;       /* la mesa de luz */
+  --tinta:#e9e8e1;
+  --gris:#a9a89e;
+  --ambar:#f0a22e;     /* el borde impreso de la película */
+  --grasa:#ff4d4f;     /* lápiz graso rojo, sobre oscuro */
+  --grasa-luz:#d3191f; /* lápiz graso rojo, sobre la mesa de luz */
+  --pelicula:#161613;
+}
 *{margin:0;padding:0;box-sizing:border-box}
-html,body{height:100%}
-body{background:var(--vino);color:var(--crema);font-family:'Raleway',sans-serif;overflow:hidden}
-#stage{position:fixed;inset:0;display:flex;flex-direction:column;justify-content:center;align-items:center;
-  background:radial-gradient(120% 90% at 50% 38%, var(--vino3) 0%, var(--vino2) 45%, #120405 70%, #0d0305 100%);
-  background-color:var(--vino);transition:opacity .7s ease;
-  text-decoration:none;-webkit-tap-highlight-color:transparent;color:var(--crema)}
-#stage,#stage *{text-decoration:none}
-#stage.out{opacity:0}
-.script{font-family:'WindSong',cursive;font-weight:500;font-size:clamp(2.6rem,9vw,5.4rem);line-height:1.25;
-  color:var(--crema);text-shadow:0 0 22px rgba(233,185,73,.28),0 2px 14px rgba(0,0,0,.55);
-  opacity:0;filter:blur(10px);transform:translateY(18px) scale(.97);padding:0 .5em;text-align:center;
-  animation:inScript 1.15s .25s cubic-bezier(.2,.7,.2,1) forwards}
-@keyframes inScript{to{opacity:1;filter:blur(0);transform:none}}
-.line{width:0;height:1px;background:linear-gradient(90deg,transparent,var(--oro),transparent);margin:1.1rem 0;
-  animation:inLine .8s 1.15s ease forwards}
-@keyframes inLine{to{width:min(62vw,340px)}}
-.caps{font-weight:300;letter-spacing:.65em;text-indent:.65em;color:var(--oro);
-  font-size:clamp(.85rem,3.2vw,1.15rem);text-transform:uppercase;opacity:0;transform:translateY(10px);
-  animation:inCaps .8s 1.5s ease forwards}
-@keyframes inCaps{to{opacity:1;transform:none}}
-.hint{position:absolute;bottom:2.2rem;font-size:.66rem;letter-spacing:.3em;color:var(--gris);opacity:0;
-  text-transform:uppercase;animation:inCaps 1s 2.2s ease forwards}
-.spin{position:absolute;bottom:1.1rem;width:22px;height:22px;border:2px solid rgba(233,185,73,.25);
-  border-top-color:var(--oro);border-radius:50%;opacity:0;animation:inCaps .6s 2.2s ease forwards, spin 1s linear infinite}
-@keyframes spin{to{transform:rotate(360deg)}}
-@media (prefers-reduced-motion: reduce){.script,.line,.caps,.hint{animation-duration:.01s;animation-delay:0s;opacity:1;filter:none;transform:none}}
+html{scroll-behavior:smooth;scroll-padding-top:64px}
+body{background:var(--mesa);color:var(--tinta);font-family:'Archivo',system-ui,sans-serif;font-size:17px;line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+img{display:block;max-width:100%}
+a{color:inherit}
+:focus-visible{outline:3px solid var(--ambar);outline-offset:3px;border-radius:4px}
+.wrap{max-width:1120px;margin:0 auto;padding:0 20px}
+
+/* ---------- HERO: mesa de luz con tira de película ---------- */
+.hero{background:radial-gradient(130% 90% at 50% 40%,#ffffff 0%,var(--luz) 55%,#e4e2da 100%);color:var(--mesa);padding:56px 0 64px;position:relative;overflow:hidden}
+.hero h1{font-family:'Bodoni Moda',serif;font-weight:700;font-size:clamp(2.6rem,8.4vw,6rem);line-height:.95;letter-spacing:-.02em;max-width:11ch}
+.hero .quien{font-weight:600;font-stretch:85%;font-size:1.05rem;margin-bottom:14px;color:#3b3c36}
+.hero p.lead{font-size:1.15rem;max-width:44ch;margin:18px 0 26px;color:#33342e}
+.ctas{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;min-height:48px;padding:0 22px;border-radius:999px;font-weight:600;font-size:1rem;text-decoration:none;border:2px solid transparent;cursor:pointer;transition:transform .15s ease,background .15s ease}
+.btn:active{transform:scale(.97)}
+.btn-ambar{background:var(--ambar);color:#1d1b16}
+.btn-ambar:hover{background:#ffb648}
+.btn-osc{background:var(--mesa);color:var(--luz)}
+.btn-osc:hover{background:#000}
+.btn-linea{border-color:currentColor;background:transparent}
+.btn-linea:hover{background:rgba(255,255,255,.08)}
+.btn svg{width:20px;height:20px;flex:none}
+
+.tira-zona{position:relative;margin-top:44px}
+.tira{background:var(--pelicula);padding:20px 0 6px;transform:rotate(-2deg);margin:0 -40px;position:relative;
+  box-shadow:0 18px 40px rgba(0,0,0,.25)}
+.tira::before,.tira::after{content:"";position:absolute;left:0;right:0;height:12px;
+  background:repeating-linear-gradient(90deg,transparent 0 10px,var(--luz) 10px 22px,transparent 22px 34px);opacity:.92}
+.tira::before{top:9px}.tira::after{bottom:9px}
+.tira .canto{position:absolute;left:60px;font-stretch:75%;font-weight:600;font-size:.72rem;letter-spacing:.12em;color:var(--ambar);white-space:nowrap}
+.tira .canto.sup{top:-2px}.tira .canto.inf{bottom:-2px}
+.cuadros{display:flex;gap:14px;padding:14px 60px 40px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.cuadros::-webkit-scrollbar{display:none}
+.cuadro{flex:0 0 auto;width:clamp(150px,19vw,210px);aspect-ratio:4/5;scroll-snap-align:center;position:relative}
+.cuadro img{width:100%;height:100%;object-fit:cover}
+.circulo{position:absolute;inset:-12px -9px;pointer-events:none;overflow:visible}
+.circulo path{fill:none;stroke:var(--grasa-luz);stroke-width:5;stroke-linecap:round;stroke-dasharray:900;stroke-dashoffset:900;animation:trazo 1.1s .7s cubic-bezier(.5,.1,.3,1) forwards}
+@keyframes trazo{to{stroke-dashoffset:0}}
+.nota{position:absolute;font-family:'Caveat Brush',cursive;color:var(--grasa-luz);font-size:1.5rem;line-height:1;transform:rotate(-6deg);white-space:nowrap;opacity:0;animation:aparece .4s 1.7s forwards}
+@keyframes aparece{to{opacity:1}}
+
+/* ---------- índice pegajoso ---------- */
+.indice{position:sticky;top:0;z-index:20;background:rgba(34,35,31,.94);backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);border-bottom:1px solid #3a3b35}
+.indice ul{list-style:none;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;padding:8px 14px;max-width:1120px;margin:0 auto}
+.indice ul::-webkit-scrollbar{display:none}
+.indice a{display:flex;align-items:center;min-height:44px;padding:0 14px;border-radius:999px;text-decoration:none;white-space:nowrap;font-weight:500;font-stretch:90%;color:var(--gris)}
+.indice a:hover{color:var(--tinta)}
+.indice a.activo{color:var(--mesa);background:var(--ambar)}
+
+/* ---------- secciones ---------- */
+section.cat{padding-top:72px;padding-bottom:24px}
+.cab{display:grid;gap:6px;margin-bottom:30px;max-width:60ch}
+.cab h2{font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(2rem,5vw,3.1rem);line-height:1.05;letter-spacing:-.01em}
+.cab p{color:var(--gris);font-size:1.05rem}
+
+/* copias con borde blanco (paquetes con foto) */
+.copias{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:34px 26px}
+.copia{display:flex;flex-direction:column}
+.copia .foto{background:#fbfaf6;padding:10px 10px 10px;box-shadow:0 10px 26px rgba(0,0,0,.35);position:relative}
+.copia:nth-child(3n+1) .foto{transform:rotate(-.8deg)}
+.copia:nth-child(3n+2) .foto{transform:rotate(.6deg)}
+.copia .foto img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) brightness(.45) contrast(1.15);transition:filter 1.1s ease}
+.copia.revelada .foto img{filter:none}
+.copia .marca{position:absolute;right:-6px;top:-14px;font-family:'Caveat Brush',cursive;font-size:2rem;color:var(--grasa-luz);transform:rotate(8deg);line-height:1;text-shadow:0 0 6px #fff}
+.copia h3{font-family:'Bodoni Moda',serif;font-weight:700;font-size:1.45rem;line-height:1.15;margin:20px 0 2px}
+.copia .tipo{color:var(--gris);font-size:.95rem}
+.precio{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:10px 0 12px}
+.precio b{font-size:1.75rem;font-weight:700;font-stretch:85%;color:var(--tinta)}
+.precio s{color:var(--gris);text-decoration:none;position:relative}
+.precio s::after{content:"";position:absolute;left:-3px;right:-3px;top:52%;height:2px;background:var(--grasa);transform:rotate(-6deg)}
+.precio .por{color:var(--gris);font-size:.9rem;flex-basis:100%}
+.copia ul,.fila ul{list-style:none;display:grid;gap:5px;margin-bottom:16px}
+.copia li,.fila li{padding-left:20px;position:relative;font-size:.97rem;color:#d6d5cd}
+.copia li::before,.fila li::before{content:"";position:absolute;left:2px;top:.62em;width:9px;height:2px;background:var(--ambar)}
+.acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
+.acciones .btn{min-height:46px;padding:0 18px;font-size:.95rem}
+
+/* listas de precio (sin foto) */
+.lista{display:grid;gap:0;border-top:1px solid #3d3e38}
+.fila{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:22px 0;border-bottom:1px solid #3d3e38;align-items:start}
+.fila h3{font-weight:600;font-size:1.15rem;font-stretch:95%}
+.fila .desc{grid-column:1/-1;color:#cfcec6;max-width:68ch;font-size:.98rem}
+.fila .precio{margin:0;justify-content:flex-end;text-align:right}
+.fila .precio b{font-size:1.4rem}
+.fila .marca-f{font-family:'Caveat Brush',cursive;color:var(--grasa);font-size:1.35rem;margin-left:8px;display:inline-block;transform:rotate(-4deg)}
+.fila .acciones{grid-column:1/-1}
+.fila .pedir{font-weight:600;color:var(--ambar);text-decoration:none;display:inline-flex;align-items:center;min-height:44px}
+.fila .pedir:hover{text-decoration:underline}
+
+/* tabla de tamaños (impresiones) */
+.tamanos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
+.tam{border:1px solid #45463f;padding:16px;display:grid;gap:4px;align-content:end;background:var(--mesa2)}
+.tam .medida{font-family:'Bodoni Moda',serif;font-size:1.5rem;line-height:1}
+.tam .dib{background:#fbfaf6 center/cover;border:4px solid #fbfaf6;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.tam b{font-stretch:85%;font-size:1.2rem}
+.sub{font-weight:600;font-size:1.2rem;margin:34px 0 14px;font-stretch:95%}
+.aviso{margin-top:20px;color:var(--gris);font-size:.95rem;max-width:68ch}
+.aviso a{color:var(--ambar);display:inline-flex;align-items:center;min-height:44px;font-weight:600}
+
+/* cómo trabajo */
+.reglas{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:30px 34px}
+.regla h3{font-weight:600;font-size:1.08rem;margin-bottom:6px;color:var(--tinta)}
+.regla p{color:#cfcec6;font-size:.97rem}
+
+/* contacto */
+.cierre{background:var(--luz);color:var(--mesa);margin-top:80px;padding:70px 0 50px}
+.cierre h2{font-family:'Bodoni Moda',serif;font-size:clamp(2.2rem,6vw,4rem);line-height:1;max-width:14ch;margin-bottom:16px}
+.cierre p{max-width:52ch;margin-bottom:24px;color:#33342e}
+.redes{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:30px}
+.redes a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.pie{margin-top:40px;font-size:.88rem;color:#5b5c55}
+
+/* botón flotante WhatsApp */
+.flota{position:fixed;right:16px;bottom:16px;z-index:30;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.4);transform:translateY(120px);transition:transform .35s ease}
+.flota.ver{transform:none}
+.flota svg{width:30px;height:30px;fill:#fff}
+
+@media (max-width:640px){
+  body{font-size:16px}
+  .wrap{padding:0 16px}
+  .hero{padding:40px 0 52px}
+  .tira{margin:0 -30px}
+  .cuadros{padding:14px 40px 40px}
+  .tira .canto{left:40px}
+  section.cat{padding-top:56px;padding-bottom:16px}
+  .fila{grid-template-columns:1fr}
+  .fila .precio{justify-content:flex-start;text-align:left}
+  .copias{gap:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  .circulo path{animation:none;stroke-dashoffset:0}
+  .nota{animation:none;opacity:1}
+  .copia .foto img{filter:none;transition:none}
+  .flota{transition:none}
+}
 </style>
 </head>
 <body>
-<a id="stage" href="https://bodawm.my.canva.site/edsonpenagos" aria-label="Ver todos los precios">
-  <div class="script">El de las Fotos</div>
-  <div class="line"></div>
-  <div class="caps">Chimbitas</div>
-  <div class="hint">abriendo mis precios…</div>
-  <div class="spin"></div>
+
+<header class="hero">
+  <div class="wrap">
+    <div class="quien">Edson Penagos · fotógrafo y videógrafo</div>
+    <h1>El de las Fotos Chimbitas</h1>
+    <p class="lead">Fotografía, video y dron para XV años, grados, bodas, sesiones y carreras. Aquí están todos mis paquetes con precio, para que elijas sin rodeos.</p>
+    <div class="ctas">
+      <a class="btn btn-osc" href="#xv">Ver precios</a>
+      <a class="btn btn-linea" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+  </div>
+  <div class="tira-zona" aria-hidden="true">
+    <div class="tira">
+      <span class="canto sup">CHIMBITAS 400 &nbsp;▸ 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 18 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 19</span>
+      <div class="cuadros">
+        <div class="cuadro"><img src="img/celeste.jpg" alt=""></div>
+        <div class="cuadro"><img src="img/roja.jpg" alt=""></div>
+        <div class="cuadro" id="conDron"><img src="img/rosa.jpg" alt="">
+          <svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg>
+          <span class="nota" style="left:8px;bottom:-36px">esta es con dron</span>
+        </div>
+        <div class="cuadro"><img src="img/sombrero2.jpg" alt=""></div>
+        <div class="cuadro"><img src="img/runningh.jpg" alt=""></div>
+        <div class="cuadro"><img src="img/grados.jpg" alt=""></div>
+      </div>
+      <span class="canto inf">KODAK SAFETY FILM ▸ MÁLAGA · SANTANDER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17A</span>
+    </div>
+  </div>
+</header>
+
+<nav class="indice" aria-label="Categorías de precios">
+  <ul id="indice"></ul>
+</nav>
+
+<main id="contenido"></main>
+
+<section class="cat wrap" id="como">
+  <div class="cab">
+    <h2>Cómo trabajo</h2>
+    <p>Lo que conviene saber antes de reservar.</p>
+  </div>
+  <div class="reglas">
+    <div class="regla"><h3>Reserva</h3><p>Separas la fecha con un adelanto de más o menos el 40%. El resto del servicio básico se paga al terminar la sesión o el evento.</p></div>
+    <div class="regla"><h3>Impresiones y retablos</h3><p>Con el 50% se mandan a imprimir. Te los entrego al pagar el resto.</p></div>
+    <div class="regla"><h3>Entrega</h3><p>Entre 1 y 2 semanas, por link en la nube. El link dura 7 días: descarga tus fotos apenas llegue. Si en una semana no eliges tus fotos, las elijo yo para no retrasarte.</p></div>
+    <div class="regla"><h3>Edición</h3><p>Las sesiones llevan retoque de piel y ajuste fino de luz y color. Los eventos llevan corrección general; retoques avanzados se cotizan aparte.</p></div>
+    <div class="regla"><h3>Horas extra y viajes</h3><p>En sesiones la base es de 3 horas y cada hora adicional vale $30.000. Fuera de mi ciudad se suman transporte y, si toca, viáticos.</p></div>
+    <div class="regla"><h3>Cambios de fecha</h3><p>La reserva no se devuelve, pero puedes reagendar una vez. Una segunda reprogramación se cobra como sesión nueva.</p></div>
+    <div class="regla"><h3>Archivos RAW</h3><p>Por lo general no se entregan. Si los necesitas, se cobran aparte.</p></div>
+    <div class="regla"><h3>Revisión</h3><p>Ajustes menores sin costo si los pides dentro de los 7 días después de la entrega.</p></div>
+    <div class="regla"><h3>Privacidad</h3><p>Puedo usar fotos y videos en mi portafolio y redes. Si prefieres que no se publiquen, avísame por escrito antes del servicio.</p></div>
+  </div>
+  <p class="aviso">Confirmar el servicio (por mensaje o pago) significa que aceptas los términos. <a href="https://drive.google.com/file/d/1Ehj_m2sC6jxIaK41-qpZbwr0M2KSfOWK/view" target="_blank" rel="noopener">Leer términos y condiciones completos (PDF)</a></p>
+</section>
+
+<footer class="cierre">
+  <div class="wrap">
+    <h2>¿Ya sabes cuál quieres?</h2>
+    <p>Escríbeme con la fecha, el lugar y el paquete que te gustó. Te respondo con disponibilidad y lo que necesites para reservar.</p>
+    <a class="btn btn-osc" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20reservar." target="_blank" rel="noopener">Reservar por WhatsApp</a>
+    <div class="redes">
+      <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram @eldelasfotoschimbitas</a>
+      <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok @fotos.chimbitas</a>
+      <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos" target="_blank" rel="noopener">Galería de trabajos</a>
+      <a href="https://eldelasfotoschimbitas.github.io/" target="_blank" rel="noopener">Paquetes con PDF</a>
+    </div>
+    <p class="pie">© Edson David Penagos Cáceres · WhatsApp +57 313 346 9261 · Precios en pesos colombianos (COP), sujetos a cambio sin previo aviso.</p>
+  </div>
+</footer>
+
+<a class="flota" id="flota" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.7 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
 </a>
+
 <script>
-const DEST = "https://bodawm.my.canva.site/edsonpenagos";
-const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-const stage = document.getElementById("stage");
-let done = false;
-function go(){ if (done) return; done = true; stage.classList.add("out"); setTimeout(()=>{ window.location.replace(DEST); }, 650); }
-stage.addEventListener("click", e => { e.preventDefault(); go(); });   // tocar = ir ya
-setTimeout(go, reduced ? 300 : 3000);                                  // auto tras la animación
+const WA = "https://wa.me/573133469261?text=";
+const PDF = "https://eldelasfotoschimbitas.github.io/";
+
+/* Cada categoría: tipo "copias" (paquetes con foto) o "lista" (filas de precio). */
+const CATS = [
+ {id:"xv", nav:"XV años", titulo:"XV años: paquetes completos", linea:"Todos incluyen video pre-15 con dron y todas las fotos sin editar. Ordenados del más completo al más sencillo.", tipo:"copias", items:[
+  {img:"rosa", n:"Completo Foto + Video", t:"Fotografía + video", d:"-12%", s:"$2.630.000", p:"$2.310.000", inc:["Sesión 18 fotos + evento 150 fotos","Video: tráiler 1 min + resumen 7–15 min","Entrega en 4K con dron","Video pre-15 con dron (~30 s) + 3 fotos con dron","Impresiones y retablo incluidos","Todas las fotos sin editar"], pdf:"pdf/xv/Completo_Foto_y_Video.pdf?v=2"},
+  {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$2.630.000", p:"$2.235.000", inc:["200 fotos de evento + sesión de 25 fotos","Video principal 4K con dron","Video pre-15 con dron (~30 s) + 3 fotos con dron","70 impresas 10×15 + retablo 100×80","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Deluxe.pdf?v=2"},
+  {img:"roja", n:"Fotografía Completa", t:"Fotografía + video pre-15", d:"-12%", s:"$1.660.000", p:"$1.460.000", inc:["Sesión: 18 fotos editadas (1–3 horas)","Evento: 150 fotos editadas, cobertura completa","Video pre-15 con dron (~30 s) + 3 fotos con dron","50 impresas 10×15 + retablo 100×80 cm","Todas las fotos sin editar"], pdf:"pdf/xv/Fotografia_Completa.pdf?v=2"},
+  {img:"celeste", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento","Video: tráiler 1 min + resumen 7–15 min","Entrega en 4K, color y audio profesional","Video pre-15 con dron (~30 s) + 3 fotos con dron","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Video_60_Fotos.pdf?v=2"},
+  {img:"sombrero2", n:"Combo Premium", t:"Fotografía + video pre-15", d:"-11%", s:"$1.375.000", p:"$1.215.000", inc:["150 fotos de evento + sesión de 20 fotos","Video pre-15 con dron (~30 s) + 3 fotos con dron","50 impresas 10×15 + retablo 100×80","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Premium.pdf?v=2"},
+  {img:"celeste", n:"Combo Plus", t:"Fotografía + video pre-15", d:"-9%", s:"$1.190.000", p:"$1.080.000", inc:["100 fotos de evento + sesión de 15 fotos","Video pre-15 con dron (~30 s) + 3 fotos con dron","30 impresas 10×15 + retablo 100×80","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Plus.pdf?v=2"},
+  {img:"blanca", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento","Tráiler 1 min + resumen 7–15 min","Entrega en 4K, color y audio profesional","Tomas aéreas con dron","Video pre-15 con dron (~30 s) + 3 fotos con dron"], pdf:"pdf/xv/Video_de_Evento.pdf?v=2"},
+  {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video pre-15", d:"-6%", s:"$910.000", p:"$855.000", inc:["50 fotos de evento + sesión de 10 fotos","Video pre-15 con dron (~30 s) + 3 fotos con dron","20 impresas 10×15 + retablo 100×80","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Basico.pdf?v=2"}
+ ]},
+ {id:"sesiones", nav:"Sesiones", titulo:"Sesiones de fotos", linea:"De 1 a 3 horas, con retoque de piel, color y luz. Entrega por Google Drive, lista para redes.", tipo:"lista", items:[
+  {n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {n:"Essential · 18 fotos digitales", d:"-15%", s:"$355.000", p:"$300.000", desc:"18 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]},
+  {n:"Hora adicional de sesión", p:"$30.000", por:"por hora", desc:"Si la sesión pasa de 3 horas."}
+ ]},
+ {id:"eventos", nav:"Eventos", titulo:"Cobertura de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"lista", items:[
+  {n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {n:"Moments · 50 fotos", d:"-7%", s:"$452.000", p:"$420.000", desc:"50 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {n:"Forever · 100 fotos", d:"-10%", s:"$678.000", p:"$610.000", desc:"100 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {n:"Golden · 150 fotos", d:"-15%", s:"$800.000", p:"$680.000", desc:"150 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {n:"Deluxe Pro · 200 fotos", d:"-20%", s:"$1.075.000", p:"$860.000", desc:"200 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {n:"Paquete extra: todo sin editar", d:"-7%", s:"$376.000", p:"$350.000", desc:"Todo el material en crudo, solo o sumado a tu paquete. Te recomiendo priorizar las editadas como resultado final. Si compras un paquete editado, este costo baja."}
+ ]},
+ {id:"video", nav:"Video", titulo:"Video", linea:"Edición envolvente, musicalización y color. Grabo con cámara profesional o iPhone según la entrega.", tipo:"lista", items:[
+  {n:"Video corto · 30 a 60 segundos", p:"$250.000", desc:"Dinámico y directo, ideal para redes, promociones rápidas o contenido flash. Edición ágil, música y color."},
+  {n:"Video estándar · 1:30 a 3 minutos", p:"$350.000", desc:"Más desarrollo narrativo, edición más elaborada y música."},
+  {n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
+  {n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
+  {n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
+  {n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
+ ]},
+ {id:"dron", nav:"Dron", titulo:"Servicios de dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"lista", items:[
+  {n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
+  {n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
+  {n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
+ ]},
+ {id:"grados", nav:"Grados", titulo:"Grados", linea:"Precio por persona, para grupos de más de 20. Pre-grado, evento y fotos grupales.", tipo:"copias", items:[
+  {img:"grad_nino", n:"Grado Digital", t:"Pre-grado y evento", p:"$70.000", por:"por persona", inc:["7 fotos digitales (pre-grado, evento y grupales)","Entrega digital lista para imprimir"], pdf:"pdf/Grados_Digital.pdf?v=10"},
+  {img:"grad_verde", n:"Grado con Impresiones", t:"Pre-grado y evento", p:"$80.000", por:"por persona", inc:["7 fotos digitales","1 impresa 10×15 cm + 1 impresa 20×30 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Impresiones.pdf?v=11"},
+  {img:"grad95", n:"Grado con Retablo", t:"Pre-grado y evento", p:"$105.000", por:"por persona", inc:["7 fotos digitales","Retablo 30×40 cm listo para colgar","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Retablo.pdf?v=11"},
+  {img:"grad100", n:"Grado Completo", t:"Pre-grado y evento", p:"$110.000", por:"por persona", inc:["7 fotos digitales","Retablo 30×40 cm","Impresiones 10×15 y 15×20 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo.pdf?v=11"},
+  {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
+  {img:"gradbuc2", n:"Grados Bucaramanga", t:"Solo fotografía", p:"$120.000", por:"por persona", inc:["7 fotografías editadas en digital","Cobertura de la ceremonia","Fotos antes o después, con calma"], pdf:"pdf/Grados_Bucaramanga.pdf?v=10"}
+ ]},
+ {id:"deportivo", nav:"Deportivo", titulo:"Carreras y eventos deportivos", linea:"Los corredores compran sus fotos en línea, encontrándose por reconocimiento de rostro.", tipo:"copias", items:[
+  {img:"runningh", n:"Paquete Deportivo", t:"Fotografía + video", d:"-5%", s:"$820.000", p:"$780.000", inc:["50 fotografías base del evento","Video tipo reel (1–2 min)","Dron para tomas aéreas","Transporte incluido, 2 encargados","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Paquete_Deportivo_Reel_Dron_50_fotos.pdf"},
+  {img:"running", n:"Fotografía Deportiva", t:"Solo fotografía", p:"$450.000", inc:["50 fotografías base editadas","Transporte incluido","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Fotografia_Deportiva_50_fotos.pdf"},
+  {img:"runningd", n:"Video Cámara + Dron", t:"Solo video", p:"$350.000", inc:["Reel de 1–2 min con cámara y dron","Tomas aéreas y en tierra","Entrega en 4K"], pdf:"pdf/Video_Camara_y_Dron.pdf"},
+  {img:"runningn", n:"Alquiler de Dron", t:"Dron con piloto", p:"$120.000", inc:["Videos en D-Log o Rec. 709","4K de 60 a 100 fps","Vuelo máximo de 1 h 10 min"], pdf:"pdf/Alquiler_Dron.pdf"}
+ ]},
+ {id:"impresiones", nav:"Impresiones", titulo:"Impresiones y retablos", linea:"Colores vivos y acabado premium, para colgar o regalar.", tipo:"tamanos",
+  grupos:[
+   {sub:"Impresiones", items:[["10×15 cm","$2.500",10,15],["13×18 cm","$5.000",13,18],["15×20 cm","$5.500",15,20],["20×25 cm","$10.000",20,25],["20×30 cm","$10.000",20,30]]},
+   {sub:"Retablos", items:[["30×40 cm","$45.000",30,40],["40×60 cm","$75.000",40,60],["80×100 cm","$120.000",80,100]]}
+  ]},
+ {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones virtuales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"lista", items:[
+  {n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
+  {n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
+  {n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
+  {n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
+  {n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
+ ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
+ {id:"ia", nav:"IA", titulo:"Servicios con inteligencia artificial", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"lista", items:[
+  {n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
+  {n:"Videos con IA", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
+  {n:"Chatbots", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
+ ]}
+];
+
+const esc = s => String(s).replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+const waLink = (n, p) => WA + encodeURIComponent(`Hola Edson, vi tus precios y me interesa: ${n}${p && p[0]==="$" ? " (" + p + ")" : ""}`);
+const icoWA = '<svg viewBox="0 0 32 32" aria-hidden="true" fill="currentColor"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2z"/></svg>';
+
+function precio(it){
+  return `<div class="precio"><b>${esc(it.p)}</b>${it.s ? `<s aria-label="antes ${esc(it.s)}">${esc(it.s)}</s>` : ""}${it.por ? `<span class="por">${esc(it.por)}</span>` : ""}</div>`;
+}
+function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
+
+function copias(c){
+  return `<div class="copias">${c.items.map(it => `
+    <article class="copia">
+      <div class="foto"><img src="img/${it.img}.jpg" alt="${esc(it.n)}" loading="lazy">${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
+      <h3>${esc(it.n)}</h3><div class="tipo">${esc(it.t)}</div>
+      ${precio(it)}${lista(it.inc)}
+      <div class="acciones">
+        <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
+        ${it.pdf ? `<a class="btn btn-linea" href="${PDF + it.pdf}" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+      </div>
+    </article>`).join("")}</div>`;
+}
+function filas(c){
+  return `<div class="lista">${c.items.map(it => `
+    <article class="fila">
+      <h3>${esc(it.n)}${it.d ? `<span class="marca-f" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</h3>
+      ${precio(it)}
+      <p class="desc">${esc(it.desc)}</p>
+      ${it.inc ? `<div class="desc">${lista(it.inc)}</div>` : ""}
+      <div class="acciones"><a class="pedir" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${it.p[0]==="$" ? "Pedir este por WhatsApp" : "Cotizar por WhatsApp"}</a></div>
+    </article>`).join("")}</div>`
+    + (c.link ? `<p class="aviso"><a href="${c.link.href}" target="_blank" rel="noopener">${esc(c.link.txt)}</a></p>` : "");
+}
+const FOTOS_TAM = ["grad_plus","sombrero1","celeste","grad100","roja"];
+function tamanos(c){
+  return c.grupos.map(g => `<h3 class="sub">${g.sub}</h3><div class="tamanos">${g.items.map(([m,p,w,h], i) => {
+    const esc_ = g.sub === "Retablos" ? 1.1 : 3.2;         // dibujo a escala dentro de cada grupo
+    return `<div class="tam"><div class="dib" style="width:${Math.round(w*esc_)}px;height:${Math.round(h*esc_)}px;max-width:100%;background-image:url(img/${FOTOS_TAM[i % FOTOS_TAM.length]}.jpg)"></div><span class="medida">${m}</span><b>${p}</b></div>`;
+  }).join("")}</div>`).join("")
+  + `<p class="aviso">Se manda a imprimir con el 50% y se entrega al pagar el resto. <a href="${waLink("Impresiones / retablos","")}" target="_blank" rel="noopener">Pedir impresiones por WhatsApp</a></p>`;
+}
+
+const main = document.getElementById("contenido");
+main.innerHTML = CATS.map(c => `
+  <section class="cat wrap" id="${c.id}">
+    <div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div>
+    ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
+  </section>`).join("");
+
+const nav = document.getElementById("indice");
+nav.innerHTML = [...CATS.map(c => [c.id, c.nav]), ["como","Cómo trabajo"]]
+  .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
+
+/* índice activo según la sección visible */
+const links = [...nav.querySelectorAll("a")];
+const secs = links.map(a => document.querySelector(a.getAttribute("href")));
+const marcar = new IntersectionObserver(es => {
+  es.forEach(e => { if (e.isIntersecting) {
+    links.forEach(a => a.classList.toggle("activo", a.getAttribute("href") === "#" + e.target.id));
+    const act = nav.querySelector(".activo");
+    if (act) act.scrollIntoView({block:"nearest", inline:"center", behavior:"smooth"});
+  }});
+}, {rootMargin:"-45% 0px -50% 0px"});
+secs.forEach(s => s && marcar.observe(s));
+
+/* las copias se "revelan" al entrar en pantalla */
+const revelar = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add("revelada"); revelar.unobserve(e.target); }
+}), {threshold:.35});
+document.querySelectorAll(".copia").forEach(el => revelar.observe(el));
+
+/* en pantallas angostas, centrar en la tira el cuadro marcado con lápiz */
+const cuadros = document.querySelector(".cuadros"), conDron = document.getElementById("conDron");
+if (cuadros.scrollWidth > cuadros.clientWidth) cuadros.scrollLeft = conDron.offsetLeft - (cuadros.clientWidth - conDron.offsetWidth) / 2;
+
+/* botón flotante: aparece al pasar el hero */
+const flota = document.getElementById("flota");
+new IntersectionObserver(([e]) => flota.classList.toggle("ver", !e.isIntersecting)).observe(document.querySelector(".hero"));
 </script>
 </body>
 </html>

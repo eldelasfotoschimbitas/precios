@@ -223,7 +223,6 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .cat-btn{position:relative;display:flex;align-items:center;gap:16px;min-height:96px;padding:12px 16px 12px 12px;border:1.5px solid rgba(240,162,46,.45);border-radius:22px;
   background:linear-gradient(135deg,#34352f 0%,#2a2b26 60%,#22231f 100%);color:var(--tinta);text-decoration:none;-webkit-tap-highlight-color:transparent;
   box-shadow:0 6px 18px rgba(0,0,0,.3);transition:transform .25s cubic-bezier(.2,.8,.2,1),border-color .25s,box-shadow .25s}
-.cat-btn.sin-foto{padding:16px 18px 16px 22px;min-height:88px}
 .cat-btn img{width:76px;height:76px;flex:none;border-radius:14px;object-fit:cover;border:1.5px solid rgba(240,162,46,.6)}
 .cat-btn .tx{display:grid;gap:3px;flex:1;min-width:0}
 .cat-btn b{font-weight:700;font-size:1.12rem;line-height:1.2;color:#fff;text-shadow:0 0 14px rgba(255,255,255,.18)}
@@ -235,9 +234,6 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .cat-btn:active{transform:scale(.98)}
 .cat-btn.top{grid-column:1/-1;border-color:var(--grasa);box-shadow:0 0 0 1px rgba(240,162,46,.25),0 10px 28px rgba(0,0,0,.4)}
 .cat-btn .sello{justify-self:start;font-style:normal;font-size:.72rem;font-weight:700;letter-spacing:.02em;background:var(--grasa);color:#1d1b16;padding:3px 9px;border-radius:999px;margin-bottom:2px}
-.vista{display:flex;gap:6px;margin:-8px 0 18px}
-.vista button{min-height:40px;padding:0 14px;border-radius:999px;border:1px solid #55564e;background:transparent;color:var(--gris);font:inherit;font-size:.88rem;cursor:pointer}
-.vista button[aria-pressed="true"]{background:var(--grasa);border-color:var(--grasa);color:#1d1b16;font-weight:700}
 
 /* ---------- aparición al bajar ---------- */
 .js .aparece{opacity:0;transform:translateY(26px)}
@@ -651,14 +647,11 @@ const pesos = n => "$" + n.toLocaleString("es-CO");
 function preciosDe(c){ return (c.items || c.grupos.flatMap(g => g.items.map(([, p]) => ({p})))).map(it => num(it.p)).filter(Boolean); }
 function cuantos(c){ return c.items ? c.items.length : c.grupos.reduce((a, g) => a + g.items.length, 0); }
 const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
-let conFoto = true;
-try { conFoto = new URLSearchParams(location.search).get("cat") !== "simple" && localStorage.getItem("catVista") !== "simple"; } catch (e) {}
-if (new URLSearchParams(location.search).get("cat") === "foto") conFoto = true;
 function botones(){
   return CATS.map((c, i) => {
     const k = PANEL[c.id], ps = preciosDe(c), min = ps.length ? Math.min(...ps) : 0;
-    return `<a class="cat-btn aparece${conFoto ? "" : " sin-foto"}${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
-      ${conFoto ? `<img src="img/c_${c.id}.jpg" alt="" loading="${i < 4 ? "eager" : "lazy"}">` : ""}
+    return `<a class="cat-btn aparece${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
+      <img src="img/c_${c.id}.jpg?v=2" alt="" loading="${i < 4 ? "eager" : "lazy"}">
       <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "desde " + pesos(min) : "a cotizar"} · ${cuantos(c)} opciones</em></span>
       ${FLECHA}
     </a>`;
@@ -667,10 +660,6 @@ function botones(){
 function panel(){
   return `<section class="panel wrap" id="categorias">
     <div class="cab"><h2 class="oro">¿Qué estás buscando?</h2>${SUBRAYA}<p>Toca una categoría para ver sus paquetes y precios.</p></div>
-    <div class="vista" role="group" aria-label="Cómo ver las categorías">
-      <button type="button" data-vista="foto" aria-pressed="${conFoto}">Con foto</button>
-      <button type="button" data-vista="simple" aria-pressed="${!conFoto}">Solo texto</button>
-    </div>
     <div class="cats" id="cats">${botones()}</div>
   </section>`;
 }
@@ -715,16 +704,6 @@ const cuadro = (f, marca) => `<div class="cuadro"><img src="img/${f}.jpg" alt=""
 const unaVuelta = () => TIRA.map(f => cuadro(f, f === "rosa")).join("");
 document.getElementById("pista").innerHTML = unaVuelta() + unaVuelta();
 
-/* alternar categorías con foto / solo texto */
-document.querySelectorAll(".vista button").forEach(b => b.addEventListener("click", () => {
-  conFoto = b.dataset.vista === "foto";
-  try { localStorage.setItem("catVista", conFoto ? "foto" : "simple"); } catch (e) {}
-  document.querySelectorAll(".vista button").forEach(x => x.setAttribute("aria-pressed", x === b));
-  const cont = document.getElementById("cats");
-  cont.innerHTML = botones();
-  cont.querySelectorAll(".aparece").forEach(el => el.classList.add("visto"));
-}));
-
 /* ---------- interacción ---------- */
 const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -756,7 +735,7 @@ function contar(b){
 
 /* onda al tocar botones y tarjetas */
 document.addEventListener("pointerdown", e => {
-  const el = e.target.closest(".btn, .cat-btn, .copiar, .chips a, .flota, .vista button");
+  const el = e.target.closest(".btn, .cat-btn, .copiar, .chips a, .flota");
   if (!el || reducido) return;
   const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2;
   const o = document.createElement("span");

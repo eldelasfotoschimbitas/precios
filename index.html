@@ -82,11 +82,14 @@ section.cat{padding-top:72px;padding-bottom:24px}
 .cab p{color:var(--gris);font-size:1.05rem}
 
 /* copias con borde blanco (paquetes con foto) */
+.desliza{display:none;color:var(--gris);font-size:.9rem;margin:-18px 0 14px;font-family:'Caveat Brush',cursive;font-size:1.25rem;color:var(--grasa)}
 .copias{display:grid;grid-template-columns:repeat(auto-fill,minmax(270px,1fr));gap:34px 26px}
 .copia{display:flex;flex-direction:column}
 .copia .foto{background:#fbfaf6;padding:10px 10px 10px;box-shadow:0 10px 26px rgba(0,0,0,.35);position:relative}
 .copia:nth-child(3n+1) .foto{transform:rotate(-.8deg)}
 .copia:nth-child(3n+2) .foto{transform:rotate(.6deg)}
+.copia .desc{color:#cfcec6;font-size:.96rem;margin-bottom:12px}
+.copia .foto.ancha img{aspect-ratio:16/10}
 .copia .foto img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) brightness(.45) contrast(1.15);transition:filter 1.1s ease}
 .copia.revelada .foto img{filter:none}
 .copia .marca{position:absolute;right:-6px;top:-14px;font-family:'Caveat Brush',cursive;font-size:2rem;color:var(--grasa-luz);transform:rotate(8deg);line-height:1;text-shadow:0 0 6px #fff}
@@ -106,6 +109,7 @@ section.cat{padding-top:72px;padding-bottom:24px}
 /* listas de precio (sin foto) */
 .lista{display:grid;gap:0;border-top:1px solid #3d3e38}
 .fila{display:grid;grid-template-columns:1fr auto;gap:6px 24px;padding:22px 0;border-bottom:1px solid #3d3e38;align-items:start}
+.fila .mini{grid-column:1/-1;width:160px;aspect-ratio:4/5;object-fit:cover;border:6px solid #fbfaf6;margin-bottom:6px}
 .fila h3{font-weight:600;font-size:1.15rem;font-stretch:95%}
 .fila .desc{grid-column:1/-1;color:#cfcec6;max-width:68ch;font-size:.98rem}
 .fila .precio{margin:0;justify-content:flex-end;text-align:right}
@@ -116,10 +120,11 @@ section.cat{padding-top:72px;padding-bottom:24px}
 .fila .pedir:hover{text-decoration:underline}
 
 /* tabla de tamaños (impresiones) */
-.tamanos{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:14px}
-.tam{border:1px solid #45463f;padding:16px;display:grid;gap:4px;align-content:end;background:var(--mesa2)}
+.tamanos{display:grid;grid-template-columns:repeat(auto-fill,minmax(170px,1fr));gap:14px}
+.tam{border:1px solid #45463f;padding:10px 10px 6px;display:grid;gap:4px;align-content:end;background:var(--mesa2)}
 .tam .medida{font-family:'Bodoni Moda',serif;font-size:1.5rem;line-height:1}
-.tam .dib{background:#fbfaf6 center/cover;border:4px solid #fbfaf6;margin-bottom:10px;box-shadow:0 4px 10px rgba(0,0,0,.4)}
+.tam img{width:100%;aspect-ratio:4/5;object-fit:cover;margin-bottom:10px}
+.tam .pedir{font-weight:600;color:var(--ambar);text-decoration:none;min-height:44px;display:inline-flex;align-items:center}
 .tam b{font-stretch:85%;font-size:1.2rem}
 .sub{font-weight:600;font-size:1.2rem;margin:34px 0 14px;font-stretch:95%}
 .aviso{margin-top:20px;color:var(--gris);font-size:.95rem;max-width:68ch}
@@ -138,10 +143,58 @@ section.cat{padding-top:72px;padding-bottom:24px}
 .redes a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
 .pie{margin-top:40px;font-size:.88rem;color:#5b5c55}
 
+/* redes en el hero */
+.redes-top{display:flex;gap:10px;margin-top:22px;flex-wrap:wrap}
+.redes-top a{width:48px;height:48px;border-radius:50%;display:grid;place-items:center;background:rgba(34,35,31,.08);color:var(--mesa);transition:background .15s}
+.redes-top a:hover{background:rgba(34,35,31,.16)}
+.redes-top svg{width:22px;height:22px;fill:currentColor}
+
+/* cabecera de sección con foto */
+.cab-foto{display:grid;grid-template-columns:minmax(0,1fr) 200px;gap:28px;align-items:end;margin-bottom:30px}
+.cab-foto .cab{margin-bottom:0}
+.cab-foto .copia-mini{background:#fbfaf6;padding:8px;box-shadow:0 10px 26px rgba(0,0,0,.35);transform:rotate(2deg)}
+.cab-foto .copia-mini img{width:100%;aspect-ratio:4/5;object-fit:cover}
+
+/* sobre mí */
+.sobre{display:grid;grid-template-columns:300px minmax(0,1fr);gap:44px;align-items:center}
+.sobre .copia-mini{background:#fbfaf6;padding:10px 10px 44px;box-shadow:0 12px 30px rgba(0,0,0,.4);transform:rotate(-2deg);position:relative}
+.sobre .copia-mini img{width:100%;aspect-ratio:3/4;object-fit:cover;object-position:center 20%}
+.sobre .copia-mini span{position:absolute;bottom:8px;left:0;right:0;text-align:center;font-family:'Caveat Brush',cursive;color:var(--grasa-luz);font-size:1.5rem}
+.sobre p{color:#d6d5cd;max-width:56ch;margin-bottom:14px}
+.datos{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
+.datos span{border:1px solid #4a4b44;border-radius:999px;padding:8px 14px;font-size:.92rem;color:var(--tinta)}
+
+/* galería */
+.chips{display:flex;flex-wrap:wrap;gap:10px}
+.chips a{min-height:46px;display:inline-flex;align-items:center;padding:0 18px;border:1px solid #55564e;border-radius:999px;text-decoration:none;font-weight:500;background:var(--mesa2)}
+.chips a:hover{border-color:var(--ambar);color:var(--ambar)}
+
+/* reservar: cotizador + pago + beneficios */
+.reservar{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:34px;align-items:start}
+.cotiza{background:var(--luz);color:var(--mesa);padding:26px;display:grid;gap:14px;box-shadow:0 14px 34px rgba(0,0,0,.35)}
+.cotiza h3{font-family:'Bodoni Moda',serif;font-size:1.6rem;line-height:1.1}
+.cotiza p{color:#3b3c36;font-size:.97rem}
+.cotiza .dos{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.cotiza label{display:grid;gap:5px;font-weight:600;font-size:.92rem}
+.cotiza input,.cotiza select{font:inherit;font-weight:400;min-height:48px;padding:0 12px;border:1.5px solid #8f8e86;background:#fff;color:var(--mesa);border-radius:8px;width:100%}
+.cotiza input:focus,.cotiza select:focus{outline:3px solid var(--ambar);outline-offset:1px;border-color:var(--mesa)}
+.cotiza .btn{width:100%}
+.lado{display:grid;gap:30px}
+.paso h3{font-weight:600;font-size:1.15rem;margin-bottom:8px}
+.paso p{color:#cfcec6;font-size:.98rem;max-width:52ch}
+.cuenta{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;border:1px solid #45463f;background:var(--mesa2);padding:12px 14px;margin-top:10px}
+.cuenta div{display:grid}
+.cuenta small{color:var(--gris);font-size:.85rem}
+.cuenta b{font-size:1.2rem;font-stretch:85%;letter-spacing:.02em}
+.copiar{min-height:44px;padding:0 16px;border-radius:999px;border:1.5px solid var(--ambar);background:transparent;color:var(--ambar);font:inherit;font-weight:600;cursor:pointer}
+.copiar:hover{background:rgba(240,162,46,.12)}
+.regalo{border-left:3px solid var(--grasa);padding-left:16px}
+.regalo li{list-style:none;color:#d6d5cd;margin-top:6px}
+
 /* botón flotante WhatsApp */
-.flota{position:fixed;right:16px;bottom:16px;z-index:30;width:58px;height:58px;border-radius:50%;background:#25d366;display:grid;place-items:center;box-shadow:0 8px 22px rgba(0,0,0,.4);transform:translateY(120px);transition:transform .35s ease}
-.flota.ver{transform:none}
-.flota svg{width:30px;height:30px;fill:#fff}
+.flota{position:fixed;right:16px;bottom:16px;z-index:30;height:60px;min-width:60px;border-radius:999px;background:#25d366;color:#0b2e17;display:flex;align-items:center;justify-content:center;gap:10px;padding:0 18px 0 15px;text-decoration:none;font-weight:700;box-shadow:0 8px 22px rgba(0,0,0,.4);transition:transform .15s ease}
+.flota:hover{transform:scale(1.04)}
+.flota svg{width:30px;height:30px;fill:#fff;flex:none}
 
 @media (max-width:640px){
   body{font-size:16px}
@@ -153,7 +206,19 @@ section.cat{padding-top:72px;padding-bottom:24px}
   section.cat{padding-top:56px;padding-bottom:16px}
   .fila{grid-template-columns:1fr}
   .fila .precio{justify-content:flex-start;text-align:left}
-  .copias{gap:40px}
+  .copias{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:6px 16px 18px;scrollbar-width:thin;scrollbar-color:#55564e transparent}
+  .copia{flex:0 0 80%;scroll-snap-align:center}
+  .desliza{display:block}
+  .tamanos{grid-template-columns:1fr 1fr;gap:10px}
+  .tam .medida{font-size:1.25rem}
+  .cab-foto{grid-template-columns:minmax(0,1fr) 110px;gap:16px}
+  .sobre{grid-template-columns:1fr;gap:30px}
+  .sobre .copia-mini{max-width:260px}
+  .reservar{grid-template-columns:1fr}
+  .cotiza{padding:20px 16px}
+  .cotiza .dos{grid-template-columns:1fr}
+  .flota span{display:none}
+  .flota{padding:0}
 }
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
@@ -173,7 +238,14 @@ section.cat{padding-top:72px;padding-bottom:24px}
     <p class="lead">Fotografía, video y dron para XV años, grados, bodas, sesiones y carreras. Aquí están todos mis paquetes con precio, para que elijas sin rodeos.</p>
     <div class="ctas">
       <a class="btn btn-osc" href="#xv">Ver precios</a>
+      <a class="btn btn-linea" href="#reservar">Cotizar mi fecha</a>
       <a class="btn btn-linea" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir por WhatsApp</a>
+    </div>
+    <div class="redes-top">
+      <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener" aria-label="Instagram @eldelasfotoschimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4 .1-3.6.2-5.6 2.2-5.7 5.7-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.6 2.2 5.6 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.6-.2 5.6-2.2 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.6-2.2-5.6-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.5.1 3.8 1.3 3.9 3.9.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-2.9 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-2.9.1-4C4.2 5.4 5.4 4.2 8 4.1c1 0 1.3-.1 4-.1z"/></svg></a>
+      <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener" aria-label="TikTok @fotos.chimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></a>
+      <a href="https://wa.me/573133469261" target="_blank" rel="noopener" aria-label="WhatsApp +57 313 346 9261"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2z"/></svg></a>
+      <a href="#galeria" aria-label="Galería de trabajos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-1.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/></svg></a>
     </div>
   </div>
   <div class="tira-zona" aria-hidden="true">
@@ -200,6 +272,82 @@ section.cat{padding-top:72px;padding-bottom:24px}
 </nav>
 
 <main id="contenido"></main>
+
+<section class="cat wrap" id="reservar">
+  <div class="cab">
+    <h2>Cotiza y reserva</h2>
+    <p>Llena esto y me llega por WhatsApp con todo lo que necesito para responderte.</p>
+  </div>
+  <div class="reservar">
+    <form class="cotiza" id="cotiza">
+      <h3>Pide tu cotización</h3>
+      <p>Nombre, fecha, hora, ciudad y servicio: con eso te digo disponibilidad y precio final.</p>
+      <label>Tu nombre<input name="nombre" autocomplete="name" required></label>
+      <div class="dos">
+        <label>Fecha<input name="fecha" type="date" required></label>
+        <label>Hora<input name="hora" type="time"></label>
+      </div>
+      <label>Ciudad<input name="ciudad" placeholder="Ej: Málaga, Bucaramanga" required></label>
+      <label>Servicio<select name="servicio" id="servicio" required></select></label>
+      <button class="btn btn-osc" type="submit">Enviar por WhatsApp</button>
+    </form>
+    <div class="lado">
+      <div class="paso">
+        <h3>Reserva con el 40%</h3>
+        <p>El adelanto va al total del servicio y el resto se paga el día del evento. Tu fecha queda confirmada cuando llega el adelanto.</p>
+      </div>
+      <div class="paso">
+        <h3>Dónde pagar</h3>
+        <div class="cuenta"><div><small>Nequi</small><b>323 227 7118</b></div><button class="copiar" type="button" data-copiar="3232277118">Copiar</button></div>
+        <div class="cuenta"><div><small>Bancolombia ahorros · Edson Penagos</small><b>312 366 111 51</b></div><button class="copiar" type="button" data-copiar="31236611151">Copiar</button></div>
+        <p style="margin-top:10px">Mándame el comprobante por WhatsApp para confirmar.</p>
+      </div>
+      <div class="paso regalo">
+        <h3>Beneficios al reservar conmigo</h3>
+        <ul>
+          <li>Hasta 5% de descuento en maquillaje con Erika Flórez.</li>
+          <li>$20.000 en El Laguito, con caballo para tus fotos.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="cat wrap" id="sobre">
+  <div class="sobre">
+    <div class="copia-mini"><img src="img/edson.jpg" alt="Edson Penagos, fotógrafo y videógrafo" loading="lazy"><span>Penagos</span></div>
+    <div>
+      <div class="cab"><h2>Quién toma las fotos</h2></div>
+      <p>Soy Edson Penagos, fotógrafo y videógrafo. Hago XV años, grados, bodas, sesiones y carreras, y a los eventos voy con asistente de iluminación para que ninguna foto quede oscura.</p>
+      <p>Trabajo con cámara profesional y dron, grabo en 4K y edito cada entrega: color, luz y, en sesiones, retoque de piel.</p>
+      <div class="datos"><span>Canon EOS R6 Mark II</span><span>Video 4K</span><span>Tomas con dron</span><span>Asistente de iluminación</span><span>Entrega por Google Drive</span></div>
+    </div>
+  </div>
+</section>
+
+<section class="cat wrap" id="galeria">
+  <div class="cab">
+    <h2>Mira mi trabajo</h2>
+    <p>Galerías por tipo de sesión y evento, y videos.</p>
+  </div>
+  <div class="chips">
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/15-a%C3%B1os" target="_blank" rel="noopener">15 años</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/bodas" target="_blank" rel="noopener">Bodas</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/sesiones" target="_blank" rel="noopener">Sesiones</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/grados" target="_blank" rel="noopener">Grados</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/deportes" target="_blank" rel="noopener">Deportes</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/embarazos" target="_blank" rel="noopener">Embarazos</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/ni%C3%B1os" target="_blank" rel="noopener">Niños</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/fine-art" target="_blank" rel="noopener">Fine Art</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/naturaleza" target="_blank" rel="noopener">Naturaleza</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/comida" target="_blank" rel="noopener">Comida</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/d%C3%ADas-feriados" target="_blank" rel="noopener">Días feriados</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/videos/videos-de-eventos" target="_blank" rel="noopener">Videos de eventos</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/videos/video-reels" target="_blank" rel="noopener">Reels</a>
+    <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</section>
 
 <section class="cat wrap" id="como">
   <div class="cab">
@@ -236,7 +384,7 @@ section.cat{padding-top:72px;padding-bottom:24px}
 </footer>
 
 <a class="flota" id="flota" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener" aria-label="Escribir por WhatsApp">
-  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.7 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg>
+  <svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2zm5.8-7.9c-.3-.2-1.9-.9-2.2-1-.3-.1-.5-.2-.7.2l-1 1.2c-.2.2-.4.2-.7.1a8.6 8.6 0 0 1-4.3-3.8c-.3-.6.3-.5.9-1.7.1-.2 0-.4 0-.5l-1-2.4c-.3-.6-.5-.5-.7-.5h-.6c-.2 0-.6.1-.8.4-.3.3-1.1 1.1-1.1 2.6s1.1 3 1.3 3.2c.2.2 2.2 3.4 5.4 4.7 2 .9 2.8.9 3.8.8.6-.1 1.9-.8 2.2-1.5.3-.7.3-1.4.2-1.5-.1-.2-.3-.3-.6-.4z"/></svg><span>Escríbeme</span>
 </a>
 
 <script>
@@ -255,33 +403,32 @@ const CATS = [
   {img:"blanca", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento","Tráiler 1 min + resumen 7–15 min","Entrega en 4K, color y audio profesional","Tomas aéreas con dron","Video pre-15 con dron (~30 s) + 3 fotos con dron"], pdf:"pdf/xv/Video_de_Evento.pdf?v=2"},
   {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video pre-15", d:"-6%", s:"$910.000", p:"$855.000", inc:["50 fotos de evento + sesión de 10 fotos","Video pre-15 con dron (~30 s) + 3 fotos con dron","20 impresas 10×15 + retablo 100×80","Todas las fotos sin editar"], pdf:"pdf/xv/Combo_Basico.pdf?v=2"}
  ]},
- {id:"sesiones", nav:"Sesiones", titulo:"Sesiones de fotos", linea:"De 1 a 3 horas, con retoque de piel, color y luz. Entrega por Google Drive, lista para redes.", tipo:"lista", items:[
-  {n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
-  {n:"Essential · 18 fotos digitales", d:"-15%", s:"$355.000", p:"$300.000", desc:"18 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
-  {n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
-  {n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]},
-  {n:"Hora adicional de sesión", p:"$30.000", por:"por hora", desc:"Si la sesión pasa de 3 horas."}
+ {id:"sesiones", nav:"Sesiones", titulo:"Sesiones de fotos", linea:"De 1 a 3 horas, con retoque de piel, color y luz. Entrega por Google Drive, lista para redes.", tipo:"copias", items:[
+  {img:"m_ses_basic", n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {img:"m_ses_essential", n:"Essential · 18 fotos digitales", d:"-15%", s:"$355.000", p:"$300.000", desc:"18 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {img:"m_ses_premium", n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
+  {img:"m_ses_predron", n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
+ ], nota:"Hora adicional de sesión: $30.000 por cada hora después de las 3 horas."},
+ {id:"eventos", nav:"Eventos", titulo:"Cobertura de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"copias", items:[
+  {img:"m_ev_memories", n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {img:"m_ev_moments", n:"Moments · 50 fotos", d:"-7%", s:"$452.000", p:"$420.000", desc:"50 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {img:"m_ev_forever", n:"Forever · 100 fotos", d:"-10%", s:"$678.000", p:"$610.000", desc:"100 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {img:"m_ev_golden", n:"Golden · 150 fotos", d:"-15%", s:"$800.000", p:"$680.000", desc:"150 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {img:"m_ev_deluxe", n:"Deluxe Pro · 200 fotos", d:"-20%", s:"$1.075.000", p:"$860.000", desc:"200 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
+  {img:"m_ev_extra", n:"Paquete extra: todo sin editar", d:"-7%", s:"$376.000", p:"$350.000", desc:"Todo el material en crudo, solo o sumado a tu paquete. Te recomiendo priorizar las editadas como resultado final. Si compras un paquete editado, este costo baja."}
  ]},
- {id:"eventos", nav:"Eventos", titulo:"Cobertura de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"lista", items:[
-  {n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
-  {n:"Moments · 50 fotos", d:"-7%", s:"$452.000", p:"$420.000", desc:"50 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
-  {n:"Forever · 100 fotos", d:"-10%", s:"$678.000", p:"$610.000", desc:"100 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
-  {n:"Golden · 150 fotos", d:"-15%", s:"$800.000", p:"$680.000", desc:"150 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
-  {n:"Deluxe Pro · 200 fotos", d:"-20%", s:"$1.075.000", p:"$860.000", desc:"200 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
-  {n:"Paquete extra: todo sin editar", d:"-7%", s:"$376.000", p:"$350.000", desc:"Todo el material en crudo, solo o sumado a tu paquete. Te recomiendo priorizar las editadas como resultado final. Si compras un paquete editado, este costo baja."}
+ {id:"video", nav:"Video", titulo:"Video", linea:"Edición envolvente, musicalización y color. Grabo con cámara profesional o iPhone según la entrega.", tipo:"copias", items:[
+  {img:"m_vid_corto", n:"Video corto · 30 a 60 segundos", p:"$250.000", desc:"Dinámico y directo, ideal para redes, promociones rápidas o contenido flash. Edición ágil, música y color."},
+  {img:"m_vid_estandar", n:"Video estándar · 1:30 a 3 minutos", p:"$350.000", desc:"Más desarrollo narrativo, edición más elaborada y música."},
+  {img:"m_vid_cine", n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
+  {img:"m_vid_ext", n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
+  {img:"m_vid_evento", ar:"wide", n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
+  {img:"m_vid_musical", n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
  ]},
- {id:"video", nav:"Video", titulo:"Video", linea:"Edición envolvente, musicalización y color. Grabo con cámara profesional o iPhone según la entrega.", tipo:"lista", items:[
-  {n:"Video corto · 30 a 60 segundos", p:"$250.000", desc:"Dinámico y directo, ideal para redes, promociones rápidas o contenido flash. Edición ágil, música y color."},
-  {n:"Video estándar · 1:30 a 3 minutos", p:"$350.000", desc:"Más desarrollo narrativo, edición más elaborada y música."},
-  {n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
-  {n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
-  {n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
-  {n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
- ]},
- {id:"dron", nav:"Dron", titulo:"Servicios de dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"lista", items:[
-  {n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
-  {n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
-  {n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
+ {id:"dron", nav:"Dron", titulo:"Servicios de dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"copias", items:[
+  {img:"m_dron_709", ar:"wide", n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
+  {img:"m_dron_log", ar:"wide", n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
+  {img:"m_dron_color", ar:"wide", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
  ]},
  {id:"grados", nav:"Grados", titulo:"Grados", linea:"Precio por persona, para grupos de más de 20. Pre-grado, evento y fotos grupales.", tipo:"copias", items:[
   {img:"grad_nino", n:"Grado Digital", t:"Pre-grado y evento", p:"$70.000", por:"por persona", inc:["7 fotos digitales (pre-grado, evento y grupales)","Entrega digital lista para imprimir"], pdf:"pdf/Grados_Digital.pdf?v=10"},
@@ -299,18 +446,18 @@ const CATS = [
  ]},
  {id:"impresiones", nav:"Impresiones", titulo:"Impresiones y retablos", linea:"Colores vivos y acabado premium, para colgar o regalar.", tipo:"tamanos",
   grupos:[
-   {sub:"Impresiones", items:[["10×15 cm","$2.500",10,15],["13×18 cm","$5.000",13,18],["15×20 cm","$5.500",15,20],["20×25 cm","$10.000",20,25],["20×30 cm","$10.000",20,30]]},
-   {sub:"Retablos", items:[["30×40 cm","$45.000",30,40],["40×60 cm","$75.000",40,60],["80×100 cm","$120.000",80,100]]}
+   {sub:"Impresiones", items:[["10×15 cm","$2.500","m_imp_10x15"],["13×18 cm","$5.000","m_imp_13x18"],["15×20 cm","$5.500","m_imp_15x20"],["20×25 cm","$10.000","m_imp_20x25"],["20×30 cm","$10.000","m_imp_20x30"]]},
+   {sub:"Retablos", items:[["30×40 cm","$45.000","m_ret_30x40"],["40×60 cm","$75.000","m_ret_40x60"],["80×100 cm","$120.000","m_ret_80x100"]]}
   ]},
- {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones virtuales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"lista", items:[
-  {n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
-  {n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
-  {n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
-  {n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
-  {n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
+ {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones virtuales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"copias", items:[
+  {img:"m_inv_digital", n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
+  {img:"m_inv_video", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
+  {img:"m_inv_sencilla", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
+  {img:"m_inv_tematica", n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
+  {img:"m_inv_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
  {id:"ia", nav:"IA", titulo:"Servicios con inteligencia artificial", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"lista", items:[
-  {n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
+  {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
   {n:"Videos con IA", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
   {n:"Chatbots", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
  ]}
@@ -328,18 +475,21 @@ function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join
 function copias(c){
   return `<div class="copias">${c.items.map(it => `
     <article class="copia">
-      <div class="foto"><img src="img/${it.img}.jpg" alt="${esc(it.n)}" loading="lazy">${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
-      <h3>${esc(it.n)}</h3><div class="tipo">${esc(it.t)}</div>
-      ${precio(it)}${lista(it.inc)}
+      <div class="foto${it.ar ? " ancha" : ""}"><img src="img/${it.img}.jpg" alt="${esc(it.n)}" loading="lazy">${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
+      <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
+      ${precio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${lista(it.inc)}
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
         ${it.pdf ? `<a class="btn btn-linea" href="${PDF + it.pdf}" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
-    </article>`).join("")}</div>`;
+    </article>`).join("")}</div>`
+    + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
+    + (c.link ? `<p class="aviso"><a href="${c.link.href}" target="_blank" rel="noopener">${esc(c.link.txt)}</a></p>` : "");
 }
 function filas(c){
   return `<div class="lista">${c.items.map(it => `
     <article class="fila">
+      ${it.img ? `<img class="mini" src="img/${it.img}.jpg" alt="" loading="lazy">` : ""}
       <h3>${esc(it.n)}${it.d ? `<span class="marca-f" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</h3>
       ${precio(it)}
       <p class="desc">${esc(it.desc)}</p>
@@ -348,24 +498,24 @@ function filas(c){
     </article>`).join("")}</div>`
     + (c.link ? `<p class="aviso"><a href="${c.link.href}" target="_blank" rel="noopener">${esc(c.link.txt)}</a></p>` : "");
 }
-const FOTOS_TAM = ["grad_plus","sombrero1","celeste","grad100","roja"];
 function tamanos(c){
-  return c.grupos.map(g => `<h3 class="sub">${g.sub}</h3><div class="tamanos">${g.items.map(([m,p,w,h], i) => {
-    const esc_ = g.sub === "Retablos" ? 1.1 : 3.2;         // dibujo a escala dentro de cada grupo
-    return `<div class="tam"><div class="dib" style="width:${Math.round(w*esc_)}px;height:${Math.round(h*esc_)}px;max-width:100%;background-image:url(img/${FOTOS_TAM[i % FOTOS_TAM.length]}.jpg)"></div><span class="medida">${m}</span><b>${p}</b></div>`;
-  }).join("")}</div>`).join("")
+  return c.grupos.map(g => `<h3 class="sub">${g.sub}</h3><div class="tamanos">${g.items.map(([m,p,img]) =>
+    `<div class="tam"><img src="img/${img}.jpg" alt="${g.sub} ${m}" loading="lazy"><span class="medida">${m}</span><b>${p}</b><a class="pedir" href="${waLink(g.sub.replace(/s$/,"") + " " + m, p)}" target="_blank" rel="noopener">Pedir</a></div>`
+  ).join("")}</div>`).join("")
   + `<p class="aviso">Se manda a imprimir con el 50% y se entrega al pagar el resto. <a href="${waLink("Impresiones / retablos","")}" target="_blank" rel="noopener">Pedir impresiones por WhatsApp</a></p>`;
 }
 
 const main = document.getElementById("contenido");
 main.innerHTML = CATS.map(c => `
   <section class="cat wrap" id="${c.id}">
-    <div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div>
+    ${c.foto ? `<div class="cab-foto"><div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div><div class="copia-mini"><img src="img/${c.foto}.jpg" alt="" loading="lazy"></div></div>`
+             : `<div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div>`}
+    ${c.tipo === "copias" && c.items.length > 1 ? `<p class="desliza" aria-hidden="true">desliza para ver ${c.items.length} opciones →</p>` : ""}
     ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
   </section>`).join("");
 
 const nav = document.getElementById("indice");
-nav.innerHTML = [...CATS.map(c => [c.id, c.nav]), ["como","Cómo trabajo"]]
+nav.innerHTML = [...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["galeria","Galería"], ["como","Cómo trabajo"]]
   .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
 
 /* índice activo según la sección visible */
@@ -390,9 +540,26 @@ document.querySelectorAll(".copia").forEach(el => revelar.observe(el));
 const cuadros = document.querySelector(".cuadros"), conDron = document.getElementById("conDron");
 if (cuadros.scrollWidth > cuadros.clientWidth) cuadros.scrollLeft = conDron.offsetLeft - (cuadros.clientWidth - conDron.offsetWidth) / 2;
 
-/* botón flotante: aparece al pasar el hero */
-const flota = document.getElementById("flota");
-new IntersectionObserver(([e]) => flota.classList.toggle("ver", !e.isIntersecting)).observe(document.querySelector(".hero"));
+/* cotizador: arma el mensaje y abre WhatsApp */
+const sel = document.getElementById("servicio");
+sel.innerHTML = '<option value="">Elige un servicio</option>' + CATS.map(c => {
+  const its = c.items || c.grupos.flatMap(g => g.items.map(([m]) => ({n: g.sub.replace(/s$/, "") + " " + m})));
+  return `<optgroup label="${esc(c.nav)}">${its.map(it => `<option>${esc(it.n)}</option>`).join("")}</optgroup>`;
+}).join("") + "<option>Otro / no estoy seguro</option>";
+document.getElementById("cotiza").addEventListener("submit", e => {
+  e.preventDefault();
+  const f = new FormData(e.target);
+  const fecha = new Date(f.get("fecha") + "T12:00").toLocaleDateString("es-CO", {weekday:"long", day:"numeric", month:"long", year:"numeric"});
+  const msg = `Hola Edson, quiero cotizar:\n• Nombre: ${f.get("nombre")}\n• Fecha: ${fecha}\n• Hora: ${f.get("hora") || "por definir"}\n• Ciudad: ${f.get("ciudad")}\n• Servicio: ${f.get("servicio")}`;
+  window.open(WA + encodeURIComponent(msg), "_blank", "noopener");
+});
+
+/* copiar números de cuenta */
+document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", async () => {
+  try { await navigator.clipboard.writeText(b.dataset.copiar); b.textContent = "Copiado"; }
+  catch { b.textContent = b.dataset.copiar; }
+  setTimeout(() => b.textContent = "Copiar", 2000);
+}));
 </script>
 </body>
 </html>

@@ -57,7 +57,10 @@ a{color:inherit}
 .tira::before{top:9px}.tira::after{bottom:9px}
 .tira .canto{position:absolute;left:60px;font-stretch:75%;font-weight:600;font-size:.72rem;letter-spacing:.12em;color:var(--ambar);white-space:nowrap}
 .tira .canto.sup{top:-2px}.tira .canto.inf{bottom:-2px}
-.cuadros{display:flex;gap:14px;padding:14px 60px 40px;overflow-x:auto;scroll-snap-type:x mandatory;scrollbar-width:none}
+.cuadros{padding:14px 0 40px;overflow:hidden}
+.pista{display:flex;gap:14px;width:max-content;animation:correr 110s linear infinite}
+.cuadros:hover .pista{animation-play-state:paused}
+@keyframes correr{to{transform:translateX(calc(-50% - 7px))}}
 .cuadros::-webkit-scrollbar{display:none}
 .cuadro{flex:0 0 auto;width:clamp(150px,19vw,210px);aspect-ratio:4/5;scroll-snap-align:center;position:relative}
 .cuadro img{width:100%;height:100%;object-fit:cover}
@@ -77,8 +80,12 @@ a{color:inherit}
 
 /* ---------- secciones ---------- */
 section.cat{padding-top:72px;padding-bottom:24px}
+main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
+.oro{background:linear-gradient(100deg,#ffe3a3 0%,#f0b84e 45%,#d98f1e 100%);-webkit-background-clip:text;background-clip:text;color:transparent}
+.cab .meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:6px}
+.cab .meta span{border:1px solid rgba(240,162,46,.45);color:var(--ambar);border-radius:999px;padding:5px 12px;font-size:.88rem;font-weight:600}
 .cab{display:grid;gap:6px;margin-bottom:30px;max-width:60ch}
-.cab h2{font-family:'Bodoni Moda',serif;font-weight:500;font-size:clamp(2rem,5vw,3.1rem);line-height:1.05;letter-spacing:-.01em}
+.cab h2{font-family:'Bodoni Moda',serif;font-weight:700;font-size:clamp(2.3rem,6.5vw,3.4rem);line-height:1.02;letter-spacing:-.01em}
 .cab p{color:var(--gris);font-size:1.05rem}
 
 /* copias con borde blanco (paquetes con foto) */
@@ -93,16 +100,25 @@ section.cat{padding-top:72px;padding-bottom:24px}
 .copia .foto img{width:100%;aspect-ratio:4/5;object-fit:cover;filter:grayscale(1) brightness(.45) contrast(1.15);transition:filter 1.1s ease}
 .copia.revelada .foto img{filter:none}
 .copia .marca{position:absolute;right:-6px;top:-14px;font-family:'Caveat Brush',cursive;font-size:2rem;color:var(--grasa-luz);transform:rotate(8deg);line-height:1;text-shadow:0 0 6px #fff}
-.copia h3{font-family:'Bodoni Moda',serif;font-weight:700;font-size:1.45rem;line-height:1.15;margin:20px 0 2px}
+.copia h3{font-family:'Bodoni Moda',serif;font-weight:700;font-size:1.6rem;line-height:1.1;margin:6px 0 2px}
+.copia .etq{display:inline-flex;align-self:flex-start;margin-top:18px;background:rgba(240,162,46,.14);color:var(--ambar);border:1px solid rgba(240,162,46,.5);border-radius:999px;padding:4px 11px;font-size:.8rem;font-weight:700}
+.claves{display:flex;flex-wrap:wrap;gap:6px;margin:10px 0 2px}
+.claves span{display:inline-flex;align-items:center;gap:5px;background:#2f302a;border:1px solid #45463f;border-radius:10px;padding:5px 9px;font-size:.84rem;font-weight:600;color:var(--tinta)}
+.claves svg{width:15px;height:15px;fill:none;stroke:var(--ambar);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+.caja-precio{background:linear-gradient(135deg,#2f302a,#272822);border:1px solid rgba(240,162,46,.35);border-radius:14px;padding:12px 14px;margin:14px 0}
+.caja-precio .precio{margin:0}
+.caja-precio .precio b{font-size:2rem;color:#ffd27a}
+.ahorro{display:block;margin-top:3px;font-size:.86rem;font-weight:700;color:#8fd19e}
+.incluye{font-size:.8rem;font-weight:700;color:var(--gris);margin:4px 0 8px;letter-spacing:.02em}
 .copia .tipo{color:var(--gris);font-size:.95rem}
 .precio{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:10px 0 12px}
 .precio b{font-size:1.75rem;font-weight:700;font-stretch:85%;color:var(--tinta)}
 .precio s{color:var(--gris);text-decoration:none;position:relative}
 .precio s::after{content:"";position:absolute;left:-3px;right:-3px;top:52%;height:2px;background:var(--grasa);transform:rotate(-6deg)}
 .precio .por{color:var(--gris);font-size:.9rem;flex-basis:100%}
-.copia ul,.fila ul{list-style:none;display:grid;gap:5px;margin-bottom:16px}
-.copia li,.fila li{padding-left:20px;position:relative;font-size:.97rem;color:#d6d5cd}
-.copia li::before,.fila li::before{content:"";position:absolute;left:2px;top:.62em;width:9px;height:2px;background:var(--ambar)}
+.copia ul,.fila ul{list-style:none;display:grid;gap:8px;margin-bottom:18px}
+.copia li,.fila li{padding-left:24px;position:relative;font-size:1rem;line-height:1.45;color:#e4e3db}
+.copia li::before,.fila li::before{content:"";position:absolute;left:2px;top:.38em;width:12px;height:7px;border-left:2.4px solid var(--ambar);border-bottom:2.4px solid var(--ambar);transform:rotate(-45deg)}
 .acciones{display:flex;gap:10px;flex-wrap:wrap;margin-top:auto}
 .acciones .btn{min-height:46px;padding:0 18px;font-size:.95rem}
 
@@ -272,7 +288,6 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   .wrap{padding:0 16px}
   .hero{padding:40px 0 52px}
   .tira{margin:0 -30px}
-  .cuadros{padding:14px 40px 40px}
   .tira .canto{left:40px}
   section.cat{padding-top:56px;padding-bottom:16px}
   .fila{grid-template-columns:1fr}
@@ -304,6 +319,8 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .circulo path{animation:none;stroke-dashoffset:0}
+  .pista{animation:none}
+  .cuadros{overflow-x:auto}
   .nota{animation:none;opacity:1}
   .copia .foto img{filter:none;transition:none}
   .flota{transition:none}
@@ -339,17 +356,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   <div class="tira-zona" aria-hidden="true">
     <div class="tira">
       <span class="canto sup">CHIMBITAS 400 &nbsp;▸ 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 18 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 19</span>
-      <div class="cuadros">
-        <div class="cuadro"><img src="img/celeste.jpg" alt=""></div>
-        <div class="cuadro"><img src="img/roja.jpg" alt=""></div>
-        <div class="cuadro" id="conDron"><img src="img/rosa.jpg" alt="">
-          <svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg>
-          <span class="nota" style="left:8px;bottom:-36px">esta es con dron</span>
-        </div>
-        <div class="cuadro"><img src="img/sombrero2.jpg" alt=""></div>
-        <div class="cuadro"><img src="img/runningh.jpg" alt=""></div>
-        <div class="cuadro"><img src="img/grados.jpg" alt=""></div>
-      </div>
+      <div class="cuadros"><div class="pista" id="pista"></div></div>
       <span class="canto inf">KODAK SAFETY FILM ▸ MÁLAGA · SANTANDER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17A</span>
     </div>
   </div>
@@ -363,7 +370,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 
 <section class="cat wrap" id="reservar">
   <div class="cab">
-    <h2>Cotiza y reserva</h2>
+    <h2 class="oro">Cotiza y reserva</h2>
     <p>Llena esto y me llega por WhatsApp con todo lo que necesito para responderte.</p>
   </div>
   <div class="reservar">
@@ -405,7 +412,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   <div class="sobre">
     <div class="copia-mini"><img src="img/edson.jpg" alt="Edson Penagos, fotógrafo y videógrafo" loading="lazy"><span>Penagos</span></div>
     <div>
-      <div class="cab"><h2>Quién toma las fotos</h2></div>
+      <div class="cab"><h2 class="oro">Quién toma las fotos</h2></div>
       <p>Soy Edson Penagos, fotógrafo y videógrafo. Hago XV años, grados, bodas, sesiones y carreras, y a los eventos voy con asistente de iluminación para que ninguna foto quede oscura.</p>
       <p>Trabajo con cámara profesional y dron, grabo en 4K y edito cada entrega: color, luz y, en sesiones, retoque de piel.</p>
       <div class="datos"><span>Canon EOS R6 Mark II</span><span>Video 4K</span><span>Tomas con dron</span><span>Asistente de iluminación</span><span>Entrega por Google Drive</span></div>
@@ -415,7 +422,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 
 <section class="cat wrap" id="galeria">
   <div class="cab">
-    <h2>Mira mi trabajo</h2>
+    <h2 class="oro">Mira mi trabajo</h2>
     <p>Galerías por tipo de sesión y evento, y videos.</p>
   </div>
   <div class="chips">
@@ -439,7 +446,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 
 <section class="cat wrap" id="como">
   <div class="cab">
-    <h2>Cómo trabajo</h2>
+    <h2 class="oro">Cómo trabajo</h2>
     <p>Lo que conviene saber antes de reservar.</p>
   </div>
   <div class="reglas">
@@ -481,21 +488,21 @@ const WA = "https://wa.me/573133469261?text=";
 
 /* Cada categoría: tipo "copias" (paquetes con foto) o "lista" (filas de precio). */
 const CATS = [
- {id:"xv", nav:"Combos XV", titulo:"Combos grandes · XV años", linea:"Pensados para ser lo más completos para tu evento. Todos incluyen video pre-15 con dron y todas las fotos sin editar. Del más completo al más sencillo.", tipo:"copias", items:[
-  {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$3.220.000", p:"$2.740.000", inc:["Sesión pre-15 de 35 fotos editadas", "250 fotos editadas del evento", "Video principal 4K con dron: tráiler 1 min + resumen 7–15 min", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "70 impresas 10×15 + retablo 100×80", "Invitación virtual temática incluida: $150.000 en el paquete (normal $170.000)", "Todas las fotos sin editar"]},
-  {img:"rosa", n:"Completo Foto + Video", t:"Fotografía + video", d:"-12%", s:"$2.630.000", p:"$2.310.000", inc:["Sesión pre-15 de 25 fotos editadas", "150 fotos editadas del evento", "Video 4K con dron: tráiler 1 min + resumen 7–15 min", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
-  {img:"roja", n:"Fotografía Completa", t:"Fotografía + video pre-15", d:"-12%", s:"$1.660.000", p:"$1.460.000", inc:["Sesión pre-15 de 30 fotos editadas (1–3 horas)", "200 fotos editadas del evento", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "60 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
-  {img:"celeste", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento", "Video: tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "Todas las fotos sin editar"]},
-  {img:"sombrero2", n:"Combo Premium", t:"Fotografía + video pre-15", d:"-11%", s:"$1.375.000", p:"$1.215.000", inc:["Sesión pre-15 de 25 fotos editadas", "150 fotos editadas del evento", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "50 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
-  {img:"celeste", n:"Combo Plus", t:"Fotografía + video pre-15", d:"-9%", s:"$1.190.000", p:"$1.080.000", inc:["Sesión pre-15 de 20 fotos editadas", "100 fotos editadas del evento", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
-  {img:"blanca", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento", "Tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Tomas aéreas con dron", "Video pre-15 con dron (~30 s) + 3 fotos con dron"]},
-  {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video pre-15", d:"-6%", s:"$910.000", p:"$855.000", inc:["Sesión pre-15 de 15 fotos editadas", "50 fotos editadas del evento", "Video pre-15 con dron (~30 s) + 3 fotos con dron", "20 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]}
+ {id:"xv", nav:"Combos completos", titulo:"Combos Completos", linea:"Para XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete. Todos traen video previo con dron y todas las fotos sin editar.", tipo:"copias", items:[
+  {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$3.220.000", p:"$2.740.000", inc:["Sesión previa de 35 fotos editadas", "250 fotos editadas del evento", "Video principal 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "70 impresas 10×15 + retablo 100×80", "Invitación virtual temática incluida: $150.000 en el paquete (normal $170.000)", "Todas las fotos sin editar"]},
+  {img:"rosa", n:"Completo Foto + Video", t:"Fotografía + video", d:"-12%", s:"$2.630.000", p:"$2.310.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
+  {img:"roja", n:"Fotografía Completa", t:"Fotografía + video previo", d:"-12%", s:"$1.660.000", p:"$1.460.000", inc:["Sesión previa de 30 fotos editadas (1–3 horas)", "200 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "60 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
+  {img:"celeste", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento", "Video: tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "Todas las fotos sin editar"]},
+  {img:"sombrero2", n:"Combo Premium", t:"Fotografía + video previo", d:"-11%", s:"$1.375.000", p:"$1.215.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "50 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
+  {img:"celeste", n:"Combo Plus", t:"Fotografía + video previo", d:"-9%", s:"$1.190.000", p:"$1.080.000", inc:["Sesión previa de 20 fotos editadas", "100 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
+  {img:"blanca", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento", "Tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Tomas aéreas con dron", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)"]},
+  {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video previo", d:"-6%", s:"$910.000", p:"$855.000", inc:["Sesión previa de 15 fotos editadas", "50 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "20 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]}
  ]},
  {id:"sesiones", nav:"Sesiones", titulo:"Sesiones de fotos", linea:"De 1 a 3 horas, con retoque de piel, color y luz. Entrega por Google Drive, lista para redes.", tipo:"copias", items:[
   {img:"m_ses_basic", n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
   {img:"m_ses_essential", n:"Essential · 18 fotos digitales", d:"-15%", s:"$355.000", p:"$300.000", desc:"18 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
   {img:"m_ses_premium", n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
-  {img:"m_ses_predron", n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
+  {img:"m_ses_predron", n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV o boda. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
  ], nota:"Hora adicional de sesión: $30.000 por cada hora después de las 3 horas."},
  {id:"eventos", nav:"Eventos", titulo:"Cobertura de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"copias", items:[
   {img:"m_ev_memories", n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
@@ -559,14 +566,46 @@ const icoWA = '<svg viewBox="0 0 32 32" aria-hidden="true" fill="currentColor"><
 function precio(it){
   return `<div class="precio"><b>${esc(it.p)}</b>${it.s ? `<s aria-label="antes ${esc(it.s)}">${esc(it.s)}</s>` : ""}${it.por ? `<span class="por">${esc(it.por)}</span>` : ""}</div>`;
 }
+/* datos clave de un paquete, sacados de lo que incluye */
+const ICO = {
+  fotos:'<svg viewBox="0 0 24 24"><path d="M4 8h3l2-2h6l2 2h3v11H4z"/><circle cx="12" cy="13" r="3.5"/></svg>',
+  video:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="13" height="12" rx="2"/><path d="M16 10l5-3v10l-5-3"/></svg>',
+  dron:'<svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="2.5"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M7 7l3 3h4l3-3M7 17l3-3h4l3 3"/></svg>',
+  imp:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 16l5-5 4 4 3-3 4 4"/></svg>',
+  inv:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>',
+  per:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>'
+};
+function claves(it, cat){
+  const txt = [it.n, ...(it.inc || []), it.desc || ""].join(" · ");
+  const out = [];
+  const fotos = (it.inc || []).reduce((a, x) => {
+    const m = x.match(/^(?:Sesión previa de )?(\d+)\s+fot(?:os|ografías)/i) || x.match(/^(\d+)\s+fot/i);
+    return a + (m && !/con dron|impresas|cartera/i.test(x.slice(0, 30)) ? +m[1] : 0);
+  }, 0) || ((it.n.match(/(\d+)\s*fotos/i) || [])[1] | 0);
+  if (fotos) out.push([ICO.fotos, `${fotos} fotos editadas`]);
+  if (/video|reel|tráiler/i.test(txt) && !/^Video pre-sesión/.test(it.n)) out.push([ICO.video, "Video"]);
+  else if (/video/i.test(it.n)) out.push([ICO.video, "Video"]);
+  if (/dron/i.test(txt)) out.push([ICO.dron, "Dron"]);
+  if (/impres|retablo/i.test(txt)) out.push([ICO.imp, "Impresiones"]);
+  if (/invitación virtual/i.test(txt)) out.push([ICO.inv, "Invitación virtual"]);
+  if (cat === "dron" && !out.length) out.push([ICO.dron, "Dron"], [ICO.video, "4K hasta 100 fps"]);
+  if (cat === "invitaciones") { out.length = 0; out.push([ICO.inv, /video/i.test(it.n) ? "Invitación en video" : "Invitación digital"]); }
+  if (it.por) out.push([ICO.per, "Por persona"]);
+  return out.length ? `<div class="claves">${out.map(([i, t]) => `<span>${i}${t}</span>`).join("")}</div>` : "";
+}
+function cajaPrecio(it){
+  const ah = it.s ? num(it.s) - num(it.p) : 0;
+  return `<div class="caja-precio">${precio(it)}${ah > 0 ? `<span class="ahorro">Ahorras ${pesos(ah)}</span>` : ""}</div>`;
+}
 function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
 
 function copias(c){
   return `<div class="copias">${c.items.map(it => `
     <article class="copia aparece">
       <div class="foto${it.ar ? " ancha" : ""}"><img src="img/${it.img}.jpg" alt="${esc(it.n)}" loading="lazy">${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
+      <span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
-      ${precio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${lista(it.inc)}
+      ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
         <a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=1" target="_blank" rel="noopener">Ver PDF</a>
@@ -596,7 +635,7 @@ function tamanos(c){
 
 /* panel de entrada: una tarjeta por categoría, con el texto corto que estaba en Canva */
 const PANEL = {
-  xv:{t:"Combos: Eventos Grandes", txt:"Paquetes premium, pensados para ser lo más completos para tu evento.", sello:"lo más completo"},
+  xv:{t:"Combos Completos", txt:"XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete.", sello:"lo más completo"},
   sesiones:{t:"Paquetes Fotográficos", txt:"Sesiones con edición cuidada y resultados de alta calidad."},
   eventos:{t:"Cobertura de eventos", txt:"Eucaristía y fiesta, con asistente de iluminación."},
   video:{t:"Paquetes Videográficos", txt:"Videos creativos que cuentan historias y destacan tu evento o marca."},
@@ -627,7 +666,7 @@ function botones(){
 }
 function panel(){
   return `<section class="panel wrap" id="categorias">
-    <div class="cab"><h2>¿Qué estás buscando?</h2>${SUBRAYA}<p>Toca una categoría para ver sus paquetes y precios.</p></div>
+    <div class="cab"><h2 class="oro">¿Qué estás buscando?</h2>${SUBRAYA}<p>Toca una categoría para ver sus paquetes y precios.</p></div>
     <div class="vista" role="group" aria-label="Cómo ver las categorías">
       <button type="button" data-vista="foto" aria-pressed="${conFoto}">Con foto</button>
       <button type="button" data-vista="simple" aria-pressed="${!conFoto}">Solo texto</button>
@@ -641,7 +680,7 @@ const main = document.getElementById("contenido");
 main.innerHTML = panel() + CATS.map(c => `
   <section class="cat wrap" id="${c.id}">
     ${c.foto ? `<div class="cab-foto"><div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div><div class="copia-mini"><img src="img/${c.foto}.jpg" alt="" loading="lazy"></div></div>`
-             : `<div class="cab"><h2>${esc(c.titulo)}</h2>${SUBRAYA}<p>${esc(c.linea)}</p></div>`}
+             : `<div class="cab"><h2 class="oro">${esc(c.titulo)}</h2>${SUBRAYA}<p>${esc(c.linea)}</p><div class="meta"><span>${cuantos(c)} opciones</span>${preciosDe(c).length ? `<span>desde ${pesos(Math.min(...preciosDe(c)))}</span>` : ""}</div></div>`}
     ${c.tipo === "copias" && c.items.length > 1 ? `<p class="desliza" aria-hidden="true">desliza para ver ${c.items.length} opciones →</p>` : ""}
     ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
     ${c.tipo === "copias" && c.items.length > 1 ? `<div class="puntos" role="tablist" aria-label="Opciones de ${esc(c.nav)}">${c.items.map((it, i) => `<button type="button" aria-label="${esc(it.n)}"${i ? "" : ' class="activo"'}></button>`).join("")}</div>` : ""}
@@ -670,9 +709,11 @@ const revelar = new IntersectionObserver(es => es.forEach(e => {
 }), {threshold:.35});
 
 
-/* en pantallas angostas, centrar en la tira el cuadro marcado con lápiz */
-const cuadros = document.querySelector(".cuadros"), conDron = document.getElementById("conDron");
-if (cuadros.scrollWidth > cuadros.clientWidth) cuadros.scrollLeft = conDron.offsetLeft - (cuadros.clientWidth - conDron.offsetWidth) / 2;
+/* tira de película infinita: fotos de Instagram y de los paquetes, intercaladas */
+const TIRA = ["ig04","celeste","ig02","roja","ig09","rosa","ig06","sombrero2","ig11","m_ev_golden","ig03","grados","ig12","m_ses_basic","ig01","runningh","ig10","nocturna","ig07","m_vid_estandar","ig05","grad_plus","ig08","m_ev_deluxe"];
+const cuadro = (f, marca) => `<div class="cuadro"><img src="img/${f}.jpg" alt="" loading="${marca ? "eager" : "lazy"}">${marca ? '<svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg><span class="nota" style="left:8px;bottom:-36px">esta es con dron</span>' : ""}</div>`;
+const unaVuelta = () => TIRA.map(f => cuadro(f, f === "rosa")).join("");
+document.getElementById("pista").innerHTML = unaVuelta() + unaVuelta();
 
 /* alternar categorías con foto / solo texto */
 document.querySelectorAll(".vista button").forEach(b => b.addEventListener("click", () => {

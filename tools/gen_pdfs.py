@@ -33,7 +33,7 @@ CSS = """
 body{width:210mm;height:297mm;background:#22231f;color:#e9e8e1;font-family:'Archivo',sans-serif;display:flex;flex-direction:column;overflow:hidden}
 .top{background:radial-gradient(130% 120% at 30% 30%,#fff 0%,#f4f3ee 55%,#e4e2da 100%);color:#22231f;padding:12mm 16mm 0;position:relative}
 .top h1{font-family:'Bodoni Moda',serif;font-weight:700;font-size:40pt;line-height:.9;letter-spacing:-.02em}
-.top .firma{font-family:'Caveat Brush',cursive;color:#d3191f;font-size:17pt;margin-top:2mm}
+.top .firma{font-family:'Caveat Brush',cursive;color:#6b1422;font-size:17pt;margin-top:2mm}
 .top .sec{position:absolute;right:16mm;top:17mm;text-align:right;font-weight:600;font-size:10pt;color:#3b3c36;max-width:60mm}
 .tira{margin:7mm -6mm 0;background:#161613;height:15mm;transform:rotate(-1.5deg);position:relative}
 .tira::before,.tira::after{content:"";position:absolute;left:0;right:0;height:2.6mm;background:repeating-linear-gradient(90deg,transparent 0 2.2mm,#f4f3ee 2.2mm 4.8mm,transparent 4.8mm 7.4mm)}
@@ -43,21 +43,21 @@ body{width:210mm;height:297mm;background:#22231f;color:#e9e8e1;font-family:'Arch
 .copia{background:#fbfaf6;padding:3.2mm 3.2mm 11mm;box-shadow:0 3mm 8mm rgba(0,0,0,.45);transform:rotate(-1.6deg);position:relative}
 .copia img{width:100%;aspect-ratio:4/5;object-fit:cover;display:block}
 .copia.ancha img{aspect-ratio:16/11}
-.copia .pie{position:absolute;left:0;right:0;bottom:2.4mm;text-align:center;font-family:'Caveat Brush',cursive;color:#d3191f;font-size:13pt}
-.marca{position:absolute;right:-4mm;top:-6mm;font-family:'Caveat Brush',cursive;font-size:24pt;color:#d3191f;transform:rotate(8deg);text-shadow:0 0 2mm #fff}
+.copia .pie{position:absolute;left:0;right:0;bottom:2.4mm;text-align:center;font-family:'Caveat Brush',cursive;color:#6b1422;font-size:13pt}
+.marca{position:absolute;right:-4mm;top:-6mm;font-family:'Caveat Brush',cursive;font-size:24pt;color:#6b1422;transform:rotate(8deg);text-shadow:0 0 2mm #fff}
 .tipo{color:#a9a89e;font-size:10pt}
 h2{font-family:'Bodoni Moda',serif;font-weight:700;font-size:25pt;line-height:1.05;margin:1.5mm 0 4mm}
 .precio{display:flex;align-items:baseline;gap:4mm;flex-wrap:wrap}
 .precio b{font-size:27pt;font-stretch:85%;font-weight:700}
 .precio s{color:#a9a89e;text-decoration:none;position:relative;font-size:12pt}
-.precio s::after{content:"";position:absolute;left:-1mm;right:-1mm;top:52%;height:.6mm;background:#ff4d4f;transform:rotate(-6deg)}
+.precio s::after{content:"";position:absolute;left:-1mm;right:-1mm;top:52%;height:.6mm;background:#e9b949;transform:rotate(-6deg)}
 .por{color:#a9a89e;font-size:10pt;margin-top:1mm}
 .desc{color:#cfcec6;font-size:11pt;line-height:1.5;margin-top:5mm}
 ul{list-style:none;margin-top:5mm;display:grid;gap:2.4mm}
 li{padding-left:6mm;position:relative;font-size:10.5pt;line-height:1.4;color:#e1e0d8}
 li::before{content:"";position:absolute;left:.5mm;top:.62em;width:3mm;height:.6mm;background:#f0a22e}
 .otras{margin:8mm 16mm 0}
-.otras h3{font-family:'Caveat Brush',cursive;color:#ff4d4f;font-size:15pt;font-weight:400;margin-bottom:3mm}
+.otras h3{font-family:'Caveat Brush',cursive;color:#e9b949;font-size:15pt;font-weight:400;margin-bottom:3mm}
 .contactos{background:#161613;padding:4.5mm 4mm;display:grid;grid-template-columns:repeat(4,1fr);gap:3mm;position:relative}
 .contactos::before,.contactos::after{content:"";position:absolute;left:0;right:0;height:1.8mm;background:repeating-linear-gradient(90deg,transparent 0 1.6mm,#45463f 1.6mm 3.6mm,transparent 3.6mm 5.6mm)}
 .contactos::before{top:1.2mm}.contactos::after{bottom:1.2mm}

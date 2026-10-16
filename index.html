@@ -957,6 +957,23 @@ main section.cat{border-top:0}
 .redes-top .wa-logo{width:30px;height:30px}
 .red-wa .logo{background:transparent;box-shadow:none}
 .red-wa .wa-logo{width:60px;height:60px}
+
+/* portada en escritorio: foto vertical completa a la derecha y panel ancho a la izquierda */
+@media (min-width:900px){
+  .hero{position:relative;padding:0 0 30px}
+  .hero .hero-foto{position:absolute;top:0;right:0;width:min(56%,980px);height:min(100vh,940px);z-index:0}
+  .hero .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 18%;
+    -webkit-mask-image:linear-gradient(90deg,transparent 0%,#000 32%),linear-gradient(180deg,#000 72%,transparent 100%);
+    -webkit-mask-composite:source-in;mask-image:linear-gradient(90deg,transparent 0%,#000 32%),linear-gradient(180deg,#000 72%,transparent 100%);mask-composite:intersect}
+  .hero .hero-grid.wrap{position:relative;z-index:2;margin:0;max-width:none;width:max(58vw,calc((100vw - 1560px)/2 + 860px));padding-left:max(56px,calc((100vw - 1560px)/2 + 104px))!important;
+    min-height:min(100vh,940px);display:flex!important;flex-direction:column;justify-content:center;text-align:left;padding:48px 56px;margin-top:0;
+    background:linear-gradient(100deg,rgba(255,255,255,.09),rgba(255,255,255,.03) 70%,transparent);border-radius:0 32px 32px 0;border-width:0 1px 0 0}
+  .hero .hero-grid.wrap .hero-texto{max-width:640px}
+  .hero h1{font-size:clamp(4.2rem,7.2vw,7.4rem);max-width:none}
+  .hero p.lead{margin:20px 0 26px;max-width:46ch}
+  .hero .ctas,.hero .prueba,.hero .redes-top{justify-content:flex-start}
+  .hero .tira-zona{position:relative;z-index:1;margin-top:-40px}
+}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
@@ -1004,7 +1021,7 @@ main section.cat{border-top:0}
 </div>
 
 <header class="hero">
-  <div class="hero-foto"><picture><source media="(min-width:900px)" srcset="img/m/hero-ancho.webp?v=2"><img id="heroImg" src="img/m/hero-full.webp?v=2" alt="Retrato fotografiado por Edson Penagos" width="1350" height="1800" fetchpriority="high"></picture></div>
+  <div class="hero-foto"><picture><img id="heroImg" src="img/m/hero-full.webp?v=2" alt="Retrato fotografiado por Edson Penagos" width="1350" height="1800" fetchpriority="high"></picture></div>
   <div class="wrap hero-grid">
   <div class="hero-texto">
     <h1><span class="l"><span>Edson</span></span> <span class="l"><span>Penagos</span></span></h1>

@@ -894,10 +894,6 @@ main section.cat{border-top:0}
 .burbuja{background:#fff;color:#141414;border:1px solid rgba(255,255,255,.6)}
 .burbuja b{color:#141414}
 .burbuja button{color:#555}
-.copias{align-items:flex-start}
-.copia li.extra{display:none}
-.copia.abierta li.extra{display:list-item;animation:aparece-li .3s ease-out}
-@keyframes aparece-li{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
 .ver-mas{align-self:flex-start;margin:-8px 18px 16px;padding:6px 14px;min-height:36px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
 .ver-mas:hover{border-color:#f34c5f}
 .copia .acciones{margin-top:4px}
@@ -929,6 +925,17 @@ main section.cat{border-top:0}
   .ver-mas{margin:-4px 14px 10px}
   .acciones .btn{min-height:44px}
 }
+.copias{align-items:flex-start}
+.copia .detalle{position:relative;height:var(--alto-detalle,6.2em);overflow:hidden}
+.copia .detalle.corta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,rgba(16,6,10,.96));pointer-events:none}
+.copia.abierta .detalle{height:auto}
+.copia.abierta .detalle::after{display:none}
+.copia .acciones{margin-top:auto}
+.ver-mas[hidden]{display:inline-flex;visibility:hidden}
+.claves{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:center}
+.claves::-webkit-scrollbar{display:none}
+.copia h3{min-height:2.3em;display:flex;align-items:center;justify-content:center;flex-direction:column}
+@media (max-width:640px){.copia .detalle{--alto-detalle:4.5em}.claves{justify-content:flex-start}.copia h3{min-height:2.4em}}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
@@ -1006,7 +1013,6 @@ main section.cat{border-top:0}
       <div class="cuadros" id="cuadros" aria-label="Fotos recientes: arrastra para ver más, toca una para verla en grande"><div class="pista" id="pista"><div class="cuadro" data-i="0"><img src="img/t/Dd7rrBikZwa.webp?v=4" alt="" width="360" height="450" decoding="async" fetchpriority="high"></div><div class="cuadro" data-i="1"><img src="img/t/DXp_ouakXSJ.webp?v=4" alt="" width="360" height="450" decoding="async" fetchpriority="high"><svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none" aria-hidden="true"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg><span class="nota" style="left:8px;bottom:-36px">esta es con dron</span></div><div class="cuadro" data-i="2"><img src="img/t/Dd5NABKERx9.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="3"><img src="img/t/DedLfhJEYZI.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="4"><img src="img/t/DdpwbxuEaYp.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="5"><img src="img/t/DZ8IIDfEaJk.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="6"><img src="img/t/Ddz_K87kSao.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="7"><img src="img/t/DczjzDGkZQX.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="8"><img src="img/t/DXXxXy-kXWi.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="9"><img src="img/t/DWsJ5kFEdwB.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="10"><img src="img/t/DXQML3OEZgZ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="11"><img src="img/t/DbzDHAEESEY.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="12"><img src="img/t/DdKvO91kaIJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="13"><img src="img/t/DZYwf8LERvr.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="14"><img src="img/t/DYiEHkWEc_N.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="15"><img src="img/t/DX5hQ28ke6A.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="16"><img src="img/t/DdmYT1OGi0v.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="17"><img src="img/t/DarDRYgkRXA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="18"><img src="img/t/DYvedVEkb7z.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="19"><img src="img/t/DY-9at7EYuO.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="20"><img src="img/t/Dbo5OqcEaBA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="21"><img src="img/t/DajX1RwEXMy.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="22"><img src="img/t/DWzuKGhkZAn.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="23"><img src="img/t/DaB78dnEZBE.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="0"><img src="img/t/Dd7rrBikZwa.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="1"><img src="img/t/DXp_ouakXSJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"><svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none" aria-hidden="true"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg><span class="nota" style="left:8px;bottom:-36px">esta es con dron</span></div><div class="cuadro" data-i="2"><img src="img/t/Dd5NABKERx9.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="3"><img src="img/t/DedLfhJEYZI.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="4"><img src="img/t/DdpwbxuEaYp.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="5"><img src="img/t/DZ8IIDfEaJk.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="6"><img src="img/t/Ddz_K87kSao.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="7"><img src="img/t/DczjzDGkZQX.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="8"><img src="img/t/DXXxXy-kXWi.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="9"><img src="img/t/DWsJ5kFEdwB.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="10"><img src="img/t/DXQML3OEZgZ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="11"><img src="img/t/DbzDHAEESEY.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="12"><img src="img/t/DdKvO91kaIJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="13"><img src="img/t/DZYwf8LERvr.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="14"><img src="img/t/DYiEHkWEc_N.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="15"><img src="img/t/DX5hQ28ke6A.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="16"><img src="img/t/DdmYT1OGi0v.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="17"><img src="img/t/DarDRYgkRXA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="18"><img src="img/t/DYvedVEkb7z.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="19"><img src="img/t/DY-9at7EYuO.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="20"><img src="img/t/Dbo5OqcEaBA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="21"><img src="img/t/DajX1RwEXMy.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="22"><img src="img/t/DWzuKGhkZAn.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="23"><img src="img/t/DaB78dnEZBE.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div></div></div>
     </div>
   </div>
-  <span class="pista-ayuda wrap">arrastra la tira o toca una foto</span>
 </header>
 <script>
 (function(){ if (/[?&]portada=edson/.test(location.search)) { var i = document.getElementById("heroImg"), s = document.querySelector(".hero-foto source"); if (s) s.remove(); if (i) { i.src = "img/m/hero-edson.webp"; i.alt = "Edson Penagos"; document.querySelector(".hero-foto").classList.add("es-edson"); } } })();
@@ -1254,12 +1260,12 @@ const CATS = [
   {img:"m_dron_color", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
  ]},
  {id:"grados", nav:"Grados", titulo:"Paquetes de grados", linea:"Pre-grado, ceremonia, impresiones y retablo. Precio por persona para grupos de más de 20 graduandos; separas la fecha con el 40%.", tipo:"copias", items:[
-  {img:"grad_nino", n:"Grado Digital", t:"Pre-grado y evento", p:"$70.000", por:"por persona", inc:["7 fotos digitales (pre-grado, evento y grupales)","Entrega digital lista para imprimir"], pdf:"pdf/Grados_Digital.pdf?v=10"},
-  {img:"grad_verde", n:"Grado con Impresiones", t:"Pre-grado y evento", p:"$80.000", por:"por persona", inc:["7 fotos digitales","1 impresa 10×15 cm + 1 impresa 20×30 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Impresiones.pdf?v=11"},
-  {img:"grad95", n:"Grado con Retablo", t:"Pre-grado y evento", p:"$105.000", por:"por persona", inc:["7 fotos digitales","Retablo 30×40 cm listo para colgar","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Retablo.pdf?v=11"},
-  {img:"grad100", n:"Grado Completo", t:"Pre-grado y evento", p:"$110.000", por:"por persona", inc:["7 fotos digitales","Retablo 30×40 cm","Impresiones 10×15 y 15×20 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo.pdf?v=11"},
-  {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
-  {img:"gradbuc2", n:"Grados Bucaramanga", t:"Solo fotografía", p:"$120.000", por:"por persona", inc:["7 fotografías editadas en digital","Cobertura de la ceremonia","Fotos antes o después, con calma"], pdf:"pdf/Grados_Bucaramanga.pdf?v=10"}
+  {img:"grad_nino", n:"Grado Digital", t:"Pre-grado y evento", p:"$70.000", por:"Por persona", inc:["7 fotos digitales (pre-grado, evento y grupales)","Entrega digital lista para imprimir"], pdf:"pdf/Grados_Digital.pdf?v=10"},
+  {img:"grad_verde", n:"Grado con Impresiones", t:"Pre-grado y evento", p:"$80.000", por:"Por persona", inc:["7 fotos digitales","1 impresa 10×15 cm + 1 impresa 20×30 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Impresiones.pdf?v=11"},
+  {img:"grad95", n:"Grado con Retablo", t:"Pre-grado y evento", p:"$105.000", por:"Por persona", inc:["7 fotos digitales","Retablo 30×40 cm listo para colgar","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Retablo.pdf?v=11"},
+  {img:"grad100", n:"Grado Completo", t:"Pre-grado y evento", p:"$110.000", por:"Por persona", inc:["7 fotos digitales","Retablo 30×40 cm","Impresiones 10×15 y 15×20 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo.pdf?v=11"},
+  {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"Por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
+  {img:"gradbuc2", n:"Grados Bucaramanga", t:"Solo fotografía", p:"$120.000", por:"Por persona", inc:["7 fotografías editadas en digital","Cobertura de la ceremonia","Fotos antes o después, con calma"], pdf:"pdf/Grados_Bucaramanga.pdf?v=10"}
  ]},
  {id:"deportivo", nav:"Deportes", titulo:"Deportes y carreras", linea:"Los corredores compran sus fotos en línea, encontrándose por reconocimiento de rostro.", tipo:"copias", items:[
   {img:"runningh", n:"Paquete Deportivo", t:"Fotografía + video", d:"-5%", s:"$820.000", p:"$780.000", inc:["50 fotografías base del evento","Video tipo reel (1–2 min)","Dron para tomas aéreas","Transporte incluido, 2 encargados","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Paquete_Deportivo_Reel_Dron_50_fotos.pdf"},
@@ -1280,7 +1286,7 @@ const CATS = [
   {img:"i_fotos", vid:"i_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
  {id:"ia", nav:"IA", titulo:"Fotos y videos con IA", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"copias", items:[
-  {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
+  {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"Por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
   {icono:"video", n:"Videos con IA", t:"Video", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
   {icono:"chat", n:"Chatbots", t:"Atención automática", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
  ]}
@@ -1331,15 +1337,15 @@ function cajaPrecio(it){
   const sep = !it.por && num(it.p) >= 100000 ? `<span class="separa">Separa tu fecha con ${pesos(Math.round(num(it.p) * .4 / 1000) * 1000)}</span>` : "";
   return `<div class="caja-precio">${precio(it)}${ah > 0 ? `<span class="ahorro">Ahorras ${pesos(ah)}</span>` : ""}${sep}</div>`;
 }
-function lista(inc){ if (!inc) return ""; const extra = inc.length - 3; return `<ul>${inc.map((x, i) => `<li${i >= 3 ? ' class="extra"' : ""}>${esc(x)}</li>`).join("")}</ul>${extra > 0 ? `<button type="button" class="ver-mas" data-n="${extra}">Ver más (${extra})</button>` : ""}`; }
+function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
 
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
     <article class="copia aparece${RECO[c.id] === it.n ? " reco" : ""}">
-      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=6" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.vid ? `<video class="demo" muted playsinline loop preload="none" data-src="vid/${it.vid}.mp4?v=1" aria-label="Video de muestra: ${esc(it.n)}"></video><span class="demo-et">▶ demo</span>` : ""}</span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>a la medida</span></div>`}
+      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=6" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.vid ? `<video class="demo" muted playsinline loop preload="none" data-src="vid/${it.vid}.mp4?v=1" aria-label="Video de muestra: ${esc(it.n)}"></video><span class="demo-et">▶ demo</span>` : ""}</span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>A la medida</span></div>`}
       ${RECO[c.id] === it.n ? `<span class="sello-reco">Recomendado</span>` : ""}<span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
-      ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
+      ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
         ${it.img ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=2" target="_blank" rel="noopener">Ver PDF</a>` : ""}
@@ -1416,7 +1422,7 @@ main.innerHTML = panel() + CATS.map(c => `
   <section class="cat wrap" id="${c.id}">
     ${c.foto ? `<div class="cab-foto"><div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div><div class="copia-mini"><img src="img/${c.foto}.jpg" alt="" loading="lazy"></div></div>`
              : `<div class="cab"><h2 class="oro">${esc(c.titulo)}</h2>${SUBRAYA}<p>${esc(c.linea)}</p><div class="meta"><span>${cuantos(c)} opciones</span>${preciosDe(c).length ? `<span>Desde ${pesos(Math.min(...preciosDe(c)))}</span>` : ""}</div></div>`}
-    ${c.tipo === "copias" && c.items.length > 1 ? `<p class="desliza" aria-hidden="true">desliza para ver ${c.items.length} opciones →</p>` : ""}
+    ${c.tipo === "copias" && c.items.length > 1 ? `<p class="desliza" aria-hidden="true">Desliza para ver ${c.items.length} opciones →</p>` : ""}
     ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
     ${c.tipo === "copias" && c.items.length > 1 ? `<div class="puntos" role="tablist" aria-label="Opciones de ${esc(c.nav)}">${c.items.map((it, i) => `<button type="button" aria-label="${esc(it.n)}"${i ? "" : ' class="activo"'}></button>`).join("")}</div>` : ""}
     <a class="volver" href="#categorias">↑ Ver otras categorías</a>
@@ -1570,10 +1576,28 @@ if (RESENAS.length) {
 })();
 
 /* "Ver más" en listas largas */
+function medirDetalles(){
+  document.querySelectorAll(".copia").forEach(card => {
+    const d = card.querySelector(".detalle"), b = card.querySelector(".ver-mas"); if (!d || !b) return;
+    if (card.classList.contains("abierta")) return;
+    const corta = d.scrollHeight > d.clientHeight + 4;
+    d.classList.toggle("corta", corta); b.hidden = !corta;
+  });
+}
+function igualar(){
+  document.querySelectorAll(".copias").forEach(g => {
+    const cs = [...g.querySelectorAll(".copia")]; cs.forEach(c => c.style.minHeight = "");
+    const max = Math.max(...cs.filter(c => !c.classList.contains("abierta")).map(c => c.getBoundingClientRect().height));
+    cs.forEach(c => { if (!c.classList.contains("abierta")) c.style.minHeight = max + "px"; });
+  });
+}
+function ajustar(){ medirDetalles(); igualar(); }
+ajustar(); addEventListener("load", ajustar); addEventListener("resize", ajustar);
 document.addEventListener("click", e => {
   const b = e.target.closest(".ver-mas"); if (!b) return;
   const card = b.closest(".copia"), abierta = card.classList.toggle("abierta");
-  b.textContent = abierta ? "Ver menos" : `Ver más (${b.dataset.n})`;
+  b.textContent = abierta ? "Ver menos" : "Ver más";
+  if (abierta) card.style.minHeight = ""; else igualar();
 });
 
 /* ---------- interacción ---------- */

@@ -171,6 +171,17 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .cierre p{max-width:52ch;margin-bottom:24px;color:#33342e}
 .redes{display:flex;gap:10px 22px;flex-wrap:wrap;margin-top:30px}
 .redes a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+.redes-logos{display:flex;flex-wrap:wrap;gap:18px 22px;margin-top:32px}
+.redes-logos a{display:grid;justify-items:center;gap:8px;text-decoration:none;color:var(--mesa);min-width:64px}
+.redes-logos .logo{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.18);transition:transform .2s}
+.redes-logos .logo svg{width:28px;height:28px;fill:currentColor}
+.redes-logos a:hover .logo{transform:translateY(-4px)}
+.redes-logos .nom{font-size:.85rem;font-weight:600}
+.red-ig .logo{background:radial-gradient(circle at 30% 107%,#fdf497 0%,#fd5949 45%,#d6249f 60%,#285AEB 90%)}
+.red-tt .logo{background:#111}
+.red-wa .logo{background:#25d366}
+.red-ga .logo{background:var(--mesa)}
+.red-pdf .logo{background:var(--ambar);color:#1d1b16}
 .pie{margin-top:40px;font-size:.88rem;color:#5b5c55}
 
 /* redes en el hero */
@@ -193,6 +204,35 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .sobre p{color:#d6d5cd;max-width:56ch;margin-bottom:14px}
 .datos{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
 .datos span{border:1px solid #4a4b44;border-radius:999px;padding:8px 14px;font-size:.92rem;color:var(--tinta)}
+
+/* portafolio */
+.pf-filtros{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 2px 14px;margin:0 -4px 8px}
+.pf-filtros::-webkit-scrollbar{display:none}
+.pf-filtros button{flex:none;display:inline-flex;align-items:center;gap:7px;min-height:44px;padding:0 16px;border-radius:999px;border:1px solid #55564e;background:var(--mesa2);color:var(--tinta);font:inherit;font-weight:600;font-size:.95rem;cursor:pointer;transition:background .2s,border-color .2s,color .2s}
+.pf-filtros button small{font-weight:700;font-size:.78rem;color:var(--gris)}
+.pf-filtros button[aria-selected="true"]{background:var(--ambar);border-color:var(--ambar);color:#1d1b16}
+.pf-filtros button[aria-selected="true"] small{color:#1d1b16}
+.pf-grid{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px 14px}
+.pf-item{display:block;padding:0;border:0;background:#fbfaf6;padding:6px 6px 22px;box-shadow:0 8px 20px rgba(0,0,0,.35);cursor:zoom-in;position:relative;transition:transform .25s}
+.pf-item:nth-child(3n+1){rotate:-1deg}.pf-item:nth-child(3n+2){rotate:.8deg}
+.pf-item img{display:block;width:100%;height:auto;aspect-ratio:4/5;object-fit:cover;background:#33342e}
+.pf-item span{position:absolute;left:8px;right:8px;bottom:3px;font-family:'Caveat Brush',cursive;color:var(--grasa-luz);font-size:.95rem;text-align:left;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pf-item:hover{transform:translateY(-5px)}
+.pf-mas{display:flex;justify-content:center;margin-top:26px}
+.pf-mas[hidden]{display:none}
+.pf-videos{display:flex;flex-wrap:wrap;align-items:center;gap:8px 14px;margin-top:26px;color:var(--gris);font-size:.95rem}
+.pf-videos a{color:var(--ambar);font-weight:600;min-height:44px;display:inline-flex;align-items:center}
+@media (min-width:700px){.pf-grid{grid-template-columns:repeat(3,minmax(0,1fr));gap:26px 22px}}
+@media (min-width:1000px){.pf-grid{grid-template-columns:repeat(4,minmax(0,1fr))}}
+@media (min-width:1400px){.pf-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
+@supports ((animation-timeline: view()) and (animation-range: entry)){
+  @media (prefers-reduced-motion: no-preference){
+    .pf-item{animation:asienta-pf linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+    @keyframes asienta-pf{from{opacity:0;translate:0 60px}to{opacity:1;translate:0 0}}
+  }
+}
+::view-transition-old(pfgrid),::view-transition-new(pfgrid){animation-duration:.28s}
+.pf-grid{view-transition-name:pfgrid}
 
 /* galería */
 .chips{display:flex;flex-wrap:wrap;gap:10px}
@@ -251,6 +291,43 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 /* recorte para el paralaje dentro de cada copia */
 .copia .recorte{display:block;overflow:hidden}
 .copia .recorte img{display:block}
+
+/* ---------- entrada: obturador que se abre ---------- */
+@property --r{syntax:'<length>';inherits:false;initial-value:0px}
+.obturador{display:none}
+.intro .obturador{display:block;position:fixed;inset:0;z-index:100;pointer-events:none;background:#161613;
+  -webkit-mask:radial-gradient(circle at 50% 42%,transparent var(--r),#000 calc(var(--r) + 1px));
+          mask:radial-gradient(circle at 50% 42%,transparent var(--r),#000 calc(var(--r) + 1px));
+  animation:abrir .95s .35s cubic-bezier(.7,0,.2,1) forwards}
+@keyframes abrir{0%{--r:0px}12%{--r:34px}100%{--r:150vmax;visibility:hidden}}
+.intro .obturador::before{content:"";position:absolute;left:50%;top:42%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;border:2px solid var(--ambar);opacity:0;animation:aro .5s .1s ease-out forwards}
+@keyframes aro{0%{opacity:0;scale:.4}60%{opacity:1;scale:1}100%{opacity:0;scale:1.15}}
+.intro .flash{position:fixed;inset:0;background:#fff;opacity:0;animation:flash .45s .42s ease-out}
+@keyframes flash{0%{opacity:.55}100%{opacity:0}}
+.hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+.hero h1 .l > span{display:inline-block}
+.intro .hero h1 .l > span{transform:translateY(105%);animation:sube-letra .9s cubic-bezier(.2,.8,.2,1) forwards}
+.intro .hero h1 .l:nth-child(1) > span{animation-delay:.75s}
+.intro .hero h1 .l:nth-child(2) > span{animation-delay:.88s}
+@keyframes sube-letra{to{transform:none}}
+.intro .hero .quien,.intro .hero .lead,.intro .hero .ctas,.intro .hero .prueba,.intro .hero .redes-top{opacity:0;animation:aparece-h .6s ease-out forwards}
+.intro .hero .quien{animation-delay:1.05s}.intro .hero .lead{animation-delay:1.15s}.intro .hero .ctas{animation-delay:1.25s}.intro .hero .prueba{animation-delay:1.35s}.intro .hero .redes-top{animation-delay:1.42s}
+@keyframes aparece-h{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
+.intro .copia-h{opacity:0;animation:cae .9s cubic-bezier(.2,.9,.25,1.15) forwards}
+.intro .c1{animation-delay:1s}.intro .c2{animation-delay:1.12s}.intro .c3{animation-delay:1.24s}
+@keyframes cae{from{opacity:0;transform:translateY(-140px) rotate(-18deg) scale(1.1)}to{opacity:1;transform:none}}
+.intro .tira-zona{animation:entra-tira 1.1s .9s cubic-bezier(.2,.8,.2,1) both}
+@keyframes entra-tira{from{transform:translateX(60%);opacity:0}to{transform:none;opacity:1}}
+
+/* prueba social en la portada */
+.prueba{display:flex;flex-wrap:wrap;align-items:center;gap:6px 10px;margin:18px 0 0;font-size:.95rem;color:#3b3c36}
+.prueba b{color:var(--mesa);font-weight:700}
+.prueba i{width:4px;height:4px;border-radius:50%;background:var(--grasa-luz)}
+
+/* recomendado y separa con */
+.copia.reco .foto{outline:3px solid var(--ambar);outline-offset:4px}
+.sello-reco{display:inline-flex;align-self:flex-start;margin-top:18px;margin-bottom:-10px;background:var(--ambar);color:#1d1b16;border-radius:999px;padding:4px 12px;font-size:.8rem;font-weight:800}
+.separa{display:block;margin-top:4px;font-size:.86rem;font-weight:600;color:var(--tinta)}
 
 /* ---------- barra de progreso ---------- */
 .progreso{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;pointer-events:none}
@@ -453,7 +530,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   /* celular: en el carrusel la tarjeta del centro manda y las de los lados se achican */
   @media (max-width:640px){
     .copia{animation:enfoque linear both;animation-timeline:view(inline)}
-    @keyframes enfoque{0%{scale:.88;opacity:.5}45%,55%{scale:1;opacity:1}100%{scale:.88;opacity:.5}}
+    @keyframes enfoque{0%{opacity:.55}45%,55%{opacity:1}100%{opacity:.55}}
     .copia .recorte img{animation:none;transform:none}
   }
 }
@@ -476,24 +553,27 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
-<script>document.documentElement.classList.add('js')</script>
+<script>document.documentElement.classList.add('js');try{if(!sessionStorage.getItem('intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');sessionStorage.setItem('intro','1');setTimeout(function(){document.documentElement.classList.remove('intro')},2700)}}catch(e){}</script>
+<div class="obturador" aria-hidden="true"><i class="flash"></i></div>
 
 <header class="hero">
   <div class="wrap hero-grid">
   <div class="hero-texto">
-    <h1>Edson Penagos</h1>
+    <h1><span class="l"><span>Edson</span></span> <span class="l"><span>Penagos</span></span></h1>
     <div class="quien">El de las Fotos Chimbitas · fotógrafo y videógrafo</div>
     <p class="lead">Fotografía, video y dron para XV años, grados, bodas, sesiones y carreras. Aquí están todos mis paquetes con precio, para que elijas sin rodeos.</p>
     <div class="ctas">
       <a class="btn btn-osc" href="#categorias">Ver categorías y precios</a>
-      <a class="btn btn-linea" href="#reservar">Cotizar mi fecha</a>
+      <a class="btn btn-linea" href="#portafolio">Ver portafolio</a>
+      <a class="btn btn-linea solo-desk" href="#reservar">Cotizar mi fecha</a>
       <a class="btn btn-linea solo-desk" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir por WhatsApp</a>
     </div>
+    <p class="prueba"><b>7.400+</b> seguidores en Instagram <i></i> <b>400+</b> trabajos publicados <i></i> Canon R6 Mark II</p>
     <div class="redes-top">
       <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener" aria-label="Instagram @eldelasfotoschimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4 .1-3.6.2-5.6 2.2-5.7 5.7-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.6 2.2 5.6 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.6-.2 5.6-2.2 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.6-2.2-5.6-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.5.1 3.8 1.3 3.9 3.9.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-2.9 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-2.9.1-4C4.2 5.4 5.4 4.2 8 4.1c1 0 1.3-.1 4-.1z"/></svg></a>
       <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener" aria-label="TikTok @fotos.chimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></a>
       <a href="https://wa.me/573133469261" target="_blank" rel="noopener" aria-label="WhatsApp +57 313 346 9261"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2z"/></svg></a>
-      <a href="#galeria" aria-label="Galería de trabajos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-1.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/></svg></a>
+      <a href="#portafolio" aria-label="Galería de trabajos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-1.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/></svg></a>
     </div>
   </div>
   <div class="collage" aria-hidden="true">
@@ -577,29 +657,6 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   </div>
 </section>
 
-<section class="cat wrap" id="galeria">
-  <div class="cab">
-    <h2 class="oro">Mira mi trabajo</h2>
-    <p>Galerías por tipo de sesión y evento, y videos.</p>
-  </div>
-  <div class="chips">
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/15-a%C3%B1os" target="_blank" rel="noopener">15 años</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/bodas" target="_blank" rel="noopener">Bodas</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/sesiones" target="_blank" rel="noopener">Sesiones</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/grados" target="_blank" rel="noopener">Grados</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/deportes" target="_blank" rel="noopener">Deportes</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/embarazos" target="_blank" rel="noopener">Embarazos</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/ni%C3%B1os" target="_blank" rel="noopener">Niños</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/fine-art" target="_blank" rel="noopener">Fine Art</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/naturaleza" target="_blank" rel="noopener">Naturaleza</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/comida" target="_blank" rel="noopener">Comida</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos/d%C3%ADas-feriados" target="_blank" rel="noopener">Días feriados</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/videos/videos-de-eventos" target="_blank" rel="noopener">Videos de eventos</a>
-    <a href="https://sites.google.com/view/fotos-chimbitas/videos/video-reels" target="_blank" rel="noopener">Reels</a>
-    <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram</a>
-    <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok</a>
-  </div>
-</section>
 
 <section class="cat wrap" id="como">
   <div class="cab">
@@ -620,17 +677,31 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   <p class="aviso">Confirmar el servicio (por mensaje o pago) significa que aceptas los términos. <a href="https://drive.google.com/file/d/1Ehj_m2sC6jxIaK41-qpZbwr0M2KSfOWK/view" target="_blank" rel="noopener">Leer términos y condiciones completos (PDF)</a></p>
 </section>
 
+<section class="cat wrap" id="portafolio">
+  <div class="cab">
+    <h2 class="oro">Portafolio</h2>
+    <svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>
+    <p>Fotos reales de mis clientes, por tipo de evento. Toca una para verla completa.</p>
+    <div class="meta"><span id="pfTotal"></span><span>10 categorías</span></div>
+  </div>
+  <div class="pf-filtros" id="pfFiltros" role="tablist" aria-label="Categorías del portafolio"></div>
+  <div class="pf-grid" id="pfGrid"></div>
+  <div class="pf-mas"><button class="btn btn-linea" type="button" id="pfMas">Ver más fotos</button></div>
+  <div class="pf-videos">
+    <span>También en video:</span>
+    <a href="https://sites.google.com/view/fotos-chimbitas/videos/videos-de-eventos" target="_blank" rel="noopener">Videos de eventos</a>
+    <a href="https://sites.google.com/view/fotos-chimbitas/videos/video-reels" target="_blank" rel="noopener">Reels</a>
+    <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram</a>
+    <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok</a>
+  </div>
+</section>
+
 <footer class="cierre">
   <div class="wrap">
     <h2>¿Ya sabes cuál quieres?</h2>
     <p>Escríbeme con la fecha, el lugar y el paquete que te gustó. Te respondo con disponibilidad y lo que necesites para reservar.</p>
     <a class="btn btn-osc" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20reservar." target="_blank" rel="noopener">Reservar por WhatsApp</a>
-    <div class="redes">
-      <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram @eldelasfotoschimbitas</a>
-      <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok @fotos.chimbitas</a>
-      <a href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos" target="_blank" rel="noopener">Galería de trabajos</a>
-      <a href="https://eldelasfotoschimbitas.github.io/" target="_blank" rel="noopener">Paquetes con PDF</a>
-    </div>
+    <div class="redes-logos"><a class="red-ig" href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener"><span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4 .1-3.6.2-5.6 2.2-5.7 5.7-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.6 2.2 5.6 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.6-.2 5.6-2.2 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.6-2.2-5.6-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.5.1 3.8 1.3 3.9 3.9.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-2.9 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-2.9.1-4C4.2 5.4 5.4 4.2 8 4.1c1 0 1.3-.1 4-.1z"/></svg></span><span class="nom">Instagram</span></a><a class="red-tt" href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener"><span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></span><span class="nom">TikTok</span></a><a class="red-wa" href="https://wa.me/573133469261" target="_blank" rel="noopener"><span class="logo"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2z"/></svg></span><span class="nom">WhatsApp</span></a><a class="red-ga" href="https://sites.google.com/view/fotos-chimbitas/galer%C3%ADa-de-fotos" target="_blank" rel="noopener"><span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-1.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/></svg></span><span class="nom">Galería</span></a><a class="red-pdf" href="https://eldelasfotoschimbitas.github.io/" target="_blank" rel="noopener"><span class="logo"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 2h8l5 5v15H6z" fill="none" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/><path d="M14 2v5h5M9 13h7M9 17h5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span><span class="nom">Combos PDF</span></a></div>
     <p class="pie">© Edson David Penagos Cáceres · WhatsApp +57 313 346 9261 · Precios en pesos colombianos (COP), sujetos a cambio sin previo aviso.</p>
   </div>
 </footer>
@@ -674,13 +745,13 @@ const CATS = [
   {img:"m_vid_estandar", n:"Video estándar · 1:30 a 3 minutos", p:"$350.000", desc:"Más desarrollo narrativo, edición más elaborada y música."},
   {img:"m_vid_cine", n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
   {img:"m_vid_ext", n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
-  {img:"m_vid_evento", ar:"wide", n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
+  {img:"m_vid_evento", n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
   {img:"m_vid_musical", n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
  ]},
  {id:"dron", nav:"Dron", titulo:"Servicios de dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"copias", items:[
-  {img:"m_dron_709", ar:"wide", n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
-  {img:"m_dron_log", ar:"wide", n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
-  {img:"m_dron_color", ar:"wide", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
+  {img:"m_dron_709", n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
+  {img:"m_dron_log", n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
+  {img:"m_dron_color", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
  ]},
  {id:"grados", nav:"Grados", titulo:"Paquetes de grados", linea:"Pre-grado, ceremonia, impresiones y retablo. Precio por persona para grupos de más de 20 graduandos; separas la fecha con el 40%.", tipo:"copias", items:[
   {img:"grad_nino", n:"Grado Digital", t:"Pre-grado y evento", p:"$70.000", por:"por persona", inc:["7 fotos digitales (pre-grado, evento y grupales)","Entrega digital lista para imprimir"], pdf:"pdf/Grados_Digital.pdf?v=10"},
@@ -750,17 +821,19 @@ function claves(it, cat){
   if (it.por) out.push([ICO.per, "Por persona"]);
   return out.length ? `<div class="claves">${out.map(([i, t]) => `<span>${i}${t}</span>`).join("")}</div>` : "";
 }
+const RECO = {"xv": "Completo Foto + Video", "sesiones": "Essential · 18 fotos digitales", "eventos": "Forever · 100 fotos", "video": "Video cinemático · 3 a 5 minutos", "grados": "Grado Completo", "deportivo": "Paquete Deportivo", "invitaciones": "Virtual temática", "dron": "Clips colorizados"};
 function cajaPrecio(it){
   const ah = it.s ? num(it.s) - num(it.p) : 0;
-  return `<div class="caja-precio">${precio(it)}${ah > 0 ? `<span class="ahorro">Ahorras ${pesos(ah)}</span>` : ""}</div>`;
+  const sep = !it.por && num(it.p) >= 100000 ? `<span class="separa">Separa tu fecha con ${pesos(Math.round(num(it.p) * .4 / 1000) * 1000)}</span>` : "";
+  return `<div class="caja-precio">${precio(it)}${ah > 0 ? `<span class="ahorro">Ahorras ${pesos(ah)}</span>` : ""}${sep}</div>`;
 }
 function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
 
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
-    <article class="copia aparece">
-      <div class="foto${it.ar ? " ancha" : ""}"><span class="recorte"><img src="img/m/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750"></span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
-      <span class="etq">${esc(c.titulo)}</span>
+    <article class="copia aparece${RECO[c.id] === it.n ? " reco" : ""}">
+      <div class="foto${it.ar ? " ancha" : ""}"><span class="recorte"><img src="img/m/${it.img}.webp?v=5" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750"></span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
+      ${RECO[c.id] === it.n ? `<span class="sello-reco">Recomendado</span>` : ""}<span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
       ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
       <div class="acciones">
@@ -846,7 +919,7 @@ main.innerHTML = panel() + CATS.map(c => `
   </section>${banda(c.id)}`).join("");
 
 const nav = document.getElementById("indice");
-nav.innerHTML = [["categorias","Categorías"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["galeria","Galería"], ["como","Cómo trabajo"]]
+nav.innerHTML = [["categorias","Categorías"], ["portafolio","Portafolio"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["como","Cómo trabajo"]]
   .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
 
 /* índice activo según la sección visible */
@@ -921,9 +994,9 @@ const pista = document.getElementById("pista"), cuadrosEl = document.getElementB
 
 /* visor de fotos en grande */
 const visor = document.getElementById("visor"), visorImg = document.getElementById("visorImg"), visorN = document.getElementById("visorN");
-let vi = 0;
-function mostrar(i){ vi = (i + TIRA.length) % TIRA.length; visorImg.src = `img/ig/${TIRA[vi]}.jpg?v=4`; visorN.textContent = `${vi + 1} / ${TIRA.length}`; }
-function abrirVisor(i){ mostrar(i); visor.classList.add("abierto"); document.body.style.overflow = "hidden"; visor.querySelector(".cerrar").focus(); }
+let vi = 0, fotosVisor = TIRA.map(c => `img/ig/${c}.jpg?v=4`);
+function mostrar(i){ vi = (i + fotosVisor.length) % fotosVisor.length; visorImg.src = fotosVisor[vi]; visorN.textContent = `${vi + 1} / ${fotosVisor.length}`; }
+function abrirVisor(i, l){ fotosVisor = l || TIRA.map(c => `img/ig/${c}.jpg?v=4`); mostrar(i); visor.classList.add("abierto"); document.body.style.overflow = "hidden"; visor.querySelector(".cerrar").focus(); }
 function cerrarVisor(){ visor.classList.remove("abierto"); document.body.style.overflow = ""; }
 visor.querySelector(".cerrar").addEventListener("click", cerrarVisor);
 visor.querySelector(".ant").addEventListener("click", () => mostrar(vi - 1));
@@ -1056,5 +1129,7 @@ document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", as
   setTimeout(() => b.textContent = "Copiar", 2000);
 }));
 </script>
+<script src="portafolio.js?v=1" defer></script>
+<script src="portafolio-ui.js?v=1" defer></script>
 </body>
 </html>

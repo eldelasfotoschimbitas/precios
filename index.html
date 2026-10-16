@@ -1210,7 +1210,7 @@ function botones(){
   return CATS.map((c, i) => {
     const k = PANEL[c.id], ps = preciosDe(c), min = ps.length ? Math.min(...ps) : 0;
     return `<a class="cat-btn${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
-      <img src="img/c_${c.id}.webp?v=5" alt="" width="76" height="95" decoding="async" loading="${i < 4 ? "eager" : "lazy"}">
+      <img src="img/c_${c.id}.webp?v=6" alt="" width="76" height="95" decoding="async" loading="${i < 4 ? "eager" : "lazy"}">
       <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "desde " + pesos(min) : "a cotizar"} · ${cuantos(c)} opciones</em></span>
       ${FLECHA}
     </a>`;

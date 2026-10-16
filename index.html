@@ -351,30 +351,60 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .intro.listo .carga-centro{animation:desvanece .45s forwards}
 @keyframes desvanece{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}
 
-/* el chico que camina con la cámara: línea blanca, piernas y brazos con articulaciones (ciclo de 1 s) */
+/* el chico: camina despacio, acelera hasta correr con la carga, se detiene y toma la foto */
 .chico{width:190px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .chico .cabeza{fill:#000}
 .chico *{transform-box:view-box}
+.chico .cam-lado rect,.chico .cam-ojo rect{fill:#000}
+.chico .correa{stroke-width:1.3;opacity:.8}
+.chico .pb,.chico .bb{opacity:.55}
+/* caminar */
 .chico .cuerpo{animation:bob .5s cubic-bezier(.45,0,.55,1) infinite}
-@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2.4px) rotate(.6deg)}}
+@keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2px)}}
 .chico .muslo{transform-origin:90px 86px;animation:muslo 1s linear infinite}
 .chico .canilla{transform-origin:90px 104px;animation:canilla 1s linear infinite}
-.chico .pb .muslo,.chico .pb .canilla{animation-delay:-.5s}
-.chico .pb{opacity:.6}
+.chico .hombro{transform-origin:90px 53px;animation:hombro 1s cubic-bezier(.45,0,.55,1) infinite}
+.chico .codo{transform-origin:90px 65px;animation:codo 1s cubic-bezier(.45,0,.55,1) infinite}
+.chico .pb .muslo,.chico .pb .canilla,.chico .ba .hombro,.chico .ba .codo{animation-delay:-.5s}
+.chico .colgada{transform-origin:88px 45px;animation:colgada .5s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes muslo{0%{transform:rotate(-24deg)}15%{transform:rotate(-14deg)}35%{transform:rotate(4deg)}50%{transform:rotate(20deg)}62%{transform:rotate(16deg)}80%{transform:rotate(-8deg)}100%{transform:rotate(-24deg)}}
 @keyframes canilla{0%{transform:rotate(0)}15%{transform:rotate(8deg)}35%{transform:rotate(4deg)}50%{transform:rotate(12deg)}62%{transform:rotate(48deg)}80%{transform:rotate(38deg)}92%{transform:rotate(8deg)}100%{transform:rotate(0)}}
-.chico .brazo-a{transform-origin:90px 52px;animation:brazo 1s cubic-bezier(.45,0,.55,1) infinite;opacity:.6}
-.chico .brazo-a .ante{transform-origin:90px 65px;animation:ante 1s cubic-bezier(.45,0,.55,1) infinite}
-@keyframes brazo{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-20deg)}}
-@keyframes ante{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-34deg)}}
-.chico .brazo-c{transform-origin:90px 52px;animation:brazo-cam .5s cubic-bezier(.45,0,.55,1) infinite}
-@keyframes brazo-cam{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
-.chico .camara rect{fill:#000}
-.chico .destello{fill:var(--ambar);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:flash-cam 2.5s 1.2s ease-out infinite}
-@keyframes flash-cam{0%,86%{opacity:0;transform:scale(.3)}90%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(.6)}}
+@keyframes hombro{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-20deg)}}
+@keyframes codo{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(-30deg)}}
+@keyframes colgada{0%,100%{transform:rotate(0)}50%{transform:rotate(-4deg)}}
+/* correr: inclinado, zancada larga, brazos doblados que bombean, cámara que rebota */
+.corre .chico .tronco{transform-origin:90px 121px;transform:rotate(9deg);transition:transform .4s}
+.corre .chico .cuerpo{animation-name:bob-corre}
+.corre .chico .muslo{animation-name:muslo-corre}
+.corre .chico .canilla{animation-name:canilla-corre}
+.corre .chico .hombro{animation-name:hombro-corre}
+.corre .chico .codo{animation-name:codo-corre}
+.corre .chico .colgada{animation-name:colgada-corre}
+@keyframes bob-corre{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
+@keyframes muslo-corre{0%{transform:rotate(-46deg)}25%{transform:rotate(-10deg)}50%{transform:rotate(34deg)}70%{transform:rotate(18deg)}85%{transform:rotate(-30deg)}100%{transform:rotate(-46deg)}}
+@keyframes canilla-corre{0%{transform:rotate(18deg)}20%{transform:rotate(10deg)}45%{transform:rotate(30deg)}62%{transform:rotate(100deg)}82%{transform:rotate(80deg)}100%{transform:rotate(18deg)}}
+@keyframes hombro-corre{0%,100%{transform:rotate(48deg)}50%{transform:rotate(-46deg)}}
+@keyframes codo-corre{0%,100%{transform:rotate(-80deg)}50%{transform:rotate(-95deg)}}
+@keyframes colgada-corre{0%,100%{transform:rotate(4deg) translateY(0)}50%{transform:rotate(-12deg) translateY(-2px)}}
+/* detenerse y disparar */
+.chico .pose-foto{opacity:0}
+.dispara .chico .cuerpo,.dispara .chico .muslo,.dispara .chico .canilla,.dispara .chico .polvo{animation-play-state:paused}
+.dispara .chico .tronco{transform:none}
+.dispara .chico .muslo{animation:none;transform:rotate(-6deg)}
+.dispara .chico .pb .muslo{transform:rotate(8deg)}
+.dispara .chico .canilla{animation:none;transform:none}
+.dispara .chico .brazo,.dispara .chico .colgada{opacity:0;transition:opacity .15s}
+.dispara .chico .pose-foto{opacity:1;transition:opacity .15s}
+.chico .destello{fill:var(--ambar);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center}
+.flashea .chico .destello{animation:flash-cam .5s ease-out forwards}
+@keyframes flash-cam{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(.8)}}
+.flashea .carga-flash{animation:flash-pantalla .45s ease-out forwards}
+.carga-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
+@keyframes flash-pantalla{0%{opacity:.75}100%{opacity:0}}
 .chico .suelo{stroke:#fff;stroke-width:1.5}
 .chico .polvo{stroke:#3a3a3a;stroke-width:1.4;stroke-dasharray:2 22;animation:suelo 1s linear infinite}
 @keyframes suelo{to{stroke-dashoffset:48}}
+.corre .chico .polvo{animation-duration:.5s}
 
 .carga-nombre{margin-top:10px;font-family:'Bodoni Moda',serif;font-weight:500;font-size:1.35rem;letter-spacing:.04em;color:#fff}
 .carga-linea{width:90px;height:1px;border-radius:1px;background:#262626;margin-top:12px;overflow:hidden}
@@ -634,7 +664,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 /* =====================================================================
    TEMA "FOCUS": negro, blanco y un acento verde. Va al final para mandar.
    ===================================================================== */
-:root{--mesa:#0c0c0c;--mesa2:#161616;--luz:#0c0c0c;--tinta:#f4f1ea;--gris:#a8a49b;--ambar:#c8644a;--grasa:#c8644a;--grasa-luz:#c8644a;--tierra:#a84b33;--pelicula:#000;--linea:#262422}
+:root{--mesa:#0c0c0c;--mesa2:#161616;--luz:#0c0c0c;--tinta:#f4f1ea;--gris:#a8a49b;--ambar:#c94a3d;--grasa:#c94a3d;--grasa-luz:#c94a3d;--tierra:#9b2f26;--pelicula:#000;--linea:#262422}
 body{background:var(--mesa);color:var(--tinta)}
 
 /* portada: foto a todo el ancho y texto centrado debajo */
@@ -654,7 +684,7 @@ body{background:var(--mesa);color:var(--tinta)}
 .btn-linea{border-color:#4a4a4a;color:#fff}
 .btn-linea:hover{background:rgba(255,255,255,.08);border-color:#fff}
 .btn-ambar{background:var(--tierra);color:#fff}
-.btn-ambar:hover{background:#b8573d}
+.btn-ambar:hover{background:#ad3a30}
 .prueba{justify-content:center;color:#b5b5b5}
 .prueba b{color:#fff}
 .prueba i{background:var(--ambar)}
@@ -703,7 +733,7 @@ main section.cat{border-top:1px solid var(--linea)}
 .caja-precio .precio{justify-content:center}
 .caja-precio .precio b{color:#fff}
 .precio s::after{background:var(--ambar)}
-.ahorro{color:#e4a08a}
+.ahorro{color:#e3958a}
 .incluye{text-align:left}
 .acciones{justify-content:center}
 .copia .foto.sinfoto{background:#111}
@@ -771,7 +801,7 @@ main section.cat{border-top:1px solid var(--linea)}
 .copia .marca{background:var(--tierra);color:#fff}
 .cat-btn .sello{background:var(--tierra);color:#fff}
 .cotiza .btn-osc,.cierre .btn-osc{background:var(--tierra);color:#fff}
-.cotiza .btn-osc:hover,.cierre .btn-osc:hover{background:#b8573d}
+.cotiza .btn-osc:hover,.cierre .btn-osc:hover{background:#ad3a30}
 </style>
 </head>
 <body>
@@ -781,18 +811,21 @@ main section.cat{border-top:1px solid var(--linea)}
   <div class="carga-centro">
     <svg class="chico" viewBox="0 0 200 150" aria-hidden="true">
       <g class="cuerpo">
-        <g class="pierna pb"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
-        <g class="brazo-a"><path d="M90 52 V65"/><g class="ante"><path d="M90 65 V77"/></g></g>
-        <circle class="cabeza" cx="91" cy="35" r="8.5"/>
-        <path class="torso" d="M90 44 L90 86"/>
-        <g class="pierna pa"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
-        <g class="brazo-c">
-          <path d="M90 52 L93 64 L104 63"/>
-          <g class="camara">
-            <rect x="102" y="56" width="22" height="14" rx="2"/>
-            <path d="M105 56 v-3 h6 v3 M118 56 v-2 h4 v2"/>
-            <circle cx="113" cy="63" r="4.8"/><circle cx="113" cy="63" r="2.3"/>
-            <path class="destello" d="M130 46 l1.5 -4.6 l1.5 4.6 l4.6 1.5 l-4.6 1.5 l-1.5 4.6 l-1.5 -4.6 l-4.6 -1.5 z"/>
+        <g class="tronco">
+          <g class="pierna pb"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
+          <g class="brazo bb"><g class="hombro"><path d="M90 53 V65"/><g class="codo"><path d="M90 65 V76"/></g></g></g>
+          <circle class="cabeza" cx="91" cy="35" r="8.5"/>
+          <path class="torso" d="M90 44 L90 86"/>
+          <g class="colgada">
+            <path class="correa" d="M88 45 Q93 54 98 60"/>
+            <g class="cam-lado"><rect x="95" y="59" width="11" height="9" rx="1.5"/><rect x="106" y="60.5" width="7" height="6" rx="1"/><path d="M98 59 v-2.2 h4 v2.2"/></g>
+          </g>
+          <g class="pierna pa"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
+          <g class="brazo ba"><g class="hombro"><path d="M90 53 V65"/><g class="codo"><path d="M90 65 V76"/></g></g></g>
+          <g class="pose-foto">
+            <path d="M90 53 L97 63 L100 41"/><path d="M90 53 L95 60 L102 46"/>
+            <g class="cam-ojo"><rect x="96" y="33" width="11" height="9" rx="1.5"/><rect x="107" y="34.5" width="7" height="6" rx="1"/><path d="M99 33 v-2.2 h4 v2.2"/></g>
+            <path class="destello" d="M124 26 l2 -6.5 l2 6.5 l6.5 2 l-6.5 2 l-2 6.5 l-2 -6.5 l-6.5 -2 z"/>
           </g>
         </g>
       </g>
@@ -802,6 +835,7 @@ main section.cat{border-top:1px solid var(--linea)}
     <div class="carga-nombre">Fotos Chimbitas</div>
     <div class="carga-linea"><i id="cargaLinea"></i></div>
   </div>
+  <i class="carga-flash"></i>
 </div>
 
 <header class="hero">
@@ -879,20 +913,26 @@ main section.cat{border-top:1px solid var(--linea)}
   timbre();                                                   // suena si el navegador lo permite
   ['pointerdown', 'keydown', 'touchstart'].forEach(function(ev){ addEventListener(ev, timbre, {once:true, passive:true}); });
 
+  var chico = carga.querySelector('.chico');
+  function velocidad(r){ chico.getAnimations({subtree:true}).forEach(function(a){ a.playbackRate = r; }); }
   function terminar(){
     if (fin) return; fin = true;
     linea.style.transform = 'scaleX(1)';
-    setTimeout(function(){ h.classList.add('listo'); }, 250);
+    carga.classList.remove('corre'); carga.classList.add('dispara');           // se detiene y levanta la cámara
+    setTimeout(function(){ carga.classList.add('flashea'); }, 380);           // clic
+    setTimeout(function(){ h.classList.add('listo'); }, 820);
     if (maestro) { var n = ctx.currentTime; maestro.gain.cancelScheduledValues(n); maestro.gain.setValueAtTime(maestro.gain.value, n); maestro.gain.linearRampToValueAtTime(0, n + 1.4); setTimeout(function(){ try { ctx.close(); } catch(e){} }, 1800); }
-    setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 3400);
+    setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 4000);
   }
   carga.addEventListener('pointerdown', function(){ timbre(); setTimeout(terminar, 350); });
   function paso(t){
     if (fin) return;
-    var real = hechas / total, tiempo = Math.min(1, (t - t0) / 2300);      // ~2,3 s para ver al chico caminar
-    if (t - t0 > 4500) real = 1;
-    visto += (Math.min(real, tiempo) - visto) * .1;
+    var real = hechas / total, tiempo = Math.min(1, (t - t0) / 3000);      // ~3 s: camina, acelera y corre
+    if (t - t0 > 5000) real = 1;
+    visto += (Math.min(real, tiempo) - visto) * .08;
     linea.style.transform = 'scaleX(' + visto.toFixed(3) + ')';
+    if (visto < .62) velocidad(.55 + visto * 1.1);                          // de paso lento a paso rápido
+    else { if (!carga.classList.contains('corre')) carga.classList.add('corre'); velocidad(.9 + (visto - .62) * 1.2); }
     if (visto > .985) terminar(); else requestAnimationFrame(paso);
   }
   requestAnimationFrame(paso);

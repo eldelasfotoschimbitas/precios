@@ -354,7 +354,8 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 /* personaje con cabeza de cámara: camina, corre, gira hacia nosotros y oprime el botón */
 .chico{width:200px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .chico *{transform-box:view-box}
-.chico .torso,.chico .cabeza-cam rect,.chico .cam-f rect,.chico .cam-f circle{fill:#000}
+.chico .cabeza,.chico .colgada rect,.chico .cam-f rect,.chico .cam-f circle,.chico .boton{fill:#000}
+.chico .correa{stroke-width:1.2;opacity:.75}
 .chico .pb,.chico .bb{opacity:.55}
 /* caminar (de lado) */
 .chico .cuerpo{animation:bob .5s cubic-bezier(.45,0,.55,1) infinite}
@@ -364,7 +365,11 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .chico .hombro{transform-origin:89px 62px;animation:hombro 1s cubic-bezier(.45,0,.55,1) infinite}
 .chico .codo{transform-origin:89px 74px;animation:codo 1s cubic-bezier(.45,0,.55,1) infinite}
 .chico .pb .muslo,.chico .pb .canilla,.chico .ba .hombro,.chico .ba .codo{animation-delay:-.5s}
-.chico .cabeza-cam{transform-origin:89px 50px;animation:cabeceo .5s cubic-bezier(.45,0,.55,1) infinite}
+.chico .cabeza-cam{transform-origin:89px 49px;animation:cabeceo .5s cubic-bezier(.45,0,.55,1) infinite}
+.chico .colgada{transform-origin:88px 52px;animation:colgada .5s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes colgada{0%,100%{transform:rotate(0)}50%{transform:rotate(-5deg)}}
+.corre .chico .colgada{animation-name:colgada-corre}
+@keyframes colgada-corre{0%,100%{transform:rotate(6deg)}50%{transform:rotate(-14deg) translateY(-2px)}}
 @keyframes muslo{0%{transform:rotate(-24deg)}15%{transform:rotate(-14deg)}35%{transform:rotate(4deg)}50%{transform:rotate(20deg)}62%{transform:rotate(16deg)}80%{transform:rotate(-8deg)}100%{transform:rotate(-24deg)}}
 @keyframes canilla{0%{transform:rotate(0)}15%{transform:rotate(8deg)}35%{transform:rotate(4deg)}50%{transform:rotate(12deg)}62%{transform:rotate(48deg)}80%{transform:rotate(38deg)}92%{transform:rotate(8deg)}100%{transform:rotate(0)}}
 @keyframes hombro{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-20deg)}}
@@ -385,20 +390,22 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 /* girar de lado a frente (como voltearse) */
 .chico .lado{transform-origin:94px 124px}
 .chico .frente{transform-origin:100px 124px;transform:scaleX(0);opacity:0}
+.chico .cam-f,.chico .brazo-izq-f{transform:translateY(16px);opacity:0}
+.gira .chico .cam-f,.gira .chico .brazo-izq-f{transform:none;opacity:1;transition:transform .3s .42s cubic-bezier(.3,.8,.3,1.2),opacity .15s .42s}
 .gira .chico .lado{transform:scaleX(0);transition:transform .22s ease-in}
 .gira .chico .frente{transform:scaleX(1);opacity:1;transition:transform .26s .22s cubic-bezier(.2,.9,.3,1.2),opacity 0s .22s}
 .gira .chico .polvo{animation-play-state:paused}
 /* oprimir el botón */
-.chico .brazo-der-f{stroke-dasharray:100;stroke-dashoffset:100}
+.chico .brazo-der-f{stroke-dasharray:60;stroke-dashoffset:60}
 .chico .boton{fill:#000;transition:transform .08s}
 .chico .clics{opacity:0}
 .aprieta .chico .brazo-der-f{stroke-dashoffset:0;transition:stroke-dashoffset .38s cubic-bezier(.3,.7,.3,1)}
-.clic .chico .boton{transform:translateY(2.5px)}
+.clic .chico .boton{transform:translateY(1.6px)}
 .clic .chico .clics{animation:clics .5s ease-out forwards}
 @keyframes clics{0%{opacity:0;transform:scale(.9)}25%{opacity:1;transform:scale(1.04)}100%{opacity:0;transform:scale(1.1)}}
 .clic .chico .cam-f circle:last-of-type{animation:lente .3s ease-out}
 @keyframes lente{50%{transform:scale(.92)}}
-.chico .cam-f circle{transform-origin:100px 45px}
+.chico .cam-f circle{transform-origin:100px 39.5px}
 .flashea .carga-flash{animation:flash-pantalla .45s ease-out forwards}
 .carga-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
 @keyframes flash-pantalla{0%{opacity:.8}100%{opacity:0}}
@@ -807,7 +814,7 @@ main section.cat{border-top:1px solid var(--linea)}
 /* =====================================================================
    TEMA CRIMSON NOIR: degradado negro → vino → carmesí + vidrio esmerilado
    ===================================================================== */
-:root{--negro:#030407;--vino:#6d001a;--carmesi:#c50337;--ambar:#ff5a7a;--grasa:#ff5a7a;--grasa-luz:#ff5a7a;--tierra:#c50337;
+:root{--negro:#030407;--vino:#6d001a;--carmesi:#c50337;--ambar:#e8403f;--grasa:#e8403f;--grasa-luz:#e8403f;--tierra:#c50337;
   --vidrio:linear-gradient(155deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.035) 55%,rgba(255,255,255,.06) 100%);
   --borde-vidrio:rgba(255,255,255,.13);--mesa:#05050a;--mesa2:rgba(255,255,255,.05);--linea:rgba(255,255,255,.09)}
 body{background:var(--negro)}
@@ -828,7 +835,7 @@ main section.cat{border-top:0}
 .cab h2,.cab h2.oro{font-weight:700}
 .copia h3{font-weight:600;font-size:1.35rem}
 .banda-t{font-weight:700}
-.subraya{background:linear-gradient(90deg,var(--carmesi),#ff5a7a)}
+.subraya{background:linear-gradient(90deg,#b8182a,#e8403f)}
 .copia h3::after{background:var(--carmesi)}
 
 /* portada: la foto se funde con el degradado y el texto va en un panel de vidrio */
@@ -836,7 +843,7 @@ main section.cat{border-top:0}
 .hero-foto img{-webkit-mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,.6) 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,.6) 70%,transparent 100%)}
 .hero-grid,.hero-grid.wrap{max-width:780px;margin-top:-120px;padding:30px 26px 26px;border-radius:28px;background:var(--vidrio);border:1px solid var(--borde-vidrio);
   box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
-.hero .quien{color:#ff8aa1}
+.hero .quien{color:#f26457}
 .btn{border-radius:999px}
 .btn-osc{background:#fff;color:#0b0b0b}
 .btn-ambar,.cotiza .btn-osc,.cierre .btn-osc{background:linear-gradient(135deg,#c50337,#8c0024);color:#fff;box-shadow:0 8px 24px rgba(197,3,55,.35)}
@@ -854,21 +861,21 @@ main section.cat{border-top:0}
 .copia,.cat-btn,.tam,.cotiza,.cuenta,.caja-precio,.claves span,.pf-filtros button,.datos span,.cab .meta span,.copia .etq{background:var(--vidrio);border:1px solid var(--borde-vidrio)}
 .copia{border-radius:22px;box-shadow:0 22px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12)}
 .copia .foto,.copia .recorte{border-radius:22px 22px 0 0;overflow:hidden}
-.copia.reco{border-color:rgba(255,90,122,.7);box-shadow:0 0 0 1px rgba(255,90,122,.5),0 22px 50px rgba(0,0,0,.45)}
+.copia.reco{border-color:rgba(232,64,63,.7);box-shadow:0 0 0 1px rgba(232,64,63,.5),0 22px 50px rgba(0,0,0,.45)}
 .copia .marca{background:var(--carmesi);color:#fff}
 .sello-reco{background:#fff;color:#0b0b0b}
 .caja-precio{border-radius:16px;background:rgba(0,0,0,.28)}
 .precio s::after{background:var(--carmesi)}
-.ahorro{color:#ff8aa1}
+.ahorro{color:#f26457}
 .cat-btn{border-radius:22px;box-shadow:0 16px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.1)}
-.cat-btn.top{border-color:rgba(255,90,122,.45)}
+.cat-btn.top{border-color:rgba(232,64,63,.45)}
 .cat-btn .sello{background:var(--carmesi);color:#fff}
-.cat-btn em{color:#ff8aa1}
+.cat-btn em{color:#f26457}
 .tam{border-radius:18px}
 .cotiza{border-radius:22px}
 .cotiza input,.cotiza select{background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.16)}
 .cuenta{border-radius:14px}
-.copiar{border-color:#ff5a7a;color:#ff8aa1}
+.copiar{border-color:#e8403f;color:#f26457}
 .regalo{border-left-color:var(--carmesi)}
 .mas{background:#fff}
 .puntos button{background:rgba(255,255,255,.25)}
@@ -892,33 +899,29 @@ main section.cat{border-top:0}
       <g class="lado">
         <g class="cuerpo">
           <g class="tronco">
-            <g class="pierna pb"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L95 124"/></g></g></g>
+            <g class="pierna pb"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L94 124"/></g></g></g>
             <g class="brazo bb"><g class="hombro"><path d="M89 62 V74"/><g class="codo"><path d="M89 74 V85"/></g></g></g>
-            <path class="torso" d="M83 58 Q82 52 89 52 Q96 52 95 58 L95 90 Q95 96 89 96 Q83 96 83 90 Z"/>
-            <g class="cabeza-cam">
-              <rect x="72" y="22" width="32" height="27" rx="4"/>
-              <rect x="104" y="27" width="11" height="17" rx="2"/><path d="M115 29 v13"/>
-              <rect x="77" y="18" width="8" height="4" rx="1"/>
-            </g>
-            <g class="pierna pa"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L95 124"/></g></g></g>
+            <g class="cabeza-cam"><circle class="cabeza" cx="90" cy="40" r="8.5"/></g>
+            <path class="torso" d="M89 49 L89 94"/>
+            <g class="colgada"><path class="correa" d="M88 52 Q92 60 95 65"/><rect x="93" y="65" width="10" height="7.5" rx="1.5"/><rect x="103" y="66.2" width="4.5" height="5" rx="1"/></g>
+            <g class="pierna pa"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L94 124"/></g></g></g>
             <g class="brazo ba"><g class="hombro"><path d="M89 62 V74"/><g class="codo"><path d="M89 74 V85"/></g></g></g>
           </g>
         </g>
       </g>
       <g class="frente">
-        <path class="pierna-f" d="M94 98 Q93 112 93 123 Q87 123 84 125 M106 98 Q107 112 107 123 Q113 123 116 125"/>
-        <path class="torso-f" d="M88 66 L88 100 M112 66 L112 100 M88 100 Q100 104 112 100"/>
-        <path class="brazo-izq-f" d="M88 70 Q78 84 86 100"/>
+        <path d="M100 92 L93 124 M100 92 L107 124"/>
+        <path d="M100 48 L100 92"/>
+        <circle class="cabeza" cx="100" cy="37" r="8.5"/>
+        <path class="brazo-izq-f" d="M100 58 L88 52 L89 43"/>
         <g class="cam-f">
-          <rect x="62" y="22" width="76" height="46" rx="5"/>
-          <rect x="69" y="28" width="14" height="9" rx="1.5"/>
-          <circle cx="100" cy="45" r="16"/><circle cx="100" cy="45" r="12.5"/>
-          <path class="cara" d="M95 42 v2 M105 42 v2 M100 45 l-1 4 h2"/>
-          <path class="cara" d="M92.5 40.5 q-1.5 2 0 4 M107.5 40.5 q1.5 2 0 4"/>
+          <rect x="85" y="30" width="30" height="19" rx="3"/>
+          <rect x="88.5" y="33" width="5.5" height="3.5" rx=".8"/>
+          <circle cx="100" cy="39.5" r="6"/><circle cx="100" cy="39.5" r="2.6"/>
         </g>
-        <path class="brazo-der-f" d="M112 72 Q150 70 148 42 Q147 17 131 17 L128 18"/>
-        <rect class="boton" x="121" y="16" width="9" height="6" rx="1.5"/>
-        <g class="clics"><path d="M64 14 l2 4 M73 11 v4 M82 12 l-1 4 M57 22 l4 2 M56 31 h4"/><path d="M127 9 l1 3 M134 8 l-1 4 M140 13 l-3 2"/></g>
+        <path class="brazo-der-f" d="M100 58 L115 51 L112 28"/>
+        <rect class="boton" x="107" y="26.5" width="6" height="3.5" rx="1"/>
+        <g class="clics"><path d="M86 22 l1.5 3 M93 19 v3.5 M80 28 l3 1.5"/><path d="M113 20 l.8 3 M118 21 l-1.5 3 M121 26 l-3 1"/></g>
       </g>
       <path class="suelo" d="M30 125 H170"/>
       <path class="polvo" d="M30 131 H170"/>
@@ -942,7 +945,7 @@ main section.cat{border-top:0}
       <a class="btn btn-linea solo-desk" href="#reservar">Cotizar mi fecha</a>
       <a class="btn btn-linea solo-desk" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir por WhatsApp</a>
     </div>
-    <p class="prueba"><b>7.400+</b> seguidores en Instagram <i></i> <b>400+</b> trabajos publicados <i></i> Canon R6 Mark II</p>
+    <p class="prueba"><b>7.400+</b> seguidores en Instagram <i></i> <b>400+</b> trabajos publicados</p>
     <div class="redes-top">
       <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener" aria-label="Instagram @eldelasfotoschimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4 .1-3.6.2-5.6 2.2-5.7 5.7-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.6 2.2 5.6 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.6-.2 5.6-2.2 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.6-2.2-5.6-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.5.1 3.8 1.3 3.9 3.9.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-2.9 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-2.9.1-4C4.2 5.4 5.4 4.2 8 4.1c1 0 1.3-.1 4-.1z"/></svg></a>
       <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener" aria-label="TikTok @fotos.chimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></a>
@@ -958,9 +961,7 @@ main section.cat{border-top:0}
   </div>
   <div class="tira-zona" aria-hidden="true">
     <div class="tira">
-      <span class="canto sup">CHIMBITAS 400 &nbsp;▸ 14 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 18 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 19</span>
       <div class="cuadros" id="cuadros" aria-label="Fotos recientes: arrastra para ver más, toca una para verla en grande"><div class="pista" id="pista"><div class="cuadro" data-i="0"><img src="img/t/Dd7rrBikZwa.webp?v=4" alt="" width="360" height="450" decoding="async" fetchpriority="high"></div><div class="cuadro" data-i="1"><img src="img/t/DXp_ouakXSJ.webp?v=4" alt="" width="360" height="450" decoding="async" fetchpriority="high"><svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none" aria-hidden="true"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg><span class="nota" style="left:8px;bottom:-36px">esta es con dron</span></div><div class="cuadro" data-i="2"><img src="img/t/Dd5NABKERx9.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="3"><img src="img/t/DedLfhJEYZI.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="4"><img src="img/t/DdpwbxuEaYp.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="5"><img src="img/t/DZ8IIDfEaJk.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="6"><img src="img/t/Ddz_K87kSao.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="7"><img src="img/t/DczjzDGkZQX.webp?v=4" alt="" width="360" height="450" decoding="async"></div><div class="cuadro" data-i="8"><img src="img/t/DXXxXy-kXWi.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="9"><img src="img/t/DWsJ5kFEdwB.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="10"><img src="img/t/DXQML3OEZgZ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="11"><img src="img/t/DbzDHAEESEY.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="12"><img src="img/t/DdKvO91kaIJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="13"><img src="img/t/DZYwf8LERvr.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="14"><img src="img/t/DYiEHkWEc_N.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="15"><img src="img/t/DX5hQ28ke6A.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="16"><img src="img/t/DdmYT1OGi0v.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="17"><img src="img/t/DarDRYgkRXA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="18"><img src="img/t/DYvedVEkb7z.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="19"><img src="img/t/DY-9at7EYuO.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="20"><img src="img/t/Dbo5OqcEaBA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="21"><img src="img/t/DajX1RwEXMy.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="22"><img src="img/t/DWzuKGhkZAn.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="23"><img src="img/t/DaB78dnEZBE.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="0"><img src="img/t/Dd7rrBikZwa.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="1"><img src="img/t/DXp_ouakXSJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"><svg class="circulo" viewBox="0 0 250 300" preserveAspectRatio="none" aria-hidden="true"><path d="M128 14 C 205 10, 244 70, 240 150 C 236 236, 190 292, 118 288 C 46 284, 8 226, 10 146 C 12 66, 58 18, 140 22 C 170 24, 186 34, 196 44"/></svg><span class="nota" style="left:8px;bottom:-36px">esta es con dron</span></div><div class="cuadro" data-i="2"><img src="img/t/Dd5NABKERx9.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="3"><img src="img/t/DedLfhJEYZI.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="4"><img src="img/t/DdpwbxuEaYp.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="5"><img src="img/t/DZ8IIDfEaJk.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="6"><img src="img/t/Ddz_K87kSao.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="7"><img src="img/t/DczjzDGkZQX.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="8"><img src="img/t/DXXxXy-kXWi.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="9"><img src="img/t/DWsJ5kFEdwB.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="10"><img src="img/t/DXQML3OEZgZ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="11"><img src="img/t/DbzDHAEESEY.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="12"><img src="img/t/DdKvO91kaIJ.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="13"><img src="img/t/DZYwf8LERvr.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="14"><img src="img/t/DYiEHkWEc_N.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="15"><img src="img/t/DX5hQ28ke6A.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="16"><img src="img/t/DdmYT1OGi0v.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="17"><img src="img/t/DarDRYgkRXA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="18"><img src="img/t/DYvedVEkb7z.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="19"><img src="img/t/DY-9at7EYuO.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="20"><img src="img/t/Dbo5OqcEaBA.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="21"><img src="img/t/DajX1RwEXMy.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="22"><img src="img/t/DWzuKGhkZAn.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div><div class="cuadro" data-i="23"><img src="img/t/DaB78dnEZBE.webp?v=4" alt="" width="360" height="450" decoding="async" loading="lazy" fetchpriority="low"></div></div></div>
-      <span class="canto inf">KODAK SAFETY FILM ▸ MÁLAGA · SANTANDER &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 15A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 16A &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;▸ 17A</span>
     </div>
   </div>
   <span class="pista-ayuda wrap">arrastra la tira o toca una foto</span>
@@ -1109,7 +1110,7 @@ main section.cat{border-top:0}
       <div class="cab"><h2 class="oro">Quién toma las fotos</h2></div>
       <p>Soy Edson Penagos, fotógrafo y videógrafo. Hago XV años, grados, bodas, sesiones y carreras, y a los eventos voy con asistente de iluminación para que ninguna foto quede oscura.</p>
       <p>Trabajo con cámara profesional y dron, grabo en 4K y edito cada entrega: color, luz y, en sesiones, retoque de piel.</p>
-      <div class="datos"><span>Canon EOS R6 Mark II</span><span>Video 4K</span><span>Tomas con dron</span><span>Asistente de iluminación</span><span>Entrega por Google Drive</span></div>
+      <div class="datos"><span>Video 4K</span><span>Tomas con dron</span><span>Asistente de iluminación</span><span>Entrega por Google Drive</span></div>
     </div>
   </div>
 </section>

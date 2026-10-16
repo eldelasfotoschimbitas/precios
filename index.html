@@ -894,6 +894,41 @@ main section.cat{border-top:0}
 .burbuja{background:#fff;color:#141414;border:1px solid rgba(255,255,255,.6)}
 .burbuja b{color:#141414}
 .burbuja button{color:#555}
+.copias{align-items:flex-start}
+.copia li.extra{display:none}
+.copia.abierta li.extra{display:list-item;animation:aparece-li .3s ease-out}
+@keyframes aparece-li{from{opacity:0;transform:translateY(-4px)}to{opacity:1;transform:none}}
+.ver-mas{align-self:flex-start;margin:-8px 18px 16px;padding:6px 14px;min-height:36px;border-radius:999px;border:1px solid rgba(255,255,255,.18);background:rgba(255,255,255,.05);color:#fff;font:inherit;font-size:.85rem;font-weight:600;cursor:pointer}
+.ver-mas:hover{border-color:#f34c5f}
+.copia .acciones{margin-top:4px}
+
+/* celular: cada tarjeta muestra foto, nombre, precio y descripción en un solo panel */
+@media (max-width:640px){
+  .copias > .copia{flex:0 0 86%}
+  .copia{padding-bottom:14px}
+  .copia .foto{margin:10px 10px 0;border-radius:16px;overflow:hidden}
+  .copia .foto,.copia .recorte{border-radius:16px}
+  .copia .foto img{aspect-ratio:auto;height:clamp(230px,38vh,340px)}
+  .copia .foto.sinfoto::before{aspect-ratio:auto;height:clamp(230px,38vh,340px)}
+  .copia .etq,.copia .tipo{display:none}
+  .copia > *:not(.foto):not(.sello-reco){margin-left:14px;margin-right:14px}
+  .copia h3{font-size:1.18rem;margin-top:12px;line-height:1.2}
+  .copia h3::after{display:none}
+  .claves{margin:6px 0 0;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
+  .claves::-webkit-scrollbar{display:none}
+  .claves span{flex:none;font-size:.76rem;padding:4px 8px}
+  .caja-precio{margin:10px 14px 8px;padding:8px 12px}
+  .caja-precio .precio{gap:8px;flex-wrap:wrap;align-items:baseline}
+  .caja-precio .precio b{font-size:1.55rem}
+  .ahorro{display:inline;margin:0 6px;font-size:.8rem}
+  .separa{display:block;margin-top:2px;font-size:.8rem;white-space:nowrap}
+  .copia .desc{font-size:.9rem;line-height:1.45;margin-bottom:8px}
+  .incluye{margin:2px 14px 4px}
+  .copia ul{gap:4px;margin-bottom:10px}
+  .copia li{font-size:.9rem}
+  .ver-mas{margin:-4px 14px 10px}
+  .acciones .btn{min-height:44px}
+}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
@@ -1197,7 +1232,7 @@ const CATS = [
   {img:"m_ses_premium", n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
   {img:"m_ses_predron", n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV o boda. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
  ], nota:"Hora adicional de sesión: $30.000 por cada hora después de las 3 horas."},
- {id:"eventos", nav:"Eventos", titulo:"Cobertura de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"copias", items:[
+ {id:"eventos", nav:"Eventos", titulo:"Fotos de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"copias", items:[
   {img:"e_memories", n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
   {img:"e_moments", n:"Moments · 50 fotos", d:"-7%", s:"$452.000", p:"$420.000", desc:"50 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
   {img:"e_forever", n:"Forever · 100 fotos", d:"-10%", s:"$678.000", p:"$610.000", desc:"100 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
@@ -1205,15 +1240,15 @@ const CATS = [
   {img:"e_deluxe", n:"Deluxe Pro · 200 fotos", d:"-20%", s:"$1.075.000", p:"$860.000", desc:"200 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
   {img:"e_extra", n:"Paquete extra: todo sin editar", d:"-7%", s:"$376.000", p:"$350.000", desc:"Todo el material en crudo, solo o sumado a tu paquete. Te recomiendo priorizar las editadas como resultado final. Si compras un paquete editado, este costo baja."}
  ]},
- {id:"video", nav:"Video", titulo:"Video", linea:"Edición envolvente, musicalización y color. Grabo con cámara profesional o iPhone según la entrega.", tipo:"copias", items:[
+ {id:"video", nav:"Videos", titulo:"Videos", linea:"Edición envolvente, musicalización y color. Grabo con cámara profesional o iPhone según la entrega.", tipo:"copias", items:[
   {img:"v_corto", n:"Video corto · 30 a 60 segundos", p:"$250.000", desc:"Dinámico y directo, ideal para redes, promociones rápidas o contenido flash. Edición ágil, música y color."},
   {img:"v_estandar", n:"Video estándar · 1:30 a 3 minutos", p:"$350.000", desc:"Más desarrollo narrativo, edición más elaborada y música."},
   {img:"v_cine", n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
   {img:"v_ext", n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
   {img:"v_evento", n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
-  {img:"v_musical2", n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
+  {img:"v_musical3", n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
  ]},
- {id:"dron", nav:"Dron", titulo:"Servicios de dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"copias", items:[
+ {id:"dron", nav:"Dron", titulo:"Dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"copias", items:[
   {img:"m_dron_709", n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
   {img:"m_dron_log", n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
   {img:"m_dron_color", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
@@ -1226,7 +1261,7 @@ const CATS = [
   {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
   {img:"gradbuc2", n:"Grados Bucaramanga", t:"Solo fotografía", p:"$120.000", por:"por persona", inc:["7 fotografías editadas en digital","Cobertura de la ceremonia","Fotos antes o después, con calma"], pdf:"pdf/Grados_Bucaramanga.pdf?v=10"}
  ]},
- {id:"deportivo", nav:"Deportivo", titulo:"Carreras y eventos deportivos", linea:"Los corredores compran sus fotos en línea, encontrándose por reconocimiento de rostro.", tipo:"copias", items:[
+ {id:"deportivo", nav:"Deportes", titulo:"Deportes y carreras", linea:"Los corredores compran sus fotos en línea, encontrándose por reconocimiento de rostro.", tipo:"copias", items:[
   {img:"runningh", n:"Paquete Deportivo", t:"Fotografía + video", d:"-5%", s:"$820.000", p:"$780.000", inc:["50 fotografías base del evento","Video tipo reel (1–2 min)","Dron para tomas aéreas","Transporte incluido, 2 encargados","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Paquete_Deportivo_Reel_Dron_50_fotos.pdf"},
   {img:"running", n:"Fotografía Deportiva", t:"Solo fotografía", p:"$450.000", inc:["50 fotografías base editadas","Transporte incluido","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Fotografia_Deportiva_50_fotos.pdf"},
   {img:"runningd", n:"Video Cámara + Dron", t:"Solo video", p:"$350.000", inc:["Reel de 1–2 min con cámara y dron","Tomas aéreas y en tierra","Entrega en 4K"], pdf:"pdf/Video_Camara_y_Dron.pdf"},
@@ -1237,14 +1272,14 @@ const CATS = [
    {sub:"Impresiones", items:[["10×15 cm","$2.500","m_imp_10x15"],["13×18 cm","$5.000","m_imp_13x18"],["15×20 cm","$5.500","m_imp_15x20"],["20×25 cm","$10.000","m_imp_20x25"],["20×30 cm","$10.000","m_imp_20x30"]]},
    {sub:"Retablos", items:[["30×40 cm","$45.000","m_ret_30x40"],["40×60 cm","$75.000","m_ret_40x60"],["80×100 cm","$120.000","m_ret_80x100"]]}
   ]},
- {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones virtuales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"copias", items:[
+ {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones digitales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"copias", items:[
   {img:"m_inv_digital", vid:"i_digital", n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
   {img:"i_video_p", vid:"i_video", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
   {img:"i_sencilla", vid:"i_sencilla", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
   {img:"i_tematica", vid:"i_tematica", n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
   {img:"i_fotos", vid:"i_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
- {id:"ia", nav:"IA", titulo:"Servicios con inteligencia artificial", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"copias", items:[
+ {id:"ia", nav:"IA", titulo:"Fotos y videos con IA", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"copias", items:[
   {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
   {icono:"video", n:"Videos con IA", t:"Video", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
   {icono:"chat", n:"Chatbots", t:"Atención automática", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
@@ -1296,7 +1331,7 @@ function cajaPrecio(it){
   const sep = !it.por && num(it.p) >= 100000 ? `<span class="separa">Separa tu fecha con ${pesos(Math.round(num(it.p) * .4 / 1000) * 1000)}</span>` : "";
   return `<div class="caja-precio">${precio(it)}${ah > 0 ? `<span class="ahorro">Ahorras ${pesos(ah)}</span>` : ""}${sep}</div>`;
 }
-function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join("")}</ul>` : ""; }
+function lista(inc){ if (!inc) return ""; const extra = inc.length - 3; return `<ul>${inc.map((x, i) => `<li${i >= 3 ? ' class="extra"' : ""}>${esc(x)}</li>`).join("")}</ul>${extra > 0 ? `<button type="button" class="ver-mas" data-n="${extra}">Ver más (${extra})</button>` : ""}`; }
 
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
@@ -1334,16 +1369,16 @@ function tamanos(c){
 
 /* panel de entrada: una tarjeta por categoría, con el texto corto que estaba en Canva */
 const PANEL = {
-  xv:{t:"Combos Completos", txt:"XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete.", sello:"lo más completo"},
-  sesiones:{t:"Paquetes Fotográficos", txt:"Sesiones con edición cuidada y resultados de alta calidad."},
-  eventos:{t:"Cobertura de eventos", txt:"Eucaristía y fiesta, con asistente de iluminación."},
-  video:{t:"Paquetes Videográficos", txt:"Videos creativos que cuentan historias y destacan tu evento o marca."},
-  dron:{t:"Servicios de Dron", txt:"Tomas aéreas en alta resolución, con perspectiva única."},
+  xv:{t:"Combos Completos", txt:"XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete.", sello:"Lo más completo"},
+  sesiones:{t:"Sesiones de fotos", txt:"Sesiones con edición cuidada y resultados de alta calidad."},
+  eventos:{t:"Fotos de eventos", txt:"Eucaristía y fiesta, con asistente de iluminación."},
+  video:{t:"Videos", txt:"Videos creativos que cuentan historias y destacan tu evento o marca."},
+  dron:{t:"Dron", txt:"Tomas aéreas en alta resolución, con perspectiva única."},
   grados:{t:"Grados", txt:"Pre-grado, ceremonia, impresiones y retablo. Precio por persona."},
-  deportivo:{t:"Eventos deportivos", txt:"Carreras: fotos, reel y dron, con venta en línea."},
+  deportivo:{t:"Deportes y carreras", txt:"Carreras: fotos, reel y dron, con venta en línea."},
   impresiones:{t:"Impresiones y retablos", txt:"Impresiones y retablos premium para conservar tus mejores recuerdos."},
-  invitaciones:{t:"Invitaciones Virtuales", txt:"Digitales, personalizadas, elegantes y fáciles de compartir."},
-  ia:{t:"Inteligencia Artificial", txt:"Herramientas creativas con IA para imágenes, video y chatbots."}
+  invitaciones:{t:"Invitaciones digitales", txt:"Digitales, personalizadas, elegantes y fáciles de compartir."},
+  ia:{t:"Fotos y videos con IA", txt:"Herramientas creativas con IA para imágenes, video y chatbots."}
 };
 const num = t => parseInt(String(t).replace(/[^\d]/g, ""), 10) || 0;
 const pesos = n => "$" + n.toLocaleString("es-CO");
@@ -1355,7 +1390,7 @@ function botones(){
     const k = PANEL[c.id], ps = preciosDe(c), min = ps.length ? Math.min(...ps) : 0;
     return `<a class="cat-btn${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
       <img src="img/c_${c.id}.webp?v=6" alt="" width="76" height="95" decoding="async" loading="${i < 4 ? "eager" : "lazy"}">
-      <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "desde " + pesos(min) : "a cotizar"} · ${cuantos(c)} opciones</em></span>
+      <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "Desde " + pesos(min) : "A cotizar"} · ${cuantos(c)} opciones</em></span>
       ${FLECHA}
     </a>`;
   }).join("");
@@ -1380,7 +1415,7 @@ const main = document.getElementById("contenido");
 main.innerHTML = panel() + CATS.map(c => `
   <section class="cat wrap" id="${c.id}">
     ${c.foto ? `<div class="cab-foto"><div class="cab"><h2>${esc(c.titulo)}</h2><p>${esc(c.linea)}</p></div><div class="copia-mini"><img src="img/${c.foto}.jpg" alt="" loading="lazy"></div></div>`
-             : `<div class="cab"><h2 class="oro">${esc(c.titulo)}</h2>${SUBRAYA}<p>${esc(c.linea)}</p><div class="meta"><span>${cuantos(c)} opciones</span>${preciosDe(c).length ? `<span>desde ${pesos(Math.min(...preciosDe(c)))}</span>` : ""}</div></div>`}
+             : `<div class="cab"><h2 class="oro">${esc(c.titulo)}</h2>${SUBRAYA}<p>${esc(c.linea)}</p><div class="meta"><span>${cuantos(c)} opciones</span>${preciosDe(c).length ? `<span>Desde ${pesos(Math.min(...preciosDe(c)))}</span>` : ""}</div></div>`}
     ${c.tipo === "copias" && c.items.length > 1 ? `<p class="desliza" aria-hidden="true">desliza para ver ${c.items.length} opciones →</p>` : ""}
     ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
     ${c.tipo === "copias" && c.items.length > 1 ? `<div class="puntos" role="tablist" aria-label="Opciones de ${esc(c.nav)}">${c.items.map((it, i) => `<button type="button" aria-label="${esc(it.n)}"${i ? "" : ' class="activo"'}></button>`).join("")}</div>` : ""}
@@ -1533,6 +1568,13 @@ if (RESENAS.length) {
   }), {rootMargin:"200px 0px", threshold:.25});
   vids.forEach(v => io.observe(v));
 })();
+
+/* "Ver más" en listas largas */
+document.addEventListener("click", e => {
+  const b = e.target.closest(".ver-mas"); if (!b) return;
+  const card = b.closest(".copia"), abierta = card.classList.toggle("abierta");
+  b.textContent = abierta ? "Ver menos" : `Ver más (${b.dataset.n})`;
+});
 
 /* ---------- interacción ---------- */
 const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;

@@ -936,6 +936,7 @@ main section.cat{border-top:0}
 .claves::-webkit-scrollbar{display:none}
 .copia h3{min-height:2.3em;display:flex;align-items:center;justify-content:center;flex-direction:column}
 @media (max-width:640px){.copia .detalle{--alto-detalle:4.5em}.claves{justify-content:flex-start}.copia h3{min-height:2.4em}}
+.caja-precio{display:flex;flex-direction:column;justify-content:center}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
@@ -1585,11 +1586,13 @@ function medirDetalles(){
   });
 }
 function igualar(){
-  document.querySelectorAll(".copias").forEach(g => {
-    const cs = [...g.querySelectorAll(".copia")]; cs.forEach(c => c.style.minHeight = "");
-    const max = Math.max(...cs.filter(c => !c.classList.contains("abierta")).map(c => c.getBoundingClientRect().height));
-    cs.forEach(c => { if (!c.classList.contains("abierta")) c.style.minHeight = max + "px"; });
-  });
+  const igual = (sel) => {
+    const els = [...document.querySelectorAll(sel)].filter(e => !e.closest(".copia.abierta"));
+    els.forEach(e => e.style.minHeight = "");
+    const max = Math.max(0, ...els.map(e => e.getBoundingClientRect().height));
+    els.forEach(e => e.style.minHeight = max + "px");
+  };
+  igual(".copia h3"); igual(".copia .claves"); igual(".copia .caja-precio"); igual(".copia");
 }
 function ajustar(){ medirDetalles(); igualar(); }
 ajustar(); addEventListener("load", ajustar); addEventListener("resize", ajustar);
@@ -1597,7 +1600,7 @@ document.addEventListener("click", e => {
   const b = e.target.closest(".ver-mas"); if (!b) return;
   const card = b.closest(".copia"), abierta = card.classList.toggle("abierta");
   b.textContent = abierta ? "Ver menos" : "Ver más";
-  if (abierta) card.style.minHeight = ""; else igualar();
+  if (abierta) card.style.minHeight = ""; igualar();
 });
 
 /* ---------- interacción ---------- */

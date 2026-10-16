@@ -351,26 +351,30 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .intro.listo .carga-centro{animation:desvanece .45s forwards}
 @keyframes desvanece{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}
 
-/* el chico que camina con la cámara: línea blanca sobre negro, como los loaders de referencia */
+/* el chico que camina con la cámara: línea blanca, piernas y brazos con articulaciones (ciclo de 1 s) */
 .chico{width:190px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
 .chico .cabeza{fill:#000}
-.chico .cuerpo{animation:paso-bob .42s ease-in-out infinite alternate}
-@keyframes paso-bob{from{transform:translateY(0)}to{transform:translateY(-2px)}}
-.chico .pierna,.chico .brazo-izq,.chico .brazo-der{transform-box:view-box}
-.chico .pierna{transform-origin:90px 88px}
-.chico .pierna.adelante{animation:pierna .84s ease-in-out infinite}
-.chico .pierna.atras{animation:pierna .84s ease-in-out infinite reverse}
-@keyframes pierna{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-22deg)}}
-.chico .brazo-izq{transform-origin:90px 54px;animation:brazo .84s ease-in-out infinite}
-@keyframes brazo{0%,100%{transform:rotate(-24deg)}50%{transform:rotate(24deg)}}
-.chico .brazo-der{transform-origin:90px 54px;animation:brazo-cam .84s ease-in-out infinite}
-@keyframes brazo-cam{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(4deg)}}
+.chico *{transform-box:view-box}
+.chico .cuerpo{animation:bob .5s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes bob{0%,100%{transform:translateY(0) rotate(0)}50%{transform:translateY(-2.4px) rotate(.6deg)}}
+.chico .muslo{transform-origin:90px 86px;animation:muslo 1s linear infinite}
+.chico .canilla{transform-origin:90px 104px;animation:canilla 1s linear infinite}
+.chico .pb .muslo,.chico .pb .canilla{animation-delay:-.5s}
+.chico .pb{opacity:.6}
+@keyframes muslo{0%{transform:rotate(-24deg)}15%{transform:rotate(-14deg)}35%{transform:rotate(4deg)}50%{transform:rotate(20deg)}62%{transform:rotate(16deg)}80%{transform:rotate(-8deg)}100%{transform:rotate(-24deg)}}
+@keyframes canilla{0%{transform:rotate(0)}15%{transform:rotate(8deg)}35%{transform:rotate(4deg)}50%{transform:rotate(12deg)}62%{transform:rotate(48deg)}80%{transform:rotate(38deg)}92%{transform:rotate(8deg)}100%{transform:rotate(0)}}
+.chico .brazo-a{transform-origin:90px 52px;animation:brazo 1s cubic-bezier(.45,0,.55,1) infinite;opacity:.6}
+.chico .brazo-a .ante{transform-origin:90px 65px;animation:ante 1s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes brazo{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-20deg)}}
+@keyframes ante{0%,100%{transform:rotate(-8deg)}50%{transform:rotate(-34deg)}}
+.chico .brazo-c{transform-origin:90px 52px;animation:brazo-cam .5s cubic-bezier(.45,0,.55,1) infinite}
+@keyframes brazo-cam{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
 .chico .camara rect{fill:#000}
-.chico .destello{fill:#fff;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:flash-cam 2.5s 1.2s ease-out infinite}
+.chico .destello{fill:var(--ambar);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:flash-cam 2.5s 1.2s ease-out infinite}
 @keyframes flash-cam{0%,86%{opacity:0;transform:scale(.3)}90%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(.6)}}
-.chico .suelo{stroke:#fff;stroke-width:1.6}
-.chico .polvo{stroke:#3c3c3c;stroke-width:1.4;stroke-dasharray:2 22;animation:suelo .84s linear infinite}
-@keyframes suelo{to{stroke-dashoffset:24}}
+.chico .suelo{stroke:#fff;stroke-width:1.5}
+.chico .polvo{stroke:#3a3a3a;stroke-width:1.4;stroke-dasharray:2 22;animation:suelo 1s linear infinite}
+@keyframes suelo{to{stroke-dashoffset:48}}
 
 .carga-nombre{margin-top:10px;font-family:'Bodoni Moda',serif;font-weight:500;font-size:1.35rem;letter-spacing:.04em;color:#fff}
 .carga-linea{width:90px;height:1px;border-radius:1px;background:#262626;margin-top:12px;overflow:hidden}
@@ -630,13 +634,15 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 /* =====================================================================
    TEMA "FOCUS": negro, blanco y un acento verde. Va al final para mandar.
    ===================================================================== */
-:root{--mesa:#0e0e0e;--mesa2:#171717;--luz:#0e0e0e;--tinta:#f4f4f4;--gris:#a6a6a6;--ambar:#5fb064;--grasa:#5fb064;--grasa-luz:#5fb064;--pelicula:#000;--linea:#262626}
+:root{--mesa:#0c0c0c;--mesa2:#161616;--luz:#0c0c0c;--tinta:#f4f1ea;--gris:#a8a49b;--ambar:#c9a55c;--grasa:#c9a55c;--grasa-luz:#c9a55c;--pelicula:#000;--linea:#262422}
 body{background:var(--mesa);color:var(--tinta)}
 
 /* portada: foto a todo el ancho y texto centrado debajo */
 .hero{background:var(--mesa);color:var(--tinta);padding:0 0 30px}
 .hero-foto{position:relative;height:min(68vh,620px);overflow:hidden}
 .hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-foto.es-edson{background:#fff}
+.hero-foto.es-edson img{object-fit:contain;object-position:center bottom;filter:grayscale(1) contrast(1.05)}
 .hero-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,0) 45%,var(--mesa) 100%)}
 .hero-grid,.hero-grid.wrap{display:block!important;text-align:center;margin-top:-90px;position:relative;z-index:2}
 .hero h1{max-width:none;color:#fff;font-size:clamp(3rem,11vw,6.4rem);font-weight:500}
@@ -648,7 +654,7 @@ body{background:var(--mesa);color:var(--tinta)}
 .btn-linea{border-color:#4a4a4a;color:#fff}
 .btn-linea:hover{background:rgba(255,255,255,.08);border-color:#fff}
 .btn-ambar{background:var(--ambar);color:#0b0b0b}
-.btn-ambar:hover{background:#71c276}
+.btn-ambar:hover{background:#d9b872}
 .prueba{justify-content:center;color:#b5b5b5}
 .prueba b{color:#fff}
 .prueba i{background:var(--ambar)}
@@ -697,7 +703,7 @@ main section.cat{border-top:1px solid var(--linea)}
 .caja-precio .precio{justify-content:center}
 .caja-precio .precio b{color:#fff}
 .precio s::after{background:var(--ambar)}
-.ahorro{color:#7fd184}
+.ahorro{color:#d8bf86}
 .incluye{text-align:left}
 .acciones{justify-content:center}
 .copia .foto.sinfoto{background:#111}
@@ -771,23 +777,22 @@ main section.cat{border-top:1px solid var(--linea)}
   <div class="carga-centro">
     <svg class="chico" viewBox="0 0 200 150" aria-hidden="true">
       <g class="cuerpo">
-        <g class="pierna atras"><path d="M90 88 L88 104 L91 120 L97 121"/></g>
-        <g class="brazo-izq"><path d="M90 54 L87 68 L89 80"/></g>
-        <circle class="cabeza" cx="90" cy="36" r="9"/>
-        <path class="torso" d="M90 45 Q91 66 90 88"/>
-        <g class="pierna adelante"><path d="M90 88 L92 104 L90 120 L96 121"/></g>
-        <g class="brazo-der">
-          <path d="M90 54 L97 67 L106 70"/>
+        <g class="pierna pb"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
+        <g class="brazo-a"><path d="M90 52 V65"/><g class="ante"><path d="M90 65 V77"/></g></g>
+        <circle class="cabeza" cx="91" cy="35" r="8.5"/>
+        <path class="torso" d="M90 44 L90 86"/>
+        <g class="pierna pa"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
+        <g class="brazo-c">
+          <path d="M90 52 L93 64 L104 63"/>
           <g class="camara">
-            <rect x="104" y="61" width="24" height="15" rx="2"/>
-            <path d="M107 61 v-3 h6 v3 M121 61 v-2 h4 v2"/>
-            <circle cx="116" cy="68.5" r="5.2"/><circle cx="116" cy="68.5" r="2.6"/>
-            <path d="M105 64.5 h4 M123 64.5 h3"/>
-            <path class="destello" d="M134 50 l1.6 -5 l1.6 5 l5 1.6 l-5 1.6 l-1.6 5 l-1.6 -5 l-5 -1.6 z"/>
+            <rect x="102" y="56" width="22" height="14" rx="2"/>
+            <path d="M105 56 v-3 h6 v3 M118 56 v-2 h4 v2"/>
+            <circle cx="113" cy="63" r="4.8"/><circle cx="113" cy="63" r="2.3"/>
+            <path class="destello" d="M130 46 l1.5 -4.6 l1.5 4.6 l4.6 1.5 l-4.6 1.5 l-1.5 4.6 l-1.5 -4.6 l-4.6 -1.5 z"/>
           </g>
         </g>
       </g>
-      <path class="suelo" d="M30 122 H170"/>
+      <path class="suelo" d="M30 121.5 H170"/>
       <path class="polvo" d="M30 128 H170"/>
     </svg>
     <div class="carga-nombre">Fotos Chimbitas</div>
@@ -796,7 +801,7 @@ main section.cat{border-top:1px solid var(--linea)}
 </div>
 
 <header class="hero">
-  <div class="hero-foto"><picture><source media="(min-width:900px)" srcset="img/m/hero-ancho.webp"><img src="img/m/hero-full.webp" alt="Quinceañera fotografiada por Edson Penagos" width="1350" height="1800" fetchpriority="high"></picture></div>
+  <div class="hero-foto"><picture><source media="(min-width:900px)" srcset="img/m/hero-ancho.webp?v=2"><img id="heroImg" src="img/m/hero-full.webp?v=2" alt="Retrato fotografiado por Edson Penagos" width="1350" height="1800" fetchpriority="high"></picture></div>
   <div class="wrap hero-grid">
   <div class="hero-texto">
     <h1><span class="l"><span>Edson</span></span> <span class="l"><span>Penagos</span></span></h1>
@@ -831,6 +836,9 @@ main section.cat{border-top:1px solid var(--linea)}
   </div>
   <span class="pista-ayuda wrap">arrastra la tira o toca una foto</span>
 </header>
+<script>
+(function(){ if (/[?&]portada=edson/.test(location.search)) { var i = document.getElementById("heroImg"), s = document.querySelector(".hero-foto source"); if (s) s.remove(); if (i) { i.src = "img/m/hero-edson.webp"; i.alt = "Edson Penagos"; document.querySelector(".hero-foto").classList.add("es-edson"); } } })();
+</script>
 <script>
 (function(){
   var h = document.documentElement; if (!h.classList.contains('intro')) return;
@@ -1149,7 +1157,7 @@ function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
     <article class="copia aparece${RECO[c.id] === it.n ? " reco" : ""}">
-      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=5" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.vid ? `<video class="demo" muted playsinline loop preload="none" data-src="vid/${it.vid}.mp4?v=1" aria-label="Video de muestra: ${esc(it.n)}"></video><span class="demo-et">▶ demo</span>` : ""}</span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>a la medida</span></div>`}
+      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=6" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.vid ? `<video class="demo" muted playsinline loop preload="none" data-src="vid/${it.vid}.mp4?v=1" aria-label="Video de muestra: ${esc(it.n)}"></video><span class="demo-et">▶ demo</span>` : ""}</span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>a la medida</span></div>`}
       ${RECO[c.id] === it.n ? `<span class="sello-reco">Recomendado</span>` : ""}<span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
       ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
@@ -1501,7 +1509,7 @@ document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", as
   setTimeout(() => b.textContent = "Copiar", 2000);
 }));
 </script>
-<script src="portafolio.js?v=1" defer></script>
+<script src="portafolio.js?v=2" defer></script>
 <script src="portafolio-ui.js?v=1" defer></script>
 </body>
 </html>

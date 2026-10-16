@@ -12,7 +12,7 @@
 <meta name="theme-color" content="#22231f">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Archivo:wdth,wght@75..100,400..700&family=Caveat+Brush&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:ital,opsz,wght@0,6..96,500;0,6..96,700;1,6..96,500&family=Archivo:wdth,wght@75..100,400..700&family=Caveat+Brush&family=Poppins:wght@500;600;700&display=swap" rel="stylesheet">
 <style>
 :root{
   --mesa:#22231f;      /* la mesa de trabajo */
@@ -351,56 +351,57 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .intro.listo .carga-centro{animation:desvanece .45s forwards}
 @keyframes desvanece{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}
 
-/* el chico: camina despacio, acelera hasta correr con la carga, se detiene y toma la foto */
-.chico{width:190px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
-.chico .cabeza{fill:#000}
+/* personaje con cabeza de cámara: camina, corre, gira hacia nosotros y oprime el botón */
+.chico{width:200px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.2;stroke-linecap:round;stroke-linejoin:round}
 .chico *{transform-box:view-box}
-.chico .cam-lado rect,.chico .cam-ojo rect{fill:#000}
-.chico .correa{stroke-width:1.3;opacity:.8}
+.chico .torso,.chico .cabeza-cam rect,.chico .cam-f rect,.chico .cam-f circle{fill:#000}
 .chico .pb,.chico .bb{opacity:.55}
-/* caminar */
+/* caminar (de lado) */
 .chico .cuerpo{animation:bob .5s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes bob{0%,100%{transform:translateY(0)}50%{transform:translateY(-2.2px)}}
-.chico .muslo{transform-origin:90px 86px;animation:muslo 1s linear infinite}
-.chico .canilla{transform-origin:90px 104px;animation:canilla 1s linear infinite}
-.chico .hombro{transform-origin:90px 53px;animation:hombro 1s cubic-bezier(.45,0,.55,1) infinite}
-.chico .codo{transform-origin:90px 65px;animation:codo 1s cubic-bezier(.45,0,.55,1) infinite}
+.chico .muslo{transform-origin:89px 94px;animation:muslo 1s linear infinite}
+.chico .canilla{transform-origin:89px 109px;animation:canilla 1s linear infinite}
+.chico .hombro{transform-origin:89px 62px;animation:hombro 1s cubic-bezier(.45,0,.55,1) infinite}
+.chico .codo{transform-origin:89px 74px;animation:codo 1s cubic-bezier(.45,0,.55,1) infinite}
 .chico .pb .muslo,.chico .pb .canilla,.chico .ba .hombro,.chico .ba .codo{animation-delay:-.5s}
-.chico .colgada{transform-origin:88px 45px;animation:colgada .5s cubic-bezier(.45,0,.55,1) infinite}
+.chico .cabeza-cam{transform-origin:89px 50px;animation:cabeceo .5s cubic-bezier(.45,0,.55,1) infinite}
 @keyframes muslo{0%{transform:rotate(-24deg)}15%{transform:rotate(-14deg)}35%{transform:rotate(4deg)}50%{transform:rotate(20deg)}62%{transform:rotate(16deg)}80%{transform:rotate(-8deg)}100%{transform:rotate(-24deg)}}
 @keyframes canilla{0%{transform:rotate(0)}15%{transform:rotate(8deg)}35%{transform:rotate(4deg)}50%{transform:rotate(12deg)}62%{transform:rotate(48deg)}80%{transform:rotate(38deg)}92%{transform:rotate(8deg)}100%{transform:rotate(0)}}
 @keyframes hombro{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-20deg)}}
 @keyframes codo{0%,100%{transform:rotate(-6deg)}50%{transform:rotate(-30deg)}}
-@keyframes colgada{0%,100%{transform:rotate(0)}50%{transform:rotate(-4deg)}}
-/* correr: inclinado, zancada larga, brazos doblados que bombean, cámara que rebota */
-.corre .chico .tronco{transform-origin:90px 121px;transform:rotate(9deg);transition:transform .4s}
+@keyframes cabeceo{0%,100%{transform:rotate(0)}50%{transform:rotate(-2.5deg)}}
+/* correr */
+.corre .chico .tronco{transform-origin:89px 124px;transform:rotate(9deg);transition:transform .4s}
 .corre .chico .cuerpo{animation-name:bob-corre}
 .corre .chico .muslo{animation-name:muslo-corre}
 .corre .chico .canilla{animation-name:canilla-corre}
 .corre .chico .hombro{animation-name:hombro-corre}
 .corre .chico .codo{animation-name:codo-corre}
-.corre .chico .colgada{animation-name:colgada-corre}
 @keyframes bob-corre{0%,100%{transform:translateY(0)}50%{transform:translateY(-5px)}}
 @keyframes muslo-corre{0%{transform:rotate(-46deg)}25%{transform:rotate(-10deg)}50%{transform:rotate(34deg)}70%{transform:rotate(18deg)}85%{transform:rotate(-30deg)}100%{transform:rotate(-46deg)}}
 @keyframes canilla-corre{0%{transform:rotate(18deg)}20%{transform:rotate(10deg)}45%{transform:rotate(30deg)}62%{transform:rotate(100deg)}82%{transform:rotate(80deg)}100%{transform:rotate(18deg)}}
 @keyframes hombro-corre{0%,100%{transform:rotate(48deg)}50%{transform:rotate(-46deg)}}
 @keyframes codo-corre{0%,100%{transform:rotate(-80deg)}50%{transform:rotate(-95deg)}}
-@keyframes colgada-corre{0%,100%{transform:rotate(4deg) translateY(0)}50%{transform:rotate(-12deg) translateY(-2px)}}
-/* detenerse y disparar */
-.chico .pose-foto{opacity:0}
-.dispara .chico .cuerpo,.dispara .chico .muslo,.dispara .chico .canilla,.dispara .chico .polvo{animation-play-state:paused}
-.dispara .chico .tronco{transform:none}
-.dispara .chico .muslo{animation:none;transform:rotate(-6deg)}
-.dispara .chico .pb .muslo{transform:rotate(8deg)}
-.dispara .chico .canilla{animation:none;transform:none}
-.dispara .chico .brazo,.dispara .chico .colgada{opacity:0;transition:opacity .15s}
-.dispara .chico .pose-foto{opacity:1;transition:opacity .15s}
-.chico .destello{fill:var(--ambar);stroke:none;opacity:0;transform-box:fill-box;transform-origin:center}
-.flashea .chico .destello{animation:flash-cam .5s ease-out forwards}
-@keyframes flash-cam{0%{opacity:0;transform:scale(.3)}30%{opacity:1;transform:scale(1.4)}100%{opacity:0;transform:scale(.8)}}
+/* girar de lado a frente (como voltearse) */
+.chico .lado{transform-origin:94px 124px}
+.chico .frente{transform-origin:100px 124px;transform:scaleX(0);opacity:0}
+.gira .chico .lado{transform:scaleX(0);transition:transform .22s ease-in}
+.gira .chico .frente{transform:scaleX(1);opacity:1;transition:transform .26s .22s cubic-bezier(.2,.9,.3,1.2),opacity 0s .22s}
+.gira .chico .polvo{animation-play-state:paused}
+/* oprimir el botón */
+.chico .brazo-der-f{stroke-dasharray:100;stroke-dashoffset:100}
+.chico .boton{fill:#000;transition:transform .08s}
+.chico .clics{opacity:0}
+.aprieta .chico .brazo-der-f{stroke-dashoffset:0;transition:stroke-dashoffset .38s cubic-bezier(.3,.7,.3,1)}
+.clic .chico .boton{transform:translateY(2.5px)}
+.clic .chico .clics{animation:clics .5s ease-out forwards}
+@keyframes clics{0%{opacity:0;transform:scale(.9)}25%{opacity:1;transform:scale(1.04)}100%{opacity:0;transform:scale(1.1)}}
+.clic .chico .cam-f circle:last-of-type{animation:lente .3s ease-out}
+@keyframes lente{50%{transform:scale(.92)}}
+.chico .cam-f circle{transform-origin:100px 45px}
 .flashea .carga-flash{animation:flash-pantalla .45s ease-out forwards}
 .carga-flash{position:absolute;inset:0;background:#fff;opacity:0;pointer-events:none}
-@keyframes flash-pantalla{0%{opacity:.75}100%{opacity:0}}
+@keyframes flash-pantalla{0%{opacity:.8}100%{opacity:0}}
 .chico .suelo{stroke:#fff;stroke-width:1.5}
 .chico .polvo{stroke:#3a3a3a;stroke-width:1.4;stroke-dasharray:2 22;animation:suelo 1s linear infinite}
 @keyframes suelo{to{stroke-dashoffset:48}}
@@ -802,37 +803,127 @@ main section.cat{border-top:1px solid var(--linea)}
 .cat-btn .sello{background:var(--tierra);color:#fff}
 .cotiza .btn-osc,.cierre .btn-osc{background:var(--tierra);color:#fff}
 .cotiza .btn-osc:hover,.cierre .btn-osc:hover{background:#ad3a30}
+
+/* =====================================================================
+   TEMA CRIMSON NOIR: degradado negro → vino → carmesí + vidrio esmerilado
+   ===================================================================== */
+:root{--negro:#030407;--vino:#6d001a;--carmesi:#c50337;--ambar:#ff5a7a;--grasa:#ff5a7a;--grasa-luz:#ff5a7a;--tierra:#c50337;
+  --vidrio:linear-gradient(155deg,rgba(255,255,255,.10) 0%,rgba(255,255,255,.035) 55%,rgba(255,255,255,.06) 100%);
+  --borde-vidrio:rgba(255,255,255,.13);--mesa:#05050a;--mesa2:rgba(255,255,255,.05);--linea:rgba(255,255,255,.09)}
+body{background:var(--negro)}
+/* fondo fijo con manchas de color suaves (capa compuesta: no repinta al bajar) */
+body::before{content:"";position:fixed;inset:-10vmax;z-index:-1;pointer-events:none;
+  background:
+    radial-gradient(45vmax 40vmax at 12% 8%,rgba(109,0,26,.75),transparent 70%),
+    radial-gradient(40vmax 38vmax at 92% 32%,rgba(197,3,55,.42),transparent 70%),
+    radial-gradient(55vmax 45vmax at 20% 78%,rgba(109,0,26,.6),transparent 72%),
+    radial-gradient(40vmax 40vmax at 85% 95%,rgba(197,3,55,.35),transparent 70%),
+    linear-gradient(180deg,#030407 0%,#0b0208 50%,#030407 100%)}
+.hero,.cierre,.banda{background:transparent}
+main section.cat{border-top:0}
+
+/* títulos */
+.hero h1,.cab h2,.cab h2.oro,.copia h3,.banda-t,.cierre h2,.carga-nombre,.cotiza h3{font-family:'Poppins',system-ui,sans-serif;letter-spacing:-.02em}
+.hero h1{font-weight:700;font-size:clamp(2.8rem,10vw,6rem);line-height:.95}
+.cab h2,.cab h2.oro{font-weight:700}
+.copia h3{font-weight:600;font-size:1.35rem}
+.banda-t{font-weight:700}
+.subraya{background:linear-gradient(90deg,var(--carmesi),#ff5a7a)}
+.copia h3::after{background:var(--carmesi)}
+
+/* portada: la foto se funde con el degradado y el texto va en un panel de vidrio */
+.hero-foto::after{display:none}
+.hero-foto img{-webkit-mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,.6) 70%,transparent 100%);mask-image:linear-gradient(180deg,#000 45%,rgba(0,0,0,.6) 70%,transparent 100%)}
+.hero-grid,.hero-grid.wrap{max-width:780px;margin-top:-120px;padding:30px 26px 26px;border-radius:28px;background:var(--vidrio);border:1px solid var(--borde-vidrio);
+  box-shadow:0 30px 80px rgba(0,0,0,.55),inset 0 1px 0 rgba(255,255,255,.14);-webkit-backdrop-filter:blur(18px) saturate(140%);backdrop-filter:blur(18px) saturate(140%)}
+.hero .quien{color:#ff8aa1}
+.btn{border-radius:999px}
+.btn-osc{background:#fff;color:#0b0b0b}
+.btn-ambar,.cotiza .btn-osc,.cierre .btn-osc{background:linear-gradient(135deg,#c50337,#8c0024);color:#fff;box-shadow:0 8px 24px rgba(197,3,55,.35)}
+.btn-ambar:hover,.cotiza .btn-osc:hover,.cierre .btn-osc:hover{background:linear-gradient(135deg,#d80a42,#a1002a)}
+.btn-linea{border-color:rgba(255,255,255,.28);background:rgba(255,255,255,.04)}
+.redes-top a{background:rgba(255,255,255,.08);border:1px solid var(--borde-vidrio)}
+.prueba i{background:var(--carmesi)}
+.tira{background:rgba(0,0,0,.85)}
+
+/* menú de vidrio */
+.indice{background:rgba(5,5,10,.55);-webkit-backdrop-filter:blur(16px) saturate(140%);backdrop-filter:blur(16px) saturate(140%);border-bottom:1px solid var(--linea)}
+.indice a.activo{box-shadow:inset 0 -2px 0 var(--carmesi);color:#fff}
+
+/* paneles de vidrio (sin desenfoque para no cargar el celular: el fondo es liso) */
+.copia,.cat-btn,.tam,.cotiza,.cuenta,.caja-precio,.claves span,.pf-filtros button,.datos span,.cab .meta span,.copia .etq{background:var(--vidrio);border:1px solid var(--borde-vidrio)}
+.copia{border-radius:22px;box-shadow:0 22px 50px rgba(0,0,0,.45),inset 0 1px 0 rgba(255,255,255,.12)}
+.copia .foto,.copia .recorte{border-radius:22px 22px 0 0;overflow:hidden}
+.copia.reco{border-color:rgba(255,90,122,.7);box-shadow:0 0 0 1px rgba(255,90,122,.5),0 22px 50px rgba(0,0,0,.45)}
+.copia .marca{background:var(--carmesi);color:#fff}
+.sello-reco{background:#fff;color:#0b0b0b}
+.caja-precio{border-radius:16px;background:rgba(0,0,0,.28)}
+.precio s::after{background:var(--carmesi)}
+.ahorro{color:#ff8aa1}
+.cat-btn{border-radius:22px;box-shadow:0 16px 40px rgba(0,0,0,.35),inset 0 1px 0 rgba(255,255,255,.1)}
+.cat-btn.top{border-color:rgba(255,90,122,.45)}
+.cat-btn .sello{background:var(--carmesi);color:#fff}
+.cat-btn em{color:#ff8aa1}
+.tam{border-radius:18px}
+.cotiza{border-radius:22px}
+.cotiza input,.cotiza select{background:rgba(0,0,0,.35);border-color:rgba(255,255,255,.16)}
+.cuenta{border-radius:14px}
+.copiar{border-color:#ff5a7a;color:#ff8aa1}
+.regalo{border-left-color:var(--carmesi)}
+.mas{background:#fff}
+.puntos button{background:rgba(255,255,255,.25)}
+.puntos button.activo{background:#fff}
+.pf-item{border-radius:14px}
+.pf-filtros button[aria-selected="true"]{background:#fff;color:#0b0b0b}
+.banda img{border-radius:0}
+@media (min-width:900px){.banda{margin-left:max(16px,calc((100vw - 1560px)/2));margin-right:max(16px,calc((100vw - 1560px)/2));border-radius:28px;overflow:hidden;background:var(--vidrio);border:1px solid var(--borde-vidrio)}}
+.sobre .copia-mini{border-radius:22px}
+.cierre{border-top:0}
+.cierre .wrap{background:var(--vidrio);border:1px solid var(--borde-vidrio);border-radius:28px;padding:44px 24px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
+.hoja-barra,.hoja-pie{background:rgba(10,10,14,.75);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
 </style>
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
-<script>document.documentElement.classList.add('js');try{if(!sessionStorage.getItem('intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');sessionStorage.setItem('intro','1')}}catch(e){}</script>
+<script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 <div class="carga" id="carga" aria-hidden="true">
   <div class="carga-centro">
-    <svg class="chico" viewBox="0 0 200 150" aria-hidden="true">
-      <g class="cuerpo">
-        <g class="tronco">
-          <g class="pierna pb"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
-          <g class="brazo bb"><g class="hombro"><path d="M90 53 V65"/><g class="codo"><path d="M90 65 V76"/></g></g></g>
-          <circle class="cabeza" cx="91" cy="35" r="8.5"/>
-          <path class="torso" d="M90 44 L90 86"/>
-          <g class="colgada">
-            <path class="correa" d="M88 45 Q93 54 98 60"/>
-            <g class="cam-lado"><rect x="95" y="59" width="11" height="9" rx="1.5"/><rect x="106" y="60.5" width="7" height="6" rx="1"/><path d="M98 59 v-2.2 h4 v2.2"/></g>
-          </g>
-          <g class="pierna pa"><g class="muslo"><path d="M90 86 V104"/><g class="canilla"><path d="M90 104 V121 L95 121"/></g></g></g>
-          <g class="brazo ba"><g class="hombro"><path d="M90 53 V65"/><g class="codo"><path d="M90 65 V76"/></g></g></g>
-          <g class="pose-foto">
-            <path d="M90 53 L97 63 L100 41"/><path d="M90 53 L95 60 L102 46"/>
-            <g class="cam-ojo"><rect x="96" y="33" width="11" height="9" rx="1.5"/><rect x="107" y="34.5" width="7" height="6" rx="1"/><path d="M99 33 v-2.2 h4 v2.2"/></g>
-            <path class="destello" d="M124 26 l2 -6.5 l2 6.5 l6.5 2 l-6.5 2 l-2 6.5 l-2 -6.5 l-6.5 -2 z"/>
+    <svg class="chico" viewBox="0 0 200 160" aria-hidden="true">
+      <g class="lado">
+        <g class="cuerpo">
+          <g class="tronco">
+            <g class="pierna pb"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L95 124"/></g></g></g>
+            <g class="brazo bb"><g class="hombro"><path d="M89 62 V74"/><g class="codo"><path d="M89 74 V85"/></g></g></g>
+            <path class="torso" d="M83 58 Q82 52 89 52 Q96 52 95 58 L95 90 Q95 96 89 96 Q83 96 83 90 Z"/>
+            <g class="cabeza-cam">
+              <rect x="72" y="22" width="32" height="27" rx="4"/>
+              <rect x="104" y="27" width="11" height="17" rx="2"/><path d="M115 29 v13"/>
+              <rect x="77" y="18" width="8" height="4" rx="1"/>
+            </g>
+            <g class="pierna pa"><g class="muslo"><path d="M89 94 V109"/><g class="canilla"><path d="M89 109 V124 L95 124"/></g></g></g>
+            <g class="brazo ba"><g class="hombro"><path d="M89 62 V74"/><g class="codo"><path d="M89 74 V85"/></g></g></g>
           </g>
         </g>
       </g>
-      <path class="suelo" d="M30 121.5 H170"/>
-      <path class="polvo" d="M30 128 H170"/>
+      <g class="frente">
+        <path class="pierna-f" d="M94 98 Q93 112 93 123 Q87 123 84 125 M106 98 Q107 112 107 123 Q113 123 116 125"/>
+        <path class="torso-f" d="M88 66 L88 100 M112 66 L112 100 M88 100 Q100 104 112 100"/>
+        <path class="brazo-izq-f" d="M88 70 Q78 84 86 100"/>
+        <g class="cam-f">
+          <rect x="62" y="22" width="76" height="46" rx="5"/>
+          <rect x="69" y="28" width="14" height="9" rx="1.5"/>
+          <circle cx="100" cy="45" r="16"/><circle cx="100" cy="45" r="12.5"/>
+          <path class="cara" d="M95 42 v2 M105 42 v2 M100 45 l-1 4 h2"/>
+          <path class="cara" d="M92.5 40.5 q-1.5 2 0 4 M107.5 40.5 q1.5 2 0 4"/>
+        </g>
+        <path class="brazo-der-f" d="M112 72 Q150 70 148 42 Q147 17 131 17 L128 18"/>
+        <rect class="boton" x="121" y="16" width="9" height="6" rx="1.5"/>
+        <g class="clics"><path d="M64 14 l2 4 M73 11 v4 M82 12 l-1 4 M57 22 l4 2 M56 31 h4"/><path d="M127 9 l1 3 M134 8 l-1 4 M140 13 l-3 2"/></g>
+      </g>
+      <path class="suelo" d="M30 125 H170"/>
+      <path class="polvo" d="M30 131 H170"/>
     </svg>
-    <div class="carga-nombre">Fotos Chimbitas</div>
+    <div class="carga-nombre">El de las Fotos Chimbitas</div>
     <div class="carga-linea"><i id="cargaLinea"></i></div>
   </div>
   <i class="carga-flash"></i>
@@ -918,11 +1009,12 @@ main section.cat{border-top:1px solid var(--linea)}
   function terminar(){
     if (fin) return; fin = true;
     linea.style.transform = 'scaleX(1)';
-    carga.classList.remove('corre'); carga.classList.add('dispara');           // se detiene y levanta la cámara
-    setTimeout(function(){ carga.classList.add('flashea'); }, 380);           // clic
-    setTimeout(function(){ h.classList.add('listo'); }, 820);
+    carga.classList.remove('corre'); carga.classList.add('gira');              // se voltea hacia nosotros
+    setTimeout(function(){ carga.classList.add('aprieta'); }, 560);            // sube el brazo al botón
+    setTimeout(function(){ carga.classList.add('clic', 'flashea'); }, 1000);   // clic + flash
+    setTimeout(function(){ h.classList.add('listo'); }, 1380);
     if (maestro) { var n = ctx.currentTime; maestro.gain.cancelScheduledValues(n); maestro.gain.setValueAtTime(maestro.gain.value, n); maestro.gain.linearRampToValueAtTime(0, n + 1.4); setTimeout(function(){ try { ctx.close(); } catch(e){} }, 1800); }
-    setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 4000);
+    setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 4600);
   }
   carga.addEventListener('pointerdown', function(){ timbre(); setTimeout(terminar, 350); });
   function paso(t){

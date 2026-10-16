@@ -226,6 +226,32 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .flota:hover{transform:scale(1.04)}
 .flota svg{width:30px;height:30px;fill:#fff;flex:none}
 
+/* ---------- portada en dos columnas (escritorio) ---------- */
+.collage{display:none}
+@media (min-width:900px){
+  .hero-grid{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,.95fr);align-items:center;gap:40px}
+  .collage{display:block;position:relative;height:min(560px,62vh)}
+  .copia-h{position:absolute;margin:0;background:#fbfaf6;padding:10px 10px 34px;box-shadow:0 18px 40px rgba(0,0,0,.28);width:44%}
+  .copia-h img{display:block;width:100%;height:auto;aspect-ratio:3/4;object-fit:cover}
+  .copia-h figcaption{position:absolute;left:0;right:0;bottom:6px;text-align:center;font-family:'Caveat Brush',cursive;color:var(--grasa-luz);font-size:1.3rem}
+  .c1{left:4%;top:6%;rotate:-7deg;z-index:1}
+  .c2{left:30%;top:0;rotate:3deg;z-index:3;width:48%}
+  .c3{right:0;top:16%;rotate:9deg;z-index:2}
+  .hero{padding-bottom:40px}
+}
+
+/* ---------- bandas de foto a todo el ancho ---------- */
+.banda{position:relative;height:min(78vh,620px);overflow:clip;margin-top:72px;display:flex;align-items:flex-end;isolation:isolate}
+.banda img{position:absolute;inset:-12% 0;width:100%;height:124%;object-fit:cover;z-index:-2}
+.banda::after{content:"";position:absolute;inset:0;z-index:-1;background:linear-gradient(180deg,rgba(22,22,19,.05) 30%,rgba(22,22,19,.88) 100%)}
+.banda-tx{padding-bottom:48px;display:grid;gap:10px;justify-items:start}
+.banda-t{font-family:'Bodoni Moda',serif;font-weight:700;font-size:clamp(2rem,5.6vw,4rem);line-height:1.02;color:#fff;max-width:16ch}
+.banda-s{color:#e6e5de;font-size:1.1rem;max-width:42ch;margin-bottom:8px}
+
+/* recorte para el paralaje dentro de cada copia */
+.copia .recorte{display:block;overflow:hidden}
+.copia .recorte img{display:block}
+
 /* ---------- barra de progreso ---------- */
 .progreso{position:fixed;top:0;left:0;right:0;height:3px;z-index:40;pointer-events:none}
 .progreso i{display:block;height:100%;width:100%;background:var(--ambar);transform-origin:0 50%;transform:scaleX(0)}
@@ -251,7 +277,7 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 
 /* flecha de "hay más" en carruseles (solo celular) */
 .carrusel{position:relative}
-.mas{display:none;position:absolute;right:-6px;top:calc(var(--alto-foto,46%) - 26px);z-index:3;width:52px;height:52px;border-radius:50%;border:0;background:var(--ambar);color:#1d1b16;box-shadow:0 6px 18px rgba(0,0,0,.45);cursor:pointer;place-items:center;transition:opacity .3s}
+.mas{display:none;position:absolute;right:4px;top:calc(var(--alto-foto,46%) - 26px);z-index:3;width:52px;height:52px;border-radius:50%;border:0;background:var(--ambar);color:#1d1b16;box-shadow:0 6px 18px rgba(0,0,0,.45);cursor:pointer;place-items:center;transition:opacity .3s}
 .mas .flecha{stroke:#1d1b16;width:26px;height:26px}
 .mas::after{content:"";position:absolute;inset:-6px;border-radius:50%;border:2px solid var(--ambar);animation:pulso 2.2s ease-out infinite}
 .mas.fin{opacity:0;pointer-events:none}
@@ -352,7 +378,8 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   section.cat{padding-top:56px;padding-bottom:16px}
   .fila{grid-template-columns:1fr}
   .fila .precio{justify-content:flex-start;text-align:left}
-  .copias{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:6px 16px 18px;scrollbar-width:thin;scrollbar-color:#55564e transparent}
+  .copias{display:flex;gap:18px;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:6px 16px 18px;scrollbar-width:none}
+  .copias::-webkit-scrollbar{display:none}
   .copia{flex:0 0 80%;scroll-snap-align:center}
   .desliza{display:block}
   .tamanos{grid-template-columns:1fr 1fr;gap:10px}
@@ -377,6 +404,60 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   .cuadro{width:118px}
   .panel{padding-top:30px}
 }
+@supports ((animation-timeline: view()) and (animation-range: entry)){
+@media (prefers-reduced-motion: no-preference){
+  /* la barra de progreso la mueve el propio scroll */
+  .progreso i{animation:avance linear both;animation-timeline:scroll(root)}
+  @keyframes avance{from{transform:scaleX(0)}to{transform:scaleX(1)}}
+
+  /* la tira de película se inclina y baja mientras sales de la portada */
+  .tira{animation:inclinar linear both;animation-timeline:scroll(root);animation-range:0 90vh}
+  @keyframes inclinar{from{transform:rotate(-2deg)}to{transform:rotate(-5deg) translateY(50px) scale(1.03)}}
+
+  /* collage: cada copia se abre a su ritmo al bajar */
+  .c1{animation:abre1 linear both;animation-timeline:scroll(root);animation-range:0 80vh}
+  .c2{animation:abre2 linear both;animation-timeline:scroll(root);animation-range:0 80vh}
+  .c3{animation:abre3 linear both;animation-timeline:scroll(root);animation-range:0 80vh}
+  @keyframes abre1{to{translate:-40px -90px;rotate:-14deg}}
+  @keyframes abre2{to{translate:0 -160px;rotate:0deg}}
+  @keyframes abre3{to{translate:50px -60px;rotate:16deg}}
+
+  /* lo que antes "aparecía" ahora sigue al scroll, y se devuelve al subir */
+  .js .aparece{opacity:1;transform:none;transition:none}
+  .cab{animation:sube-tx linear both;animation-timeline:view();animation-range:entry 0% cover 30%}
+  @keyframes sube-tx{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
+  .cab .subraya path{transition:none;animation:trazo-scroll linear both;animation-timeline:view();animation-range:entry 20% cover 40%}
+  @keyframes trazo-scroll{from{stroke-dashoffset:260}to{stroke-dashoffset:0}}
+  .cat-btn{animation:entra-lado linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
+  .cat-btn:nth-child(even){animation-name:entra-lado2}
+  @keyframes entra-lado{from{opacity:0;translate:-48px 0;scale:.96}to{opacity:1;translate:0 0;scale:1}}
+  @keyframes entra-lado2{from{opacity:0;translate:48px 0;scale:.96}to{opacity:1;translate:0 0;scale:1}}
+
+  /* paralaje dentro de cada foto: la imagen se desliza en su marco */
+  .copia .recorte img{animation:paralaje linear both;animation-timeline:view();animation-range:cover}
+  @keyframes paralaje{from{transform:translateY(-7%) scale(1.14)}to{transform:translateY(7%) scale(1.14)}}
+
+  /* bandas: foto de fondo en paralaje y texto que sube */
+  .banda img{animation:fondo linear both;animation-timeline:view();animation-range:cover}
+  @keyframes fondo{from{transform:translateY(-9%)}to{transform:translateY(9%)}}
+  .banda-tx{animation:sube-tx linear both;animation-timeline:view();animation-range:entry 30% cover 55%}
+
+  /* escritorio: las tarjetas suben y se asientan con el scroll */
+  @media (min-width:641px){
+    .copia,.tam{animation:asienta linear both;animation-timeline:view();animation-range:entry 0% cover 28%}
+    .copia:nth-child(4n+2),.tam:nth-child(4n+2){animation-range:entry 5% cover 32%}
+    .copia:nth-child(4n+3),.tam:nth-child(4n+3){animation-range:entry 10% cover 36%}
+    .copia:nth-child(4n+4),.tam:nth-child(4n+4){animation-range:entry 15% cover 40%}
+    @keyframes asienta{from{opacity:0;translate:0 90px;rotate:-2deg}to{opacity:1;translate:0 0;rotate:0deg}}
+  }
+  /* celular: en el carrusel la tarjeta del centro manda y las de los lados se achican */
+  @media (max-width:640px){
+    .copia{animation:enfoque linear both;animation-timeline:view(inline)}
+    @keyframes enfoque{0%{scale:.88;opacity:.5}45%,55%{scale:1;opacity:1}100%{scale:.88;opacity:.5}}
+    .copia .recorte img{animation:none;transform:none}
+  }
+}
+}
 @media (prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
   .circulo path{animation:none;stroke-dashoffset:0}
@@ -398,7 +479,8 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 <script>document.documentElement.classList.add('js')</script>
 
 <header class="hero">
-  <div class="wrap">
+  <div class="wrap hero-grid">
+  <div class="hero-texto">
     <h1>Edson Penagos</h1>
     <div class="quien">El de las Fotos Chimbitas · fotógrafo y videógrafo</div>
     <p class="lead">Fotografía, video y dron para XV años, grados, bodas, sesiones y carreras. Aquí están todos mis paquetes con precio, para que elijas sin rodeos.</p>
@@ -413,6 +495,12 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
       <a href="https://wa.me/573133469261" target="_blank" rel="noopener" aria-label="WhatsApp +57 313 346 9261"><svg viewBox="0 0 32 32" aria-hidden="true"><path d="M16 3C9 3 3.3 8.7 3.3 15.7c0 2.4.7 4.6 1.8 6.6L3 29l6.9-2c1.9 1 4 1.6 6.1 1.6 7 0 12.7-5.7 12.7-12.7S23 3 16 3zm0 23.2c-2 0-3.8-.5-5.4-1.5l-.4-.2-4.1 1.2 1.2-4-.3-.4a10.4 10.4 0 0 1-1.6-5.6C5.4 9.9 10.1 5.2 16 5.2s10.6 4.7 10.6 10.5S21.8 26.2 16 26.2z"/></svg></a>
       <a href="#galeria" aria-label="Galería de trabajos"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M9 3 7.2 5H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V7a2 2 0 0 0-2-2h-3.2L15 3H9zm3 15a5 5 0 1 1 0-10 5 5 0 0 1 0 10zm0-1.8a3.2 3.2 0 1 0 0-6.4 3.2 3.2 0 0 0 0 6.4z"/></svg></a>
     </div>
+  </div>
+  <div class="collage" aria-hidden="true">
+    <figure class="copia-h c1"><img src="img/m/h1.webp" alt="" width="720" height="960" loading="lazy" decoding="async"></figure>
+    <figure class="copia-h c2"><img src="img/m/h2.webp" alt="" width="720" height="960" loading="lazy" decoding="async"></figure>
+    <figure class="copia-h c3"><img src="img/m/h3.webp" alt="" width="720" height="900" loading="lazy" decoding="async"><figcaption>con dron</figcaption></figure>
+  </div>
   </div>
   <div class="tira-zona" aria-hidden="true">
     <div class="tira">
@@ -671,7 +759,7 @@ function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
     <article class="copia aparece">
-      <div class="foto${it.ar ? " ancha" : ""}"><img src="img/m/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
+      <div class="foto${it.ar ? " ancha" : ""}"><span class="recorte"><img src="img/m/${it.img}.webp" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750"></span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>
       <span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
       ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
@@ -738,6 +826,14 @@ function panel(){
 }
 const SUBRAYA = '<svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>';
 
+const BANDAS = {
+  xv: {img:"banda1", t:"Cada evento se cuenta una sola vez.", s:"Separa tu fecha con el 40% y olvídate del resto.", a:"#reservar", b:"Cotizar mi fecha"},
+  grados: {img:"banda2", t:"Fotos que se quedan en la familia.", s:"Impresiones y retablos listos para colgar.", a:"#impresiones", b:"Ver impresiones"}
+};
+const banda = id => { const b = BANDAS[id]; return b ? `<section class="banda" aria-label="${esc(b.t)}">
+  <img src="img/m/${b.img}.webp" alt="" loading="lazy" decoding="async">
+  <div class="banda-tx wrap"><p class="banda-t">${esc(b.t)}</p><p class="banda-s">${esc(b.s)}</p><a class="btn btn-ambar" href="${b.a}">${esc(b.b)}</a></div>
+</section>` : ""; };
 const main = document.getElementById("contenido");
 main.innerHTML = panel() + CATS.map(c => `
   <section class="cat wrap" id="${c.id}">
@@ -747,7 +843,7 @@ main.innerHTML = panel() + CATS.map(c => `
     ${c.tipo === "copias" ? copias(c) : c.tipo === "tamanos" ? tamanos(c) : filas(c)}
     ${c.tipo === "copias" && c.items.length > 1 ? `<div class="puntos" role="tablist" aria-label="Opciones de ${esc(c.nav)}">${c.items.map((it, i) => `<button type="button" aria-label="${esc(it.n)}"${i ? "" : ' class="activo"'}></button>`).join("")}</div>` : ""}
     <a class="volver" href="#categorias">↑ Ver otras categorías</a>
-  </section>`).join("");
+  </section>${banda(c.id)}`).join("");
 
 const nav = document.getElementById("indice");
 nav.innerHTML = [["categorias","Categorías"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["galeria","Galería"], ["como","Cómo trabajo"]]
@@ -887,8 +983,9 @@ document.addEventListener("pointerdown", e => {
 /* barra de progreso */
 const barra = document.getElementById("progreso");
 const avanzar = () => { const h = document.documentElement; barra.style.transform = `scaleX(${h.scrollTop / Math.max(1, h.scrollHeight - h.clientHeight)})`; };
+const nativo = CSS.supports("(animation-timeline: view()) and (animation-range: entry)") && !reducido;
 let pendiente = false;
-addEventListener("scroll", () => { if (!pendiente) { pendiente = true; requestAnimationFrame(() => { avanzar(); pendiente = false; }); } }, {passive:true}); avanzar();
+if (!nativo) addEventListener("scroll", () => { if (!pendiente) { pendiente = true; requestAnimationFrame(() => { avanzar(); pendiente = false; }); } }, {passive:true}); if (!nativo) avanzar();
 
 /* puntos de los carruseles */
 document.querySelectorAll("section.cat").forEach(sec => {

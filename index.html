@@ -299,6 +299,47 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 section.cat.llegaste .cab h2{animation:llegar .9s ease}
 @keyframes llegar{0%{color:var(--ambar)}100%{color:inherit}}
 
+/* ---------- escritorio: más grande y más lleno ---------- */
+@media (min-width:900px){
+  body{font-size:18px}
+  .wrap{max-width:1240px;padding:0 32px}
+  .indice ul{max-width:1240px}
+  .indice li:first-child{margin-left:auto}
+  .indice li:last-child{margin-right:auto}
+  .indice a{font-size:1.02rem;padding:0 16px}
+  .panel{padding-top:64px}
+  .panel .cab h2{font-size:3.4rem}
+  .panel .cab p{font-size:1.15rem}
+  .cats{gap:20px}
+  .cat-btn{gap:24px;min-height:190px;padding:18px 26px 18px 18px;border-radius:26px}
+  .cat-btn img{width:124px;height:155px;border-radius:16px}
+  .cat-btn b{font-size:1.5rem}
+  .cat-btn small{font-size:1.05rem;line-height:1.45}
+  .cat-btn em{font-size:1.02rem}
+  .cat-btn .sello{font-size:.85rem;padding:4px 12px}
+  .cat-btn .flecha{width:30px;height:30px}
+  .cat-btn.top{min-height:230px;padding:22px 34px 22px 22px}
+  .cat-btn.top img{width:160px;height:200px}
+  .cat-btn.top b{font-size:2rem}
+  .cat-btn.top small{font-size:1.15rem;max-width:52ch}
+  .copias{grid-template-columns:repeat(auto-fill,minmax(320px,1fr));gap:44px 34px}
+  .cab p{font-size:1.15rem}
+  .hero p.lead{font-size:1.25rem}
+}
+@media (min-width:761px) and (max-width:1399px){
+  .cat-btn:last-child{grid-column:1/-1}
+}
+@media (min-width:1400px){
+  .wrap{max-width:1560px;padding:0 48px}
+  .indice ul{max-width:1560px}
+  .cats{grid-template-columns:repeat(3,minmax(0,1fr))}
+  .cat-btn.top{grid-column:1/-1}
+  .copias{grid-template-columns:repeat(4,minmax(0,1fr));gap:48px 34px}
+  .tamanos{grid-template-columns:repeat(5,minmax(0,1fr))}
+  .cab{max-width:70ch}
+  .hero h1{font-size:9rem}
+}
+
 @media (max-width:760px){
   .cats{grid-template-columns:1fr;gap:12px}
 }
@@ -682,7 +723,7 @@ const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path
 function botones(){
   return CATS.map((c, i) => {
     const k = PANEL[c.id], ps = preciosDe(c), min = ps.length ? Math.min(...ps) : 0;
-    return `<a class="cat-btn aparece${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
+    return `<a class="cat-btn${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
       <img src="img/c_${c.id}.webp?v=4" alt="" width="76" height="95" decoding="async" loading="${i < 4 ? "eager" : "lazy"}">
       <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "desde " + pesos(min) : "a cotizar"} · ${cuantos(c)} opciones</em></span>
       ${FLECHA}
@@ -719,7 +760,7 @@ const marcar = new IntersectionObserver(es => {
   es.forEach(e => { if (e.isIntersecting) {
     links.forEach(a => a.classList.toggle("activo", a.getAttribute("href") === "#" + e.target.id));
     const act = nav.querySelector(".activo");
-    if (act) { const ul = nav; ul.scrollTo({left: act.parentElement.offsetLeft - (ul.clientWidth - act.offsetWidth) / 2}); }
+    if (act && nav.scrollWidth > nav.clientWidth + 4) nav.scrollTo({left: act.parentElement.offsetLeft - (nav.clientWidth - act.offsetWidth) / 2});
   }});
 }, {rootMargin:"-45% 0px -50% 0px"});
 secs.forEach(s => s && marcar.observe(s));

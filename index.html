@@ -341,11 +341,14 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 /* ---------- entrada: pantalla de carga que avanza con las fotos y se abre como obturador ---------- */
 @property --r{syntax:'<length>';inherits:false;initial-value:0px}
 .carga{display:none}
-.intro .carga{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#000;cursor:pointer;
-  -webkit-mask:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px));
-          mask:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px))}
-.intro.listo .carga{animation:abrir 1s .45s cubic-bezier(.7,0,.2,1) forwards;pointer-events:none}
-@keyframes abrir{0%{--r:0px}100%{--r:150vmax;visibility:hidden}}
+html.intro,html.intro body{background:#000}
+html.intro:not(.listo) body::before{opacity:0}
+.intro .carga{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#000;cursor:pointer}
+.intro.listo .carga{background:transparent;pointer-events:none;animation:ocultar-carga 0s 1.5s forwards}
+@keyframes ocultar-carga{to{visibility:hidden}}
+.carga-iris{display:none}
+.intro.listo .carga-iris{display:block;position:fixed;left:50%;top:46%;width:300vmax;height:300vmax;margin:-150vmax 0 0 -150vmax;border-radius:50%;box-shadow:0 0 0 300vmax #000;transform:scale(0);animation:iris 1s .4s cubic-bezier(.7,0,.2,1) forwards;z-index:-1}
+@keyframes iris{to{transform:scale(1)}}
 .carga-centro{display:grid;justify-items:center;opacity:0;animation:aparece-c .6s .05s forwards}
 @keyframes aparece-c{to{opacity:1}}
 .intro.listo .carga-centro{animation:desvanece .45s forwards}
@@ -888,11 +891,14 @@ main section.cat{border-top:0}
 .cierre{border-top:0}
 .cierre .wrap{background:var(--vidrio);border:1px solid var(--borde-vidrio);border-radius:28px;padding:44px 24px;box-shadow:0 30px 80px rgba(0,0,0,.45)}
 .hoja-barra,.hoja-pie{background:rgba(10,10,14,.75);-webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px)}
+.burbuja{background:#fff;color:#141414;border:1px solid rgba(255,255,255,.6)}
+.burbuja b{color:#141414}
+.burbuja button{color:#555}
 </style>
+<script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
-<script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 <div class="carga" id="carga" aria-hidden="true">
   <div class="carga-centro">
     <svg class="chico" viewBox="0 0 200 160" aria-hidden="true">
@@ -930,6 +936,7 @@ main section.cat{border-top:0}
     <div class="carga-linea"><i id="cargaLinea"></i></div>
   </div>
   <i class="carga-flash"></i>
+  <i class="carga-iris"></i>
 </div>
 
 <header class="hero">

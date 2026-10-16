@@ -341,27 +341,40 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 /* ---------- entrada: pantalla de carga que avanza con las fotos y se abre como obturador ---------- */
 @property --r{syntax:'<length>';inherits:false;initial-value:0px}
 .carga{display:none}
-.intro .carga{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#161613;cursor:pointer;
+.intro .carga{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#000;cursor:pointer;
   -webkit-mask:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px));
           mask:radial-gradient(circle at 50% 46%,transparent var(--r),#000 calc(var(--r) + 1px))}
-.intro.listo .carga{animation:abrir 1s .55s cubic-bezier(.7,0,.2,1) forwards;pointer-events:none}
+.intro.listo .carga{animation:abrir 1s .45s cubic-bezier(.7,0,.2,1) forwards;pointer-events:none}
 @keyframes abrir{0%{--r:0px}100%{--r:150vmax;visibility:hidden}}
-.carga-centro{display:grid;justify-items:center;gap:0}
-.carga-logo{position:relative;width:92px;height:96px;opacity:0;animation:logo-entra .8s .1s cubic-bezier(.2,.8,.2,1) forwards}
-@keyframes logo-entra{from{opacity:0;transform:scale(.92)}to{opacity:1;transform:none}}
-.logo-cf{position:absolute;inset:0;width:100%;height:100%}
-.logo-cf.base{fill:#fff;opacity:.13}
-.relleno{position:absolute;inset:0;clip-path:inset(100% 0 0 0);transition:clip-path .25s linear}
-.relleno .logo-cf{fill:#fff}
-.intro.listo .carga-logo{animation:logo-sale .55s ease-in forwards}
-@keyframes logo-sale{0%{opacity:1;transform:none;filter:drop-shadow(0 0 0 rgba(240,162,46,0))}40%{transform:scale(1.06);filter:drop-shadow(0 0 18px rgba(240,162,46,.7))}100%{opacity:0;transform:scale(1.18)}}
-.carga-linea{width:120px;height:1px;background:#3a3b35;margin-top:30px;overflow:hidden;opacity:0;animation:aparece-c .5s .35s forwards}
-.carga-linea i{display:block;height:100%;width:100%;background:var(--ambar);transform:scaleX(0);transform-origin:0 50%;transition:transform .25s linear}
-.carga-nombre{margin-top:18px;font-family:'Bodoni Moda',serif;font-weight:500;font-size:1.15rem;letter-spacing:.32em;text-indent:.32em;color:var(--tinta);opacity:0;animation:aparece-c .7s .5s forwards}
-.carga-sub{margin-top:6px;font-size:.72rem;letter-spacing:.24em;text-indent:.24em;color:var(--gris);opacity:0;animation:aparece-c .7s .7s forwards}
+.carga-centro{display:grid;justify-items:center;opacity:0;animation:aparece-c .6s .05s forwards}
 @keyframes aparece-c{to{opacity:1}}
-.intro.listo .carga-linea,.intro.listo .carga-nombre,.intro.listo .carga-sub{animation:desvanece .4s forwards}
-@keyframes desvanece{from{opacity:1}to{opacity:0}}
+.intro.listo .carga-centro{animation:desvanece .45s forwards}
+@keyframes desvanece{from{opacity:1}to{opacity:0;transform:translateY(-8px)}}
+
+/* el chico que camina con la cámara: línea blanca sobre negro, como los loaders de referencia */
+.chico{width:190px;height:auto;overflow:visible;fill:none;stroke:#fff;stroke-width:2.1;stroke-linecap:round;stroke-linejoin:round}
+.chico .cabeza{fill:#000}
+.chico .cuerpo{animation:paso-bob .42s ease-in-out infinite alternate}
+@keyframes paso-bob{from{transform:translateY(0)}to{transform:translateY(-2px)}}
+.chico .pierna,.chico .brazo-izq,.chico .brazo-der{transform-box:view-box}
+.chico .pierna{transform-origin:90px 88px}
+.chico .pierna.adelante{animation:pierna .84s ease-in-out infinite}
+.chico .pierna.atras{animation:pierna .84s ease-in-out infinite reverse}
+@keyframes pierna{0%,100%{transform:rotate(22deg)}50%{transform:rotate(-22deg)}}
+.chico .brazo-izq{transform-origin:90px 54px;animation:brazo .84s ease-in-out infinite}
+@keyframes brazo{0%,100%{transform:rotate(-24deg)}50%{transform:rotate(24deg)}}
+.chico .brazo-der{transform-origin:90px 54px;animation:brazo-cam .84s ease-in-out infinite}
+@keyframes brazo-cam{0%,100%{transform:rotate(-5deg)}50%{transform:rotate(4deg)}}
+.chico .camara rect{fill:#000}
+.chico .destello{fill:#fff;stroke:none;opacity:0;transform-box:fill-box;transform-origin:center;animation:flash-cam 2.5s 1.2s ease-out infinite}
+@keyframes flash-cam{0%,86%{opacity:0;transform:scale(.3)}90%{opacity:1;transform:scale(1.25)}100%{opacity:0;transform:scale(.6)}}
+.chico .suelo{stroke:#fff;stroke-width:1.6}
+.chico .polvo{stroke:#3c3c3c;stroke-width:1.4;stroke-dasharray:2 22;animation:suelo .84s linear infinite}
+@keyframes suelo{to{stroke-dashoffset:24}}
+
+.carga-nombre{margin-top:10px;font-family:'Bodoni Moda',serif;font-weight:500;font-size:1.35rem;letter-spacing:.04em;color:#fff}
+.carga-linea{width:90px;height:1px;border-radius:1px;background:#262626;margin-top:12px;overflow:hidden}
+.carga-linea i{display:block;height:100%;width:100%;background:#fff;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s linear}
 
 /* portada: escondida mientras carga, entra cuando se abre */
 .hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
@@ -613,6 +626,142 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   .btn-ambar::after{display:none}
   .onda{display:none}
 }
+
+/* =====================================================================
+   TEMA "FOCUS": negro, blanco y un acento verde. Va al final para mandar.
+   ===================================================================== */
+:root{--mesa:#0e0e0e;--mesa2:#171717;--luz:#0e0e0e;--tinta:#f4f4f4;--gris:#a6a6a6;--ambar:#5fb064;--grasa:#5fb064;--grasa-luz:#5fb064;--pelicula:#000;--linea:#262626}
+body{background:var(--mesa);color:var(--tinta)}
+
+/* portada: foto a todo el ancho y texto centrado debajo */
+.hero{background:var(--mesa);color:var(--tinta);padding:0 0 30px}
+.hero-foto{position:relative;height:min(68vh,620px);overflow:hidden}
+.hero-foto img{width:100%;height:100%;object-fit:cover;object-position:center 30%}
+.hero-foto::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(14,14,14,0) 45%,var(--mesa) 100%)}
+.hero-grid,.hero-grid.wrap{display:block!important;text-align:center;margin-top:-90px;position:relative;z-index:2}
+.hero h1{max-width:none;color:#fff;font-size:clamp(3rem,11vw,6.4rem);font-weight:500}
+.hero .quien{color:var(--ambar);font-family:'Archivo',sans-serif;font-size:.95rem;font-weight:600;letter-spacing:.04em;margin-top:8px}
+.hero p.lead{color:#cfcfcf;margin:16px auto 22px;max-width:46ch}
+.ctas{justify-content:center}
+.btn-osc{background:#fff;color:#0e0e0e}
+.btn-osc:hover{background:#e6e6e6}
+.btn-linea{border-color:#4a4a4a;color:#fff}
+.btn-linea:hover{background:rgba(255,255,255,.08);border-color:#fff}
+.btn-ambar{background:var(--ambar);color:#0b0b0b}
+.btn-ambar:hover{background:#71c276}
+.prueba{justify-content:center;color:#b5b5b5}
+.prueba b{color:#fff}
+.prueba i{background:var(--ambar)}
+.redes-top{justify-content:center}
+.redes-top a{background:#1d1d1d;color:#fff}
+.redes-top a:hover{background:#2a2a2a}
+.collage{display:none!important}
+.tira-zona{margin-top:36px}
+.tira{background:#000;box-shadow:none}
+.tira::before,.tira::after{background:repeating-linear-gradient(90deg,transparent 0 10px,#2b2b2b 10px 22px,transparent 22px 34px);opacity:1}
+.tira .canto{color:#5a5a5a}
+.pista-ayuda{color:#8a8a8a;font-family:'Archivo',sans-serif;font-size:.85rem}
+.circulo path{stroke:var(--ambar)}
+.nota{display:none}
+
+/* menú */
+.indice{background:rgba(14,14,14,.97);border-bottom:1px solid var(--linea)}
+.indice a{color:#9a9a9a}
+.indice a.activo{background:transparent;color:#fff;box-shadow:inset 0 -2px 0 var(--ambar);border-radius:0}
+
+/* títulos de sección centrados con línea verde corta */
+.cab{text-align:center;justify-items:center;margin-left:auto;margin-right:auto}
+.cab h2,.cab h2.oro{background:none;-webkit-background-clip:initial;background-clip:initial;color:#fff;font-weight:500}
+.subraya{display:block;width:44px;height:2px;background:var(--ambar);margin:6px auto 4px;border-radius:2px}
+.cab p{color:var(--gris)}
+.cab .meta{justify-content:center}
+.cab .meta span{border-color:#333;color:#cfcfcf}
+main section.cat{border-top:1px solid var(--linea)}
+.volver{display:flex;justify-content:center}
+
+/* tarjetas de paquete: foto arriba, cuerpo oscuro */
+.copia{background:var(--mesa2);border:1px solid #222;border-radius:6px;overflow:hidden;padding-bottom:20px}
+.copia > *:not(.foto):not(.sello-reco){margin-left:18px;margin-right:18px}
+.copia .foto,.copia:nth-child(3n+1) .foto,.copia:nth-child(3n+2) .foto{background:none;padding:0;box-shadow:none;transform:none;rotate:none}
+.copia.reco .foto{outline:none}
+.copia.reco{border-color:var(--ambar);box-shadow:0 0 0 1px var(--ambar)}
+.copia .marca{right:12px;top:12px;font-family:'Archivo',sans-serif;font-size:.85rem;font-weight:800;color:#0b0b0b;background:var(--ambar);border-radius:999px;padding:4px 10px;transform:none;text-shadow:none}
+.sello-reco{top:12px;left:12px;background:#fff;color:#0b0b0b}
+.copia .etq{align-self:center;margin-top:18px;background:transparent;border-color:#333;color:var(--gris)}
+.copia h3{text-align:center;color:#fff;font-weight:500}
+.copia .tipo{text-align:center}
+.copia h3::after{content:"";display:block;width:34px;height:2px;background:var(--ambar);margin:10px auto 2px;border-radius:2px}
+.claves{justify-content:center}
+.claves span{background:#1f1f1f;border-color:#2c2c2c}
+.caja-precio{background:#111;border-color:#2a2a2a;text-align:center}
+.caja-precio .precio{justify-content:center}
+.caja-precio .precio b{color:#fff}
+.precio s::after{background:var(--ambar)}
+.ahorro{color:#7fd184}
+.incluye{text-align:left}
+.acciones{justify-content:center}
+.copia .foto.sinfoto{background:#111}
+.copia .foto.sinfoto::before{background:radial-gradient(circle at 50% 40%,#232323,#111 70%)}
+.copia .foto.sinfoto span{font-family:'Archivo',sans-serif;font-size:.85rem;color:var(--gris)}
+.mas{background:#fff;color:#0b0b0b}
+.mas .flecha{stroke:#0b0b0b}
+.mas::after{border-color:#fff}
+.puntos button.activo{background:#fff}
+
+/* impresiones */
+.tam{background:var(--mesa2);border-color:#222;border-radius:6px}
+.tam .pedir{color:var(--ambar)}
+
+/* categorías */
+.cat-btn{background:var(--mesa2);border-color:#262626}
+.cat-btn:hover,.cat-btn:focus-visible{border-color:var(--ambar)}
+.cat-btn.top{border-color:#3a3a3a;box-shadow:none}
+.cat-btn img{border-color:#2c2c2c}
+.cat-btn .sello{background:var(--ambar);color:#0b0b0b}
+.cat-btn .flecha{stroke:#fff}
+
+/* bandas */
+.banda{background:#000}
+
+/* reservar */
+.cotiza{background:var(--mesa2);color:var(--tinta);border:1px solid #262626;box-shadow:none}
+.cotiza p{color:var(--gris)}
+.cotiza input,.cotiza select{background:#0e0e0e;color:#fff;border-color:#333}
+.cotiza .btn-osc{background:var(--ambar);color:#0b0b0b}
+.cuenta{background:var(--mesa2);border-color:#262626}
+.copiar{border-color:var(--ambar);color:var(--ambar)}
+.regalo{border-left-color:var(--ambar)}
+
+/* sobre mí y portafolio sin marcos tipo polaroid */
+.sobre .copia-mini{background:none;padding:0;box-shadow:none;transform:none;border-radius:6px;overflow:hidden}
+.sobre .copia-mini span{display:none}
+.datos span{border-color:#333}
+.pf-item,.pf-item:nth-child(3n+1),.pf-item:nth-child(3n+2){background:none;padding:0;box-shadow:none;rotate:none;border-radius:4px;overflow:hidden}
+.pf-item span{position:absolute;left:0;right:0;bottom:0;padding:18px 10px 8px;background:linear-gradient(transparent,rgba(0,0,0,.75));color:#fff;font-family:'Archivo',sans-serif;font-size:.8rem;font-weight:600;opacity:0;transition:opacity .2s}
+.pf-item:hover span,.pf-item:focus-visible span{opacity:1}
+.pf-filtros button{background:#161616;border-color:#2c2c2c}
+.pf-filtros button[aria-selected="true"]{background:#fff;border-color:#fff;color:#0b0b0b}
+.pf-filtros button[aria-selected="true"] small{color:#0b0b0b}
+
+/* cierre */
+.cierre{background:#000;color:var(--tinta);text-align:center;border-top:1px solid var(--linea)}
+.cierre h2{color:#fff;margin-left:auto;margin-right:auto}
+.cierre p{color:var(--gris);margin-left:auto;margin-right:auto}
+.cierre .btn-osc{background:var(--ambar);color:#0b0b0b}
+.redes-logos{justify-content:center}
+.redes-logos a{color:#cfcfcf}
+.pie{color:#6f6f6f}
+
+/* visor y hoja */
+.hoja,.visor{background:rgba(5,5,5,.97)}
+.hoja-barra,.hoja-pie{background:#111;border-color:#222}
+.visor img{border-color:#fff}
+
+/* videos de muestra de invitaciones: solo cargan cerca de la pantalla */
+.copia .recorte{position:relative}
+.copia .demo{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transition:opacity .5s}
+.copia .demo.lista{opacity:1}
+.demo-et{position:absolute;left:10px;bottom:10px;z-index:2;background:rgba(0,0,0,.7);color:#fff;font-size:.75rem;font-weight:700;padding:4px 9px;border-radius:999px;pointer-events:none}
 </style>
 </head>
 <body>
@@ -620,14 +769,34 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 <script>document.documentElement.classList.add('js');try{if(!sessionStorage.getItem('intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');sessionStorage.setItem('intro','1')}}catch(e){}</script>
 <div class="carga" id="carga" aria-hidden="true">
   <div class="carga-centro">
-    <div class="carga-logo"><svg class="logo-cf base" viewBox="0 0 719 754" aria-hidden="true"><path fill-rule="evenodd" d="M332.0 750.9C317.4 749.2 301.5 746.9 298.5 746.0C296.9 745.6 292.8 744.7 289.5 744.0C268.1 739.7 245.2 732.3 224.7 723.1C222.4 722.1 218.5 720.4 216.0 719.3C205.9 714.9 178.6 698.5 164.1 688.2C142.5 672.8 115.7 649.0 105.8 636.5C103.6 633.8 99.5 629.0 96.6 626.0C65.4 592.6 34.3 537.5 20.0 490.0C6.5 445.0 1.7 414.9 1.5 374.5C1.5 349.3 4.8 319.6 11.2 288.5C14.1 274.8 25.5 239.8 31.7 226.0C49.5 186.4 70.9 151.9 93.7 126.2C127.9 87.6 160.3 62.4 204.4 39.9C242.8 20.3 280.8 9.2 329.2 3.5C345.9 1.5 390.2 1.5 408.0 3.5C428.6 5.8 450.9 9.9 466.0 14.1C470.1 15.2 475.1 16.6 477.0 17.1C489.0 20.0 524.4 34.5 541.0 43.2C557.1 51.7 559.7 53.2 575.5 63.6C625.6 96.6 664.7 137.7 695.6 189.6C705.7 206.7 714.3 223.8 713.6 225.6C713.1 226.8 706.1 227.0 666.3 226.8L619.6 226.5L610.8 214.0C593.6 189.6 589.4 184.5 574.7 169.9C555.2 150.4 542.7 140.3 523.5 128.4C496.5 111.8 461.5 98.1 434.8 93.6C427.0 92.3 421.6 91.5 402.5 89.0C392.6 87.7 364.2 87.7 355.2 88.9C351.5 89.5 344.7 90.4 340.0 91.0C300.5 96.3 261.8 111.7 227.0 135.8C213.3 145.3 208.0 149.8 194.2 163.2C166.1 190.7 148.5 217.1 131.2 257.7C118.8 286.7 113.1 311.1 109.0 352.0C103.9 403.3 117.3 470.8 141.7 516.9C157.8 547.4 172.1 566.9 195.3 590.2C211.1 606.0 221.0 614.2 237.0 624.8C267.7 645.0 303.9 659.3 339.0 664.9C342.6 665.5 348.2 666.4 351.5 666.9C367.2 669.5 404.5 669.0 423.0 666.1C426.0 665.6 431.4 664.7 435.0 664.1C480.5 656.9 535.0 630.0 575.0 595.1C591.8 580.4 608.1 562.0 619.2 545.0C625.5 535.3 620.7 536.2 670.5 536.0C694.7 535.9 715.1 535.9 715.8 535.9C718.4 536.1 716.8 540.6 710.2 551.3C706.5 557.4 703.3 562.9 703.1 563.5C701.9 566.5 687.3 587.3 678.1 599.0C666.4 613.9 649.4 633.1 641.6 640.0C638.9 642.5 632.9 648.0 628.3 652.2C612.2 667.2 594.2 680.8 572.6 694.2C558.7 702.9 523.9 720.7 510.5 726.1C493.3 732.9 471.0 740.0 457.0 743.0C454.5 743.5 449.6 744.6 446.0 745.4C442.4 746.1 435.7 747.3 431.0 747.9C426.3 748.5 419.1 749.5 415.0 750.1C405.4 751.5 341.9 752.1 332.0 750.9ZM352.2 570.0C253.9 569.6 239.8 569.3 239.0 568.0C238.4 567.2 238.1 562.0 238.2 556.5L238.5 546.5L253.0 545.9C267.8 545.2 275.1 544.1 280.0 541.5C284.2 539.3 291.5 530.7 292.8 526.2C293.7 523.2 294.0 485.8 294.0 374.6L294.0 226.9L291.8 223.6C289.2 219.8 285.3 216.5 279.5 212.9C275.8 210.7 274.3 210.5 257.5 210.0L239.5 209.5L239.5 199.3C239.5 192.3 239.9 188.7 240.8 187.8C242.7 185.9 536.3 185.9 538.2 187.8C539.9 189.5 540.7 313.9 539.0 317.0C538.2 318.5 536.9 319.0 533.5 319.0C528.4 319.0 528.0 318.6 524.9 308.3C518.4 287.4 510.5 273.7 496.5 259.1C478.9 240.9 460.9 231.7 432.0 226.4C422.7 224.7 418.7 224.7 417.2 226.2C415.5 227.9 415.5 344.1 417.2 345.8C419.7 348.3 432.0 346.6 439.7 342.7C443.8 340.6 450.8 332.7 453.1 327.7C454.4 324.7 455.0 321.2 455.0 315.5C455.0 311.1 455.3 306.5 455.6 305.3C456.4 302.6 460.4 301.3 471.1 300.4C483.1 299.4 482.0 293.5 482.0 361.5C482.0 413.7 481.8 419.8 480.4 420.4C477.4 421.5 457.5 421.1 456.2 419.8C455.4 419.0 455.0 414.8 455.0 407.5C455.0 392.9 453.3 387.2 447.4 381.5C440.7 374.9 435.9 373.0 426.4 373.0C421.5 373.0 417.9 373.5 417.2 374.2C416.3 375.1 416.0 393.9 416.0 452.7C416.0 517.5 416.2 530.5 417.4 532.8C419.6 537.0 425.0 541.7 430.5 544.1C435.1 546.2 437.1 546.4 453.5 546.4C463.4 546.5 472.1 546.9 472.8 547.3C473.6 547.9 474.0 551.1 474.0 557.4C474.0 567.9 473.2 569.6 468.0 570.1C466.1 570.3 414.0 570.3 352.2 570.0Z"/></svg><div class="relleno" id="cargaRelleno"><svg class="logo-cf" viewBox="0 0 719 754" aria-hidden="true"><path fill-rule="evenodd" d="M332.0 750.9C317.4 749.2 301.5 746.9 298.5 746.0C296.9 745.6 292.8 744.7 289.5 744.0C268.1 739.7 245.2 732.3 224.7 723.1C222.4 722.1 218.5 720.4 216.0 719.3C205.9 714.9 178.6 698.5 164.1 688.2C142.5 672.8 115.7 649.0 105.8 636.5C103.6 633.8 99.5 629.0 96.6 626.0C65.4 592.6 34.3 537.5 20.0 490.0C6.5 445.0 1.7 414.9 1.5 374.5C1.5 349.3 4.8 319.6 11.2 288.5C14.1 274.8 25.5 239.8 31.7 226.0C49.5 186.4 70.9 151.9 93.7 126.2C127.9 87.6 160.3 62.4 204.4 39.9C242.8 20.3 280.8 9.2 329.2 3.5C345.9 1.5 390.2 1.5 408.0 3.5C428.6 5.8 450.9 9.9 466.0 14.1C470.1 15.2 475.1 16.6 477.0 17.1C489.0 20.0 524.4 34.5 541.0 43.2C557.1 51.7 559.7 53.2 575.5 63.6C625.6 96.6 664.7 137.7 695.6 189.6C705.7 206.7 714.3 223.8 713.6 225.6C713.1 226.8 706.1 227.0 666.3 226.8L619.6 226.5L610.8 214.0C593.6 189.6 589.4 184.5 574.7 169.9C555.2 150.4 542.7 140.3 523.5 128.4C496.5 111.8 461.5 98.1 434.8 93.6C427.0 92.3 421.6 91.5 402.5 89.0C392.6 87.7 364.2 87.7 355.2 88.9C351.5 89.5 344.7 90.4 340.0 91.0C300.5 96.3 261.8 111.7 227.0 135.8C213.3 145.3 208.0 149.8 194.2 163.2C166.1 190.7 148.5 217.1 131.2 257.7C118.8 286.7 113.1 311.1 109.0 352.0C103.9 403.3 117.3 470.8 141.7 516.9C157.8 547.4 172.1 566.9 195.3 590.2C211.1 606.0 221.0 614.2 237.0 624.8C267.7 645.0 303.9 659.3 339.0 664.9C342.6 665.5 348.2 666.4 351.5 666.9C367.2 669.5 404.5 669.0 423.0 666.1C426.0 665.6 431.4 664.7 435.0 664.1C480.5 656.9 535.0 630.0 575.0 595.1C591.8 580.4 608.1 562.0 619.2 545.0C625.5 535.3 620.7 536.2 670.5 536.0C694.7 535.9 715.1 535.9 715.8 535.9C718.4 536.1 716.8 540.6 710.2 551.3C706.5 557.4 703.3 562.9 703.1 563.5C701.9 566.5 687.3 587.3 678.1 599.0C666.4 613.9 649.4 633.1 641.6 640.0C638.9 642.5 632.9 648.0 628.3 652.2C612.2 667.2 594.2 680.8 572.6 694.2C558.7 702.9 523.9 720.7 510.5 726.1C493.3 732.9 471.0 740.0 457.0 743.0C454.5 743.5 449.6 744.6 446.0 745.4C442.4 746.1 435.7 747.3 431.0 747.9C426.3 748.5 419.1 749.5 415.0 750.1C405.4 751.5 341.9 752.1 332.0 750.9ZM352.2 570.0C253.9 569.6 239.8 569.3 239.0 568.0C238.4 567.2 238.1 562.0 238.2 556.5L238.5 546.5L253.0 545.9C267.8 545.2 275.1 544.1 280.0 541.5C284.2 539.3 291.5 530.7 292.8 526.2C293.7 523.2 294.0 485.8 294.0 374.6L294.0 226.9L291.8 223.6C289.2 219.8 285.3 216.5 279.5 212.9C275.8 210.7 274.3 210.5 257.5 210.0L239.5 209.5L239.5 199.3C239.5 192.3 239.9 188.7 240.8 187.8C242.7 185.9 536.3 185.9 538.2 187.8C539.9 189.5 540.7 313.9 539.0 317.0C538.2 318.5 536.9 319.0 533.5 319.0C528.4 319.0 528.0 318.6 524.9 308.3C518.4 287.4 510.5 273.7 496.5 259.1C478.9 240.9 460.9 231.7 432.0 226.4C422.7 224.7 418.7 224.7 417.2 226.2C415.5 227.9 415.5 344.1 417.2 345.8C419.7 348.3 432.0 346.6 439.7 342.7C443.8 340.6 450.8 332.7 453.1 327.7C454.4 324.7 455.0 321.2 455.0 315.5C455.0 311.1 455.3 306.5 455.6 305.3C456.4 302.6 460.4 301.3 471.1 300.4C483.1 299.4 482.0 293.5 482.0 361.5C482.0 413.7 481.8 419.8 480.4 420.4C477.4 421.5 457.5 421.1 456.2 419.8C455.4 419.0 455.0 414.8 455.0 407.5C455.0 392.9 453.3 387.2 447.4 381.5C440.7 374.9 435.9 373.0 426.4 373.0C421.5 373.0 417.9 373.5 417.2 374.2C416.3 375.1 416.0 393.9 416.0 452.7C416.0 517.5 416.2 530.5 417.4 532.8C419.6 537.0 425.0 541.7 430.5 544.1C435.1 546.2 437.1 546.4 453.5 546.4C463.4 546.5 472.1 546.9 472.8 547.3C473.6 547.9 474.0 551.1 474.0 557.4C474.0 567.9 473.2 569.6 468.0 570.1C466.1 570.3 414.0 570.3 352.2 570.0Z"/></svg></div></div>
+    <svg class="chico" viewBox="0 0 200 150" aria-hidden="true">
+      <g class="cuerpo">
+        <g class="pierna atras"><path d="M90 88 L88 104 L91 120 L97 121"/></g>
+        <g class="brazo-izq"><path d="M90 54 L87 68 L89 80"/></g>
+        <circle class="cabeza" cx="90" cy="36" r="9"/>
+        <path class="torso" d="M90 45 Q91 66 90 88"/>
+        <g class="pierna adelante"><path d="M90 88 L92 104 L90 120 L96 121"/></g>
+        <g class="brazo-der">
+          <path d="M90 54 L97 67 L106 70"/>
+          <g class="camara">
+            <rect x="104" y="61" width="24" height="15" rx="2"/>
+            <path d="M107 61 v-3 h6 v3 M121 61 v-2 h4 v2"/>
+            <circle cx="116" cy="68.5" r="5.2"/><circle cx="116" cy="68.5" r="2.6"/>
+            <path d="M105 64.5 h4 M123 64.5 h3"/>
+            <path class="destello" d="M134 50 l1.6 -5 l1.6 5 l5 1.6 l-5 1.6 l-1.6 5 l-1.6 -5 l-5 -1.6 z"/>
+          </g>
+        </g>
+      </g>
+      <path class="suelo" d="M30 122 H170"/>
+      <path class="polvo" d="M30 128 H170"/>
+    </svg>
+    <div class="carga-nombre">Fotos Chimbitas</div>
     <div class="carga-linea"><i id="cargaLinea"></i></div>
-    <div class="carga-nombre">Edson Penagos</div>
-    <div class="carga-sub">fotografía · video · dron</div>
   </div>
 </div>
 
 <header class="hero">
+  <div class="hero-foto"><picture><source media="(min-width:900px)" srcset="img/m/hero-ancho.webp"><img src="img/m/hero-full.webp" alt="Quinceañera fotografiada por Edson Penagos" width="1350" height="1800" fetchpriority="high"></picture></div>
   <div class="wrap hero-grid">
   <div class="hero-texto">
     <h1><span class="l"><span>Edson</span></span> <span class="l"><span>Penagos</span></span></h1>
@@ -665,25 +834,52 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 <script>
 (function(){
   var h = document.documentElement; if (!h.classList.contains('intro')) return;
-  var carga = document.getElementById('carga'), relleno = document.getElementById('cargaRelleno'), linea = document.getElementById('cargaLinea');
+  var carga = document.getElementById('carga'), linea = document.getElementById('cargaLinea');
   var imgs = [].slice.call(document.querySelectorAll('.cuadro img:not([loading="lazy"])'));
   var total = imgs.length + 1, hechas = 0, t0 = performance.now(), visto = 0, fin = false;
   function una(){ hechas++; }
   imgs.forEach(function(i){ if (i.complete) una(); else { i.addEventListener('load', una, {once:true}); i.addEventListener('error', una, {once:true}); } });
   (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(una);
+
+  /* timbre suave de bienvenida con brillitos (sintetizado, sin archivo) */
+  var ctx = null, maestro = null, sono = false;
+  function timbre(){
+    if (sono) return;
+    try {
+      ctx = ctx || new (window.AudioContext || window.webkitAudioContext)();
+      if (ctx.state !== 'running') { ctx.resume(); if (ctx.state !== 'running') return; }
+      sono = true;
+      maestro = ctx.createGain(); maestro.gain.value = .22; maestro.connect(ctx.destination);
+      var t = ctx.currentTime + .02;
+      function nota(f, cuando, dur, vol){
+        [1, 2.76].forEach(function(arm, k){
+          var o = ctx.createOscillator(), g = ctx.createGain();
+          o.type = 'sine'; o.frequency.value = f * arm;
+          g.gain.setValueAtTime(0, cuando); g.gain.linearRampToValueAtTime(vol * (k ? .18 : 1), cuando + .015);
+          g.gain.exponentialRampToValueAtTime(.0001, cuando + dur);
+          o.connect(g); g.connect(maestro); o.start(cuando); o.stop(cuando + dur + .05);
+        });
+      }
+      nota(1046.5, t, 1.6, .5); nota(1318.5, t + .12, 1.5, .42); nota(1568, t + .24, 1.7, .38); nota(2093, t + .4, 1.9, .26);
+      for (var k = 0; k < 7; k++) nota(2600 + Math.random() * 2400, t + .5 + k * .09 + Math.random() * .05, .5, .07);
+    } catch (e) {}
+  }
+  timbre();                                                   // suena si el navegador lo permite
+  ['pointerdown', 'keydown', 'touchstart'].forEach(function(ev){ addEventListener(ev, timbre, {once:true, passive:true}); });
+
   function terminar(){
     if (fin) return; fin = true;
-    relleno.style.clipPath = 'inset(0 0 0 0)'; linea.style.transform = 'scaleX(1)';
-    setTimeout(function(){ h.classList.add('listo'); }, 180);
+    linea.style.transform = 'scaleX(1)';
+    setTimeout(function(){ h.classList.add('listo'); }, 250);
+    if (maestro) { var n = ctx.currentTime; maestro.gain.cancelScheduledValues(n); maestro.gain.setValueAtTime(maestro.gain.value, n); maestro.gain.linearRampToValueAtTime(0, n + 1.4); setTimeout(function(){ try { ctx.close(); } catch(e){} }, 1800); }
     setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 3400);
   }
-  carga.addEventListener('pointerdown', terminar);
+  carga.addEventListener('pointerdown', function(){ timbre(); setTimeout(terminar, 350); });
   function paso(t){
     if (fin) return;
-    var real = hechas / total, tiempo = Math.min(1, (t - t0) / 1600);      // mínimo 1,6 s para apreciarla
-    if (t - t0 > 4000) real = 1;                                             // nunca más de 4 s
-    visto += (Math.min(real, tiempo) - visto) * .12;
-    relleno.style.clipPath = 'inset(' + ((1 - visto) * 100).toFixed(1) + '% 0 0 0)';
+    var real = hechas / total, tiempo = Math.min(1, (t - t0) / 2300);      // ~2,3 s para ver al chico caminar
+    if (t - t0 > 4500) real = 1;
+    visto += (Math.min(real, tiempo) - visto) * .1;
     linea.style.transform = 'scaleX(' + visto.toFixed(3) + ')';
     if (visto > .985) terminar(); else requestAnimationFrame(paso);
   }
@@ -716,7 +912,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 <section class="cat wrap" id="resenas" hidden>
   <div class="cab">
     <h2 class="oro">Lo que dicen mis clientes</h2>
-    <svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>
+    <span class="subraya" aria-hidden="true"></span>
     <p>Mensajes reales que me han dejado después de su evento.</p>
   </div>
   <div class="resenas" id="listaResenas"></div>
@@ -797,7 +993,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 <section class="cat wrap" id="portafolio">
   <div class="cab">
     <h2 class="oro">Portafolio</h2>
-    <svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>
+    <span class="subraya" aria-hidden="true"></span>
     <p>Fotos reales de mis clientes, por tipo de evento. Toca una para verla completa.</p>
     <div class="meta"><span id="pfTotal"></span><span>10 categorías</span></div>
   </div>
@@ -890,11 +1086,11 @@ const CATS = [
    {sub:"Retablos", items:[["30×40 cm","$45.000","m_ret_30x40"],["40×60 cm","$75.000","m_ret_40x60"],["80×100 cm","$120.000","m_ret_80x100"]]}
   ]},
  {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones virtuales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"copias", items:[
-  {img:"m_inv_digital", n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
-  {img:"i_video", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
-  {img:"i_sencilla", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
-  {img:"i_tematica", n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
-  {img:"i_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
+  {img:"m_inv_digital", vid:"i_digital", n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
+  {img:"i_video_p", vid:"i_video", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Invitación en video con animaciones temáticas, música y opción de narración con voz de IA."},
+  {img:"i_sencilla", vid:"i_sencilla", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva elegante: portada animada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
+  {img:"i_tematica", vid:"i_tematica", n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con colores, letras y animaciones adaptados a la temática de tu evento."},
+  {img:"i_fotos", vid:"i_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
  {id:"ia", nav:"IA", titulo:"Servicios con inteligencia artificial", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"copias", items:[
   {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
@@ -953,7 +1149,7 @@ function lista(inc){ return inc ? `<ul>${inc.map(x => `<li>${esc(x)}</li>`).join
 function copias(c){
   return `<div class="carrusel"><div class="copias">${c.items.map(it => `
     <article class="copia aparece${RECO[c.id] === it.n ? " reco" : ""}">
-      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=5" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750"></span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>a la medida</span></div>`}
+      ${it.img ? `<div class="foto"><span class="recorte"><img src="img/m/${it.img}.webp?v=5" alt="${esc(it.n)}" loading="lazy" decoding="async" width="600" height="750">${it.vid ? `<video class="demo" muted playsinline loop preload="none" data-src="vid/${it.vid}.mp4?v=1" aria-label="Video de muestra: ${esc(it.n)}"></video><span class="demo-et">▶ demo</span>` : ""}</span>${it.d ? `<span class="marca" aria-label="descuento ${it.d}">${it.d}</span>` : ""}</div>` : `<div class="foto sinfoto" aria-hidden="true">${ICONO[it.icono] || ""}<span>a la medida</span></div>`}
       ${RECO[c.id] === it.n ? `<span class="sello-reco">Recomendado</span>` : ""}<span class="etq">${esc(c.titulo)}</span>
       <h3>${esc(it.n)}</h3>${it.t ? `<div class="tipo">${esc(it.t)}</div>` : ""}
       ${claves(it, c.id)}${cajaPrecio(it)}${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}
@@ -1018,7 +1214,7 @@ function panel(){
     <div class="cats" id="cats">${botones()}</div>
   </section>`;
 }
-const SUBRAYA = '<svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>';
+const SUBRAYA = '<span class="subraya" aria-hidden="true"></span>';
 
 const BANDAS = {
   xv: {img:"banda1", t:"Cada evento se cuenta una sola vez.", s:"Separa tu fecha con el 40% y olvídate del resto.", a:"#reservar", b:"Cotizar mi fecha"},
@@ -1040,7 +1236,7 @@ main.innerHTML = panel() + CATS.map(c => `
   </section>${banda(c.id)}`).join("");
 
 const nav = document.getElementById("indice");
-nav.innerHTML = [["categorias","Categorías"], ["portafolio","Portafolio"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["como","Cómo trabajo"]]
+nav.innerHTML = [["categorias","Categorías"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["como","Cómo trabajo"], ["portafolio","Portafolio"]]
   .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
 
 /* índice activo según la sección visible */
@@ -1169,6 +1365,21 @@ if (RESENAS.length) {
   document.getElementById("hojaVolver").addEventListener("click", () => { if (history.state && history.state.hoja) history.back(); else cerrar(); });
   addEventListener("popstate", cerrar);
   addEventListener("keydown", e => { if (e.key === "Escape" && abierta) history.back(); });
+})();
+
+/* videos de muestra: se cargan y reproducen solo cuando la tarjeta está en pantalla */
+(() => {
+  const vids = document.querySelectorAll("video.demo"); if (!vids.length) return;
+  const ahorro = navigator.connection && (navigator.connection.saveData || /2g/.test(navigator.connection.effectiveType || ""));
+  const io = new IntersectionObserver(es => es.forEach(e => {
+    const v = e.target;
+    if (e.isIntersecting) {
+      if (ahorro) return;
+      if (!v.src) { v.src = v.dataset.src; v.addEventListener("loadeddata", () => v.classList.add("lista"), {once:true}); }
+      v.play().catch(() => {});
+    } else if (v.src) v.pause();
+  }), {rootMargin:"200px 0px", threshold:.25});
+  vids.forEach(v => io.observe(v));
 })();
 
 /* ---------- interacción ---------- */

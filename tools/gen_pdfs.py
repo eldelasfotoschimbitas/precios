@@ -126,7 +126,9 @@ with sync_playwright() as pw:
         if c["tipo"] != "copias":
             continue
         for it in c["items"]:
-            resto = [o for o in c["items"] if o is not it and o["n"] != it["n"]][:4]
+            if not it.get("img"):
+                i += 1; continue
+            resto = [o for o in c["items"] if o is not it and o["n"] != it["n"] and o.get("img")][:4]
             pg.set_content(page(c, it, resto), wait_until="networkidle")
             pg.evaluate("document.fonts.ready")
             out = OUT / f"{slugs[i]}.pdf"
@@ -134,3 +136,15 @@ with sync_playwright() as pw:
             print(out.name, out.stat().st_size // 1024, "KB")
             i += 1
     br.close()
+
+# vistas previas para el visor de la página (pdf/ver/<slug>.webp)
+try:
+    import fitz, io
+    from PIL import Image
+    (OUT / "ver").mkdir(exist_ok=True)
+    for f in sorted(OUT.glob("*.pdf")):
+        pix = fitz.open(f)[0].get_pixmap(dpi=170)
+        Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB").save(OUT / "ver" / (f.stem + ".webp"), "WEBP", quality=82, method=6)
+    print("vistas previas listas")
+except ImportError:
+    print("instala pymupdf y pillow para generar las vistas previas")

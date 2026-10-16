@@ -1301,8 +1301,8 @@ const CATS = [
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
  {id:"ia", nav:"IA", titulo:"Fotos y videos con IA", linea:"Fotografía y video apoyados en IA, sin perder lo natural.", tipo:"copias", items:[
   {img:"m_ia_fotos", n:"Imágenes con IA", d:"-15%", s:"$23.500", p:"$20.000", por:"Por imagen", desc:"Fotografía tradicional mejorada con IA: más detalle y un acabado moderno. Para eventos, sesiones, retratos y contenido digital."},
-  {icono:"video", n:"Videos con IA", t:"Video", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
-  {icono:"chat", n:"Chatbots", t:"Atención automática", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
+  {img:"ia_video", n:"Videos con IA", t:"Video", p:"A cotizar", desc:"Animación, música, locución automática y edición para negocios, eventos y promociones."},
+  {img:"ia_chat", n:"Chatbots", t:"Atención automática", p:"A cotizar", desc:"Respuestas automáticas 24 horas para atención al cliente, ventas y reservas."}
  ]}
 ];
 
@@ -1342,7 +1342,7 @@ function claves(it, cat){
   if (/invitación virtual/i.test(txt)) out.push([ICO.inv, "Invitación virtual"]);
   if (cat === "dron" && !out.length) out.push([ICO.dron, "Dron"], [ICO.video, "4K hasta 100 fps"]);
   if (cat === "invitaciones") { out.length = 0; out.push([ICO.inv, /video/i.test(it.n) ? "Invitación en video" : "Invitación digital"]); }
-  if (it.por) out.push([ICO.per, "Por persona"]);
+  if (it.por) out.push([ICO.per, it.por]);
   return out.length ? `<div class="claves">${out.map(([i, t]) => `<span>${i}${t}</span>`).join("")}</div>` : "";
 }
 const RECO = {"xv": "Completo Foto + Video", "sesiones": "Essential · 18 fotos digitales", "eventos": "Forever · 100 fotos", "video": "Video cinemático · 3 a 5 minutos", "grados": "Grado Completo", "deportivo": "Paquete Deportivo", "invitaciones": "Virtual temática", "dron": "Clips colorizados"};

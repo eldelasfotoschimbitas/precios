@@ -205,6 +205,19 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .datos{display:flex;flex-wrap:wrap;gap:10px;margin-top:8px}
 .datos span{border:1px solid #4a4b44;border-radius:999px;padding:8px 14px;font-size:.92rem;color:var(--tinta)}
 
+/* reseñas */
+.resenas{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:24px}
+.resena{background:#fbfaf6;color:var(--mesa);padding:22px 22px 18px;box-shadow:0 10px 26px rgba(0,0,0,.35);display:grid;gap:12px;align-content:start;position:relative}
+.resena:nth-child(odd){rotate:-.6deg}.resena:nth-child(even){rotate:.5deg}
+.resena .estrellas{color:var(--ambar);letter-spacing:2px;font-size:1.05rem}
+.resena blockquote{margin:0;font-size:1.02rem;line-height:1.5;color:#2c2d28}
+.resena .quien-r{display:flex;align-items:center;gap:10px;margin-top:4px}
+.resena .quien-r img{width:44px;height:44px;border-radius:50%;object-fit:cover}
+.resena .quien-r b{display:block;font-size:.95rem}
+.resena .quien-r small{color:#5b5c55;font-size:.85rem}
+.resena .captura{width:100%;height:auto;border:1px solid #ddd}
+@media (max-width:640px){.resenas{display:flex;overflow-x:auto;scroll-snap-type:x mandatory;margin:0 -16px;padding:6px 16px 18px;scrollbar-width:none}.resena{flex:0 0 84%;scroll-snap-align:center}}
+
 /* portafolio */
 .pf-filtros{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;padding:4px 2px 14px;margin:0 -4px 8px}
 .pf-filtros::-webkit-scrollbar{display:none}
@@ -292,31 +305,51 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .copia .recorte{display:block;overflow:hidden}
 .copia .recorte img{display:block}
 
-/* ---------- entrada: obturador que se abre ---------- */
+/* ---------- entrada: pantalla de carga que avanza con las fotos y se abre como obturador ---------- */
 @property --r{syntax:'<length>';inherits:false;initial-value:0px}
-.obturador{display:none}
-.intro .obturador{display:block;position:fixed;inset:0;z-index:100;pointer-events:none;background:#161613;
+.carga{display:none}
+.intro .carga{display:grid;place-items:center;position:fixed;inset:0;z-index:100;background:#161613;color:var(--tinta);cursor:pointer;
   -webkit-mask:radial-gradient(circle at 50% 42%,transparent var(--r),#000 calc(var(--r) + 1px));
-          mask:radial-gradient(circle at 50% 42%,transparent var(--r),#000 calc(var(--r) + 1px));
-  animation:abrir .95s .35s cubic-bezier(.7,0,.2,1) forwards}
-@keyframes abrir{0%{--r:0px}12%{--r:34px}100%{--r:150vmax;visibility:hidden}}
-.intro .obturador::before{content:"";position:absolute;left:50%;top:42%;width:68px;height:68px;margin:-34px 0 0 -34px;border-radius:50%;border:2px solid var(--ambar);opacity:0;animation:aro .5s .1s ease-out forwards}
-@keyframes aro{0%{opacity:0;scale:.4}60%{opacity:1;scale:1}100%{opacity:0;scale:1.15}}
-.intro .flash{position:fixed;inset:0;background:#fff;opacity:0;animation:flash .45s .42s ease-out}
-@keyframes flash{0%{opacity:.55}100%{opacity:0}}
+          mask:radial-gradient(circle at 50% 42%,transparent var(--r),#000 calc(var(--r) + 1px))}
+.intro.listo .carga{animation:abrir .9s cubic-bezier(.7,0,.2,1) forwards;pointer-events:none}
+@keyframes abrir{0%{--r:0px}12%{--r:40px}100%{--r:150vmax;visibility:hidden}}
+.carga-centro{display:grid;justify-items:center;gap:14px;transform:translateY(-4vh)}
+.intro.listo .carga-centro{animation:alejar .5s ease-in forwards}
+@keyframes alejar{to{opacity:0;transform:translateY(-4vh) scale(.9)}}
+.iris{width:118px;height:118px}
+.iris-fondo{fill:none;stroke:#2f302a;stroke-width:4}
+.iris-anillo{fill:none;stroke:var(--ambar);stroke-width:4;stroke-linecap:round;stroke-dasharray:340;stroke-dashoffset:340;transform:rotate(-90deg);transform-origin:60px 60px}
+.iris-hojas{fill:#2c2d28;stroke:var(--ambar);stroke-width:1.2;transform-origin:60px 60px;animation:girar 2.4s linear infinite}
+@keyframes girar{to{transform:rotate(360deg)}}
+.carga-num{font-family:'Bodoni Moda',serif;font-weight:700;font-size:4.6rem;line-height:.9;color:#fff;font-variant-numeric:tabular-nums}
+.carga-num small{font-size:1.6rem;color:var(--ambar);margin-left:2px}
+.carga-marca{font-family:'Caveat Brush',cursive;font-size:1.5rem;color:var(--ambar)}
+.carga-rollo{display:flex;gap:5px;padding:6px 8px;background:#0e0e0c;border-radius:3px}
+.carga-rollo i{width:12px;height:16px;border-radius:2px;background:#2c2d28;transition:background .2s,box-shadow .2s}
+.carga-rollo i.on{background:var(--ambar);box-shadow:0 0 8px rgba(240,162,46,.7)}
+.carga-txt{font-size:.82rem;color:var(--gris);letter-spacing:.02em}
+.intro .flash{position:fixed;inset:0;background:#fff;opacity:0;pointer-events:none}
+.intro.listo .flash{animation:flash .45s .05s ease-out}
+@keyframes flash{0%{opacity:.5}100%{opacity:0}}
+
+/* portada: escondida mientras carga, entra cuando se abre */
 .hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
 .hero h1 .l > span{display:inline-block}
-.intro .hero h1 .l > span{transform:translateY(105%);animation:sube-letra .9s cubic-bezier(.2,.8,.2,1) forwards}
-.intro .hero h1 .l:nth-child(1) > span{animation-delay:.75s}
-.intro .hero h1 .l:nth-child(2) > span{animation-delay:.88s}
+.intro .hero h1 .l > span{transform:translateY(105%)}
+.intro.listo .hero h1 .l > span{animation:sube-letra .9s cubic-bezier(.2,.8,.2,1) forwards}
+.intro.listo .hero h1 .l:nth-child(1) > span{animation-delay:.35s}
+.intro.listo .hero h1 .l:nth-child(2) > span{animation-delay:.48s}
 @keyframes sube-letra{to{transform:none}}
-.intro .hero .quien,.intro .hero .lead,.intro .hero .ctas,.intro .hero .prueba,.intro .hero .redes-top{opacity:0;animation:aparece-h .6s ease-out forwards}
-.intro .hero .quien{animation-delay:1.05s}.intro .hero .lead{animation-delay:1.15s}.intro .hero .ctas{animation-delay:1.25s}.intro .hero .prueba{animation-delay:1.35s}.intro .hero .redes-top{animation-delay:1.42s}
+.intro .hero .quien,.intro .hero .lead,.intro .hero .ctas,.intro .hero .prueba,.intro .hero .redes-top{opacity:0}
+.intro.listo .hero .quien,.intro.listo .hero .lead,.intro.listo .hero .ctas,.intro.listo .hero .prueba,.intro.listo .hero .redes-top{animation:aparece-h .6s ease-out forwards}
+.intro.listo .hero .quien{animation-delay:.65s}.intro.listo .hero .lead{animation-delay:.75s}.intro.listo .hero .ctas{animation-delay:.85s}.intro.listo .hero .prueba{animation-delay:.95s}.intro.listo .hero .redes-top{animation-delay:1.02s}
 @keyframes aparece-h{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:none}}
-.intro .copia-h{opacity:0;animation:cae .9s cubic-bezier(.2,.9,.25,1.15) forwards}
-.intro .c1{animation-delay:1s}.intro .c2{animation-delay:1.12s}.intro .c3{animation-delay:1.24s}
+.intro .copia-h{opacity:0}
+.intro.listo .copia-h{animation:cae .9s cubic-bezier(.2,.9,.25,1.15) forwards}
+.intro.listo .c1{animation-delay:.6s}.intro.listo .c2{animation-delay:.72s}.intro.listo .c3{animation-delay:.84s}
 @keyframes cae{from{opacity:0;transform:translateY(-140px) rotate(-18deg) scale(1.1)}to{opacity:1;transform:none}}
-.intro .tira-zona{animation:entra-tira 1.1s .9s cubic-bezier(.2,.8,.2,1) both}
+.intro .tira-zona{opacity:0;transform:translateX(60%)}
+.intro.listo .tira-zona{animation:entra-tira 1.1s .5s cubic-bezier(.2,.8,.2,1) both}
 @keyframes entra-tira{from{transform:translateX(60%);opacity:0}to{transform:none;opacity:1}}
 
 /* prueba social en la portada */
@@ -553,8 +586,24 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
-<script>document.documentElement.classList.add('js');try{if(!sessionStorage.getItem('intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');sessionStorage.setItem('intro','1');setTimeout(function(){document.documentElement.classList.remove('intro')},2700)}}catch(e){}</script>
-<div class="obturador" aria-hidden="true"><i class="flash"></i></div>
+<script>document.documentElement.classList.add('js');try{if(!sessionStorage.getItem('intro')&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro');sessionStorage.setItem('intro','1')}}catch(e){}</script>
+<div class="carga" id="carga" aria-hidden="true">
+  <div class="carga-centro">
+    <svg class="iris" viewBox="0 0 120 120">
+      <circle class="iris-fondo" cx="60" cy="60" r="54"/>
+      <circle class="iris-anillo" id="cargaAnillo" cx="60" cy="60" r="54"/>
+      <g class="iris-hojas">
+        <path d="M60 22 L78 40 L60 60 Z"/><path d="M93 41 L86 66 L60 60 Z"/><path d="M93 79 L68 86 L60 60 Z"/>
+        <path d="M60 98 L42 80 L60 60 Z"/><path d="M27 79 L34 54 L60 60 Z"/><path d="M27 41 L52 34 L60 60 Z"/>
+      </g>
+    </svg>
+    <div class="carga-num"><span id="cargaN">0</span><small>%</small></div>
+    <div class="carga-marca">Edson Penagos</div>
+    <div class="carga-rollo" id="cargaRollo"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+    <div class="carga-txt">cargando el rollo · toca para entrar</div>
+  </div>
+  <i class="flash"></i>
+</div>
 
 <header class="hero">
   <div class="wrap hero-grid">
@@ -579,7 +628,7 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   <div class="collage" aria-hidden="true">
     <figure class="copia-h c1"><img src="img/m/h1.webp" alt="" width="720" height="960" loading="lazy" decoding="async"></figure>
     <figure class="copia-h c2"><img src="img/m/h2.webp" alt="" width="720" height="960" loading="lazy" decoding="async"></figure>
-    <figure class="copia-h c3"><img src="img/m/h3.webp" alt="" width="720" height="900" loading="lazy" decoding="async"><figcaption>con dron</figcaption></figure>
+    <figure class="copia-h c3"><img src="img/m/h3.webp" alt="" width="720" height="900" loading="lazy" decoding="async"></figure>
   </div>
   </div>
   <div class="tira-zona" aria-hidden="true">
@@ -591,6 +640,37 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
   </div>
   <span class="pista-ayuda wrap">arrastra la tira o toca una foto</span>
 </header>
+<script>
+(function(){
+  var h = document.documentElement; if (!h.classList.contains('intro')) return;
+  var carga = document.getElementById('carga'), num = document.getElementById('cargaN'),
+      anillo = document.getElementById('cargaAnillo'), cuadros = document.querySelectorAll('#cargaRollo i');
+  var imgs = [].slice.call(document.querySelectorAll('.cuadro img:not([loading="lazy"])'));
+  var total = imgs.length + 1, hechas = 0, t0 = performance.now(), visto = 0, fin = false;
+  function una(){ hechas++; }
+  imgs.forEach(function(i){ if (i.complete) una(); else { i.addEventListener('load', una, {once:true}); i.addEventListener('error', una, {once:true}); } });
+  (document.fonts && document.fonts.ready ? document.fonts.ready : Promise.resolve()).then(una);
+  function terminar(){
+    if (fin) return; fin = true; num.textContent = '100';
+    h.classList.add('listo');
+    setTimeout(function(){ h.classList.remove('intro', 'listo'); }, 2700);
+  }
+  carga.addEventListener('pointerdown', terminar);
+  function paso(t){
+    if (fin) return;
+    var real = hechas / total * 100, tiempo = Math.min(100, (t - t0) / 9);     // mínimo ~0,9 s para que se lea
+    if (t - t0 > 3500) real = 100;                                            // nunca más de 3,5 s
+    var meta = Math.min(real, tiempo);
+    visto += (meta - visto) * .18;
+    var n = Math.min(100, Math.round(visto));
+    num.textContent = n;
+    anillo.style.strokeDashoffset = 340 * (1 - n / 100);
+    for (var k = 0; k < cuadros.length; k++) cuadros[k].classList.toggle('on', n >= (k + 1) * 100 / cuadros.length - .5);
+    if (n >= 100) terminar(); else requestAnimationFrame(paso);
+  }
+  requestAnimationFrame(paso);
+})();
+</script>
 <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Foto en grande">
   <img id="visorImg" alt="">
   <button type="button" class="cerrar" aria-label="Cerrar">×</button>
@@ -604,6 +684,15 @@ section.cat.llegaste .cab h2{animation:llegar .9s ease}
 </nav>
 
 <main id="contenido"></main>
+
+<section class="cat wrap" id="resenas" hidden>
+  <div class="cab">
+    <h2 class="oro">Lo que dicen mis clientes</h2>
+    <svg class="subraya" viewBox="0 0 220 14" preserveAspectRatio="none" aria-hidden="true"><path d="M3 9 C 50 3, 120 3, 217 7 M 30 12 C 90 8, 150 9, 200 11"/></svg>
+    <p>Mensajes reales que me han dejado después de su evento.</p>
+  </div>
+  <div class="resenas" id="listaResenas"></div>
+</section>
 
 <section class="cat wrap" id="reservar">
   <div class="cab">
@@ -1009,6 +1098,20 @@ addEventListener("keydown", e => {
 let sx = null;
 visor.addEventListener("pointerdown", e => { sx = e.clientX; });
 visor.addEventListener("pointerup", e => { if (sx === null) return; const d = e.clientX - sx; sx = null; if (Math.abs(d) > 50) mostrar(vi + (d < 0 ? 1 : -1)); });
+
+/* reseñas: se llenan con datos reales; sin datos la sección no se muestra */
+const RESENAS = [
+  /* { nombre:"", evento:"XV años · 2026", texto:"", estrellas:5, foto:"", captura:"" } */
+];
+if (RESENAS.length) {
+  document.getElementById("listaResenas").innerHTML = RESENAS.map(r => `<figure class="resena aparece">
+    ${r.estrellas ? `<div class="estrellas" aria-label="${r.estrellas} de 5">${"★".repeat(r.estrellas)}</div>` : ""}
+    ${r.texto ? `<blockquote>“${esc(r.texto)}”</blockquote>` : ""}
+    ${r.captura ? `<img class="captura" src="${r.captura}" alt="Mensaje de ${esc(r.nombre)}" loading="lazy">` : ""}
+    <figcaption class="quien-r">${r.foto ? `<img src="${r.foto}" alt="" loading="lazy">` : ""}<span><b>${esc(r.nombre)}</b><small>${esc(r.evento || "")}</small></span></figcaption>
+  </figure>`).join("");
+  document.getElementById("resenas").hidden = false;
+}
 
 /* ---------- interacción ---------- */
 const reducido = matchMedia("(prefers-reduced-motion: reduce)").matches;

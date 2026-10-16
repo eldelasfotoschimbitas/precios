@@ -926,8 +926,10 @@ main section.cat{border-top:0}
   .acciones .btn{min-height:44px}
 }
 .copias{align-items:flex-start}
-.copia .detalle{position:relative;height:var(--alto-detalle,6.2em);overflow:hidden}
-.copia .detalle.corta::after{content:"";position:absolute;left:0;right:0;bottom:0;height:3.2em;background:linear-gradient(transparent,rgba(16,6,10,.96));pointer-events:none}
+.copia .detalle{position:relative;height:var(--alto-detalle,8.4em);overflow:hidden}
+.copia .detalle.cabe{height:auto}
+.copia .detalle.corta{-webkit-mask-image:linear-gradient(180deg,#000 55%,transparent 100%);mask-image:linear-gradient(180deg,#000 55%,transparent 100%)}
+.copia.abierta .detalle.corta{-webkit-mask-image:none;mask-image:none}
 .copia.abierta .detalle{height:auto}
 .copia.abierta .detalle::after{display:none}
 .copia .acciones{margin-top:auto}
@@ -935,7 +937,7 @@ main section.cat{border-top:0}
 .claves{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:center}
 .claves::-webkit-scrollbar{display:none}
 .copia h3{min-height:2.3em;display:flex;align-items:center;justify-content:center;flex-direction:column}
-@media (max-width:640px){.copia .detalle{--alto-detalle:4.5em}.claves{justify-content:flex-start}.copia h3{min-height:2.4em}}
+@media (max-width:640px){.copia .detalle{--alto-detalle:7.2em}.claves{justify-content:flex-start}.copia h3{min-height:2.4em}}
 .caja-precio{display:flex;flex-direction:column;justify-content:center}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
@@ -1581,8 +1583,10 @@ function medirDetalles(){
   document.querySelectorAll(".copia").forEach(card => {
     const d = card.querySelector(".detalle"), b = card.querySelector(".ver-mas"); if (!d || !b) return;
     if (card.classList.contains("abierta")) return;
-    const corta = d.scrollHeight > d.clientHeight + 4;
-    d.classList.toggle("corta", corta); b.hidden = !corta;
+    d.classList.remove("cabe", "corta");
+    const sobra = d.scrollHeight - d.clientHeight;
+    const corta = sobra > parseFloat(getComputedStyle(d).fontSize) * 2.2;   // más de ~1,5 renglones escondidos
+    d.classList.add(corta ? "corta" : "cabe"); b.hidden = !corta;
   });
 }
 function igualar(){

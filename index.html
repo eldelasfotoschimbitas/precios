@@ -975,7 +975,7 @@ main section.cat{border-top:0}
   .hero .tira-zona{position:relative;z-index:1;margin-top:-40px}
 }
 </style>
-<script>document.documentElement.classList.add('js');try{if(!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
+<script>document.documentElement.classList.add('js');try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
@@ -1735,8 +1735,16 @@ document.getElementById("cerrarBurbuja").addEventListener("click", () => burbuja
 
 /* si llega con #seccion (ej. desde /grados/), ir ahí ya renderizado */
 if (location.hash && document.querySelector(location.hash)) {
-  const irA = () => document.querySelector(location.hash).scrollIntoView();
-  irA(); addEventListener("load", irA, {once:true});
+  if ("scrollRestoration" in history) history.scrollRestoration = "manual";
+  const destino = document.querySelector(location.hash);
+  const irA = () => destino.scrollIntoView({behavior:"instant", block:"start"});
+  /* re-ancla mientras cargan imágenes y fuentes; se suelta apenas la persona toca o desliza */
+  let fijo = true;
+  const soltar = () => { fijo = false; };
+  ["wheel", "touchstart", "pointerdown", "keydown"].forEach(ev => addEventListener(ev, soltar, {once:true, passive:true}));
+  const ro = new ResizeObserver(() => { if (fijo) irA(); });
+  ro.observe(document.body);
+  irA(); addEventListener("load", () => { irA(); setTimeout(() => { if (fijo) irA(); ro.disconnect(); }, 1500); }, {once:true});
 }
 
 /* cotizador: arma el mensaje y abre WhatsApp */

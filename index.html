@@ -252,8 +252,8 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 @media (min-width:1400px){.pf-grid{grid-template-columns:repeat(5,minmax(0,1fr))}}
 @supports ((animation-timeline: view()) and (animation-range: entry)){
   @media (prefers-reduced-motion: no-preference){
-    .pf-item{animation:asienta-pf linear both;animation-timeline:view();animation-range:entry 0% cover 25%}
-    @keyframes asienta-pf{from{opacity:0;translate:0 60px}to{opacity:1;translate:0 0}}
+    .pf-fila{animation:asienta-pf linear both;animation-timeline:view();animation-range:entry 0% cover 20%}
+    @keyframes asienta-pf{from{opacity:0;translate:0 40px}to{opacity:1;translate:0 0}}
   }
 }
 ::view-transition-old(pfgrid),::view-transition-new(pfgrid){animation-duration:.28s}
@@ -977,6 +977,26 @@ main section.cat{border-top:0}
   .hero .ctas,.hero .prueba,.hero .redes-top{justify-content:flex-start}
   .hero .tira-zona{position:relative;z-index:1;margin-top:-40px}
 }
+
+/* portafolio en filas justificadas: cada foto en su formato, misma altura por fila, ancho exacto */
+.pf-grid{display:block}
+.pf-fila{display:flex;content-visibility:auto}
+.pf-fila.coja{justify-content:center}
+.pf-grid .pf-item,.pf-grid .pf-item:nth-child(3n+1),.pf-grid .pf-item:nth-child(3n+2){position:relative;display:block;flex:none;min-width:0;padding:0;border:0;rotate:none;border-radius:12px;overflow:hidden;background:#141416;box-shadow:none;cursor:zoom-in;transition:transform .35s cubic-bezier(.2,.8,.2,1)}
+.pf-grid .pf-item img,.pf-grid .pf-item video{position:absolute;inset:0;width:100%;height:100%;aspect-ratio:auto;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1),filter .4s}
+.pf-grid .pf-item img{opacity:0;transition:opacity .45s,transform .6s cubic-bezier(.2,.8,.2,1)}.pf-grid .pf-item img.ok{opacity:1}
+.pf-grid .pf-item:hover{transform:none}
+@media (hover:hover){.pf-grid .pf-item:hover{transform:translateY(-4px)}}
+@media (hover:hover){.pf-grid .pf-item:hover img,.pf-grid .pf-item:hover video{transform:scale(1.045)}}
+.pf-grid .pf-item span{z-index:2;left:8px;right:auto;bottom:8px;padding:3px 8px;border-radius:999px;background:rgba(0,0,0,.55);font-size:.72rem;letter-spacing:.04em;opacity:1}
+@media (max-width:599px){.pf-grid .pf-item span{left:5px;bottom:5px;padding:2px 6px;font-size:.66rem}}
+.pf-play{position:absolute;z-index:2;top:10px;right:10px;width:34px;height:34px;border-radius:50%;background:rgba(0,0,0,.45);border:1px solid rgba(255,255,255,.5);pointer-events:none}
+.pf-play::after{content:"";position:absolute;left:13px;top:10px;border-left:11px solid #fff;border-top:7px solid transparent;border-bottom:7px solid transparent}
+@media (max-width:599px){.pf-grid .pf-item{border-radius:8px}.pf-play{width:28px;height:28px;top:6px;right:6px}.pf-play::after{left:11px;top:8px;border-left-width:9px;border-top-width:6px;border-bottom-width:6px}}
+/* visor: reels de Instagram */
+.visor iframe{display:none;width:min(92vw,400px);height:min(84vh,720px);border:0;border-radius:14px;background:#fff;box-shadow:0 20px 50px rgba(0,0,0,.6)}
+.visor.con-video iframe{display:block}
+.visor.con-video img{display:none}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
 </head>
@@ -1130,6 +1150,7 @@ main section.cat{border-top:0}
 </div>
 <div class="visor" id="visor" role="dialog" aria-modal="true" aria-label="Foto en grande">
   <img id="visorImg" alt="">
+  <iframe id="visorIg" title="Reel de Instagram" allow="autoplay; encrypted-media; fullscreen; picture-in-picture" allowfullscreen></iframe>
   <button type="button" class="cerrar" aria-label="Cerrar">×</button>
   <button type="button" class="ant" aria-label="Foto anterior">‹</button>
   <button type="button" class="sig" aria-label="Foto siguiente">›</button>
@@ -1541,11 +1562,18 @@ const pista = document.getElementById("pista"), cuadrosEl = document.getElementB
 })();
 
 /* visor de fotos en grande */
-const visor = document.getElementById("visor"), visorImg = document.getElementById("visorImg"), visorN = document.getElementById("visorN");
+const visor = document.getElementById("visor"), visorImg = document.getElementById("visorImg"), visorN = document.getElementById("visorN"), visorIg = document.getElementById("visorIg");
 let vi = 0, fotosVisor = TIRA.map(c => `img/ig/${c}.jpg?v=4`);
-function mostrar(i){ vi = (i + fotosVisor.length) % fotosVisor.length; visorImg.src = fotosVisor[vi]; visorN.textContent = `${vi + 1} / ${fotosVisor.length}`; }
+function mostrar(i){
+  vi = (i + fotosVisor.length) % fotosVisor.length;
+  const x = fotosVisor[vi], ig = x && x.ig;   // {ig: código} = reel de Instagram; {src, n} = foto con su nombre (B12, XV3...)
+  visor.classList.toggle("con-video", !!ig);
+  if (ig){ visorImg.removeAttribute("src"); visorIg.src = `https://www.instagram.com/reel/${ig}/embed/`; }
+  else { visorIg.removeAttribute("src"); visorImg.src = x.src || x; }
+  visorN.textContent = (x.n ? `${x.n} · ` : "") + `${vi + 1} / ${fotosVisor.length}`;
+}
 function abrirVisor(i, l){ fotosVisor = l || TIRA.map(c => `img/ig/${c}.jpg?v=4`); mostrar(i); visor.classList.add("abierto"); document.body.style.overflow = "hidden"; visor.querySelector(".cerrar").focus(); }
-function cerrarVisor(){ visor.classList.remove("abierto"); document.body.style.overflow = ""; }
+function cerrarVisor(){ visor.classList.remove("abierto", "con-video"); visorIg.removeAttribute("src"); document.body.style.overflow = ""; }
 visor.querySelector(".cerrar").addEventListener("click", cerrarVisor);
 visor.querySelector(".ant").addEventListener("click", () => mostrar(vi - 1));
 visor.querySelector(".sig").addEventListener("click", () => mostrar(vi + 1));
@@ -1769,7 +1797,7 @@ document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", as
   setTimeout(() => b.textContent = "Copiar", 2000);
 }));
 </script>
-<script src="portafolio.js?v=7" defer></script>
-<script src="portafolio-ui.js?v=4" defer></script>
+<script src="portafolio.js?v=11" defer></script>
+<script src="portafolio-ui.js?v=10" defer></script>
 </body>
 </html>

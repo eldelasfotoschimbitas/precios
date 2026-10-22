@@ -14,7 +14,8 @@
   filtros.innerHTML = [["todas", "Todas"], ...cats].map(([c, n]) =>
     `<button type="button" role="tab" data-c="${c}" aria-selected="${c === actual}">${n} <small>${cuenta(c)}</small></button>`).join("");
 
-  const lista = () => actual === "todas" ? fotos : fotos.filter(f => f.c === actual);
+  // en cada categoría manda "o" (lo más llamativo primero, luego por grupos); sin "o" queda el orden del arreglo
+  const lista = () => actual === "todas" ? fotos : fotos.filter(f => f.c === actual).map((f, i) => [f.o ?? 1e6 + i, f]).sort((a, b) => a[0] - b[0]).map(x => x[1]);
   const pieza = (f, i) => `<button type="button" class="pf-item" data-i="${i}" aria-label="Ver foto de ${nombre[f.c]}">
       <img src="img/p/${f.f}.webp" alt="" width="400" height="500" loading="lazy" decoding="async"><span>${nombre[f.c]}</span></button>`;
 

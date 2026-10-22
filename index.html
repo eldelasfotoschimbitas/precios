@@ -432,9 +432,9 @@ html.intro:not(.listo) body::before{opacity:0}
 .carga-linea i{display:block;height:100%;width:100%;background:#fff;transform:scaleX(0);transform-origin:0 50%;transition:transform .25s linear}
 
 /* portada: escondida mientras carga, entra cuando se abre */
-.hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.06em}
+.hero h1 .l{display:inline-block;overflow:hidden;vertical-align:top;padding-bottom:.26em;margin-bottom:-.2em}   /* espacio para la cola de la g/p sin mover el diseño */
 .hero h1 .l > span{display:inline-block}
-.intro .hero h1 .l > span{transform:translateY(105%)}
+.intro .hero h1 .l > span{transform:translateY(135%)}
 .intro.listo .hero h1 .l > span{animation:sube-letra .9s cubic-bezier(.2,.8,.2,1) forwards}
 .intro.listo .hero h1 .l:nth-child(1) > span{animation-delay:.18s}
 .intro.listo .hero h1 .l:nth-child(2) > span{animation-delay:.3s}

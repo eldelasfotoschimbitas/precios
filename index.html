@@ -67,7 +67,7 @@ a{color:inherit}
 /* visor de fotos */
 .visor{position:fixed;inset:0;z-index:60;background:rgba(16,16,13,.96);display:flex;align-items:center;justify-content:center;opacity:0;pointer-events:none;transition:opacity .25s;touch-action:pan-y}
 .visor.abierto{opacity:1;pointer-events:auto}
-.visor img{max-width:min(92vw,720px);max-height:82vh;object-fit:contain;box-shadow:0 20px 50px rgba(0,0,0,.6);border:8px solid #fbfaf6;transform:scale(.96);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
+.visor img{max-width:min(94vw,1280px);max-height:86vh;object-fit:contain;box-shadow:0 20px 50px rgba(0,0,0,.6);border:8px solid #fbfaf6;transform:scale(.96);transition:transform .3s cubic-bezier(.2,.8,.2,1)}
 .visor.abierto img{transform:none}
 .visor button{position:absolute;width:52px;height:52px;border-radius:50%;border:0;background:rgba(244,243,238,.12);color:#fff;font-size:1.6rem;cursor:pointer;display:grid;place-items:center}
 .visor button:hover{background:rgba(244,243,238,.22)}
@@ -812,7 +812,7 @@ main section.cat{border-top:1px solid var(--linea)}
 /* visor y hoja */
 .hoja,.visor{background:rgba(5,5,5,.97)}
 .hoja-barra,.hoja-pie{background:#111;border-color:#222}
-.visor img{border-color:#fff}
+.visor img{border-color:#fff;border-width:4px;border-radius:6px}
 
 /* videos de muestra de invitaciones: solo cargan cerca de la pantalla */
 .copia .recorte{position:relative}
@@ -1797,7 +1797,7 @@ document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", as
   setTimeout(() => b.textContent = "Copiar", 2000);
 }));
 </script>
-<script src="portafolio.js?v=11" defer></script>
+<script src="portafolio.js?v=13" defer></script>
 <script src="portafolio-ui.js?v=10" defer></script>
 </body>
 </html>

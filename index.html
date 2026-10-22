@@ -921,8 +921,7 @@ main section.cat{border-top:0}
   .copia > *:not(.foto):not(.sello-reco){margin-left:14px;margin-right:14px}
   .copia h3{font-size:1.18rem;margin-top:12px;line-height:1.2}
   .copia h3::after{display:none}
-  .claves{margin:6px 0 0;gap:5px;flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:flex-start}
-  .claves::-webkit-scrollbar{display:none}
+  .claves{margin:6px 0 0;gap:5px}
   .claves span{flex:none;font-size:.76rem;padding:4px 8px}
   .caja-precio{margin:10px 14px 8px;padding:8px 12px}
   .caja-precio .precio{gap:8px;flex-wrap:wrap;align-items:baseline}
@@ -945,10 +944,15 @@ main section.cat{border-top:0}
 .copia.abierta .detalle::after{display:none}
 .copia .acciones{margin-top:auto}
 .ver-mas[hidden]{display:inline-flex;visibility:hidden}
-.claves{flex-wrap:nowrap;overflow-x:auto;scrollbar-width:none;justify-content:center}
-.claves::-webkit-scrollbar{display:none}
+/* chips en varias filas centradas: nunca se cortan ni esconden (antes nowrap + center cortaba los extremos) */
+.claves{flex-wrap:wrap;justify-content:center;align-content:center}
+@media (min-width:641px){.claves{gap:5px}.claves span{font-size:.8rem;padding:4px 8px;gap:4px}.claves svg{width:14px;height:14px}}
+/* tarjeta angosta (celular, PC de 3 columnas chicas): "285 fotos" sin "editadas" pa' que los chips quepan en 2 filas */
+.claves{container-type:inline-size}
+.claves .ed{font-style:normal}
+@container (max-width:300px){.claves .ed{display:none}}
 .copia h3{min-height:2.3em;display:flex;align-items:center;justify-content:center;flex-direction:column}
-@media (max-width:640px){.copia .detalle{--alto-detalle:7.2em}.claves{justify-content:flex-start}.copia h3{min-height:2.4em}}
+@media (max-width:640px){.copia .detalle{--alto-detalle:7.2em}.copia h3{min-height:2.4em}}
 .caja-precio{display:flex;flex-direction:column;justify-content:center}
 .flota{background:transparent;padding:0;box-shadow:none;height:auto;min-width:0;gap:0}
 .flota .wa-logo{width:62px;height:62px;filter:drop-shadow(0 8px 18px rgba(0,0,0,.45))}
@@ -1357,7 +1361,7 @@ function claves(it, cat){
     const m = x.match(/^(?:Sesión previa de )?(\d+)\s+fot(?:os|ografías)/i) || x.match(/^(\d+)\s+fot/i);
     return a + (m && !/con dron|impresas|cartera/i.test(x.slice(0, 30)) ? +m[1] : 0);
   }, 0) || ((it.n.match(/(\d+)\s*fotos/i) || [])[1] | 0);
-  if (fotos) out.push([ICO.fotos, `${fotos} fotos editadas`]);
+  if (fotos) out.push([ICO.fotos, `${fotos} fotos<em class="ed"> editadas</em>`]);
   if (/video|reel|tráiler/i.test(txt) && !/^Video pre-sesión/.test(it.n)) out.push([ICO.video, "Video"]);
   else if (/video/i.test(it.n)) out.push([ICO.video, "Video"]);
   if (/dron/i.test(txt)) out.push([ICO.dron, "Dron"]);
@@ -1627,7 +1631,7 @@ function igualar(){
   const igual = (sel) => {
     const els = [...document.querySelectorAll(sel)].filter(e => !e.closest(".copia.abierta"));
     els.forEach(e => e.style.minHeight = "");
-    const max = Math.max(0, ...els.map(e => e.getBoundingClientRect().height));
+    const max = Math.max(0, ...els.map(e => e.offsetHeight));   // offsetHeight: sin la escala de las animaciones de entrada
     els.forEach(e => e.style.minHeight = max + "px");
   };
   igual(".copia h3"); igual(".copia .claves"); igual(".copia .caja-precio"); igual(".copia");

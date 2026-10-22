@@ -1,6 +1,6 @@
 /* Portafolio: filtros por categoría, "ver más" de a 12 y visor con la foto completa. */
 (() => {
-  const fotos = window.PORTA || [], cats = window.PORTA_CATS || [];
+  const fotos = window.PORTA || [], cats = (window.PORTA_CATS || []).filter(([c]) => fotos.some(f => f.c === c));   // sin categorías vacías
   const filtros = document.getElementById("pfFiltros"), grid = document.getElementById("pfGrid"), mas = document.getElementById("pfMas");
   if (!grid || !fotos.length) return;
   const nombre = Object.fromEntries(cats);
@@ -8,6 +8,7 @@
   let actual = "todas", mostradas = 0;
 
   document.getElementById("pfTotal").textContent = `${fotos.length} fotos`;
+  const nCats = document.getElementById("pfCats"); if (nCats) nCats.textContent = `${cats.length} categorías`;
   const cuenta = c => c === "todas" ? fotos.length : fotos.filter(f => f.c === c).length;
   filtros.innerHTML = [["todas", "Todas"], ...cats].map(([c, n]) =>
     `<button type="button" role="tab" data-c="${c}" aria-selected="${c === actual}">${n} <small>${cuenta(c)}</small></button>`).join("");

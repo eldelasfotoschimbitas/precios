@@ -1323,7 +1323,7 @@ const CATS = [
   {img:"grad_verde", n:"Grado con Impresiones", t:"Pre-grado y evento", p:"$80.000", por:"Por persona", inc:["7 fotos digitales","1 impresa 10×15 cm + 1 impresa 20×30 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Impresiones.pdf?v=11"},
   {img:"grad95", n:"Grado con Retablo", t:"Pre-grado y evento", p:"$105.000", por:"Por persona", inc:["7 fotos digitales","Retablo 30×40 cm listo para colgar","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Retablo.pdf?v=11"},
   {img:"grad100", n:"Grado Completo", t:"Pre-grado y evento", p:"$110.000", por:"Por persona", inc:["7 fotos digitales","Retablo 30×40 cm","Impresiones 10×15 y 15×20 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo.pdf?v=11"},
-  {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"Por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Tomas épicas con dron desde el cielo","Alquiler del letrero PROM 2026 para la pre-sesión","Gafas PROM 2026 para tus fotos","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
+  {img:"grad_plus", n:"Grado Completo Plus", t:"Pre-grado y evento", p:"$120.000", por:"Por persona", inc:["8 fotos digitales (3 pre-grado, 3 evento, 2 grupales)","Tomas épicas con dron desde el cielo","Alquiler del letrero PROM 2026 para la pre-sesión","Alquiler de gafas PROM 2026 para tus fotos","Retablo 30×40 cm","Impresiones 10×15 y 20×25 cm","1 foto tipo cartera 4×5 cm impresa"], pdf:"pdf/Grados_Completo_Plus.pdf?v=2"},
   {img:"gradbuc2", n:"Grados Bucaramanga", t:"Solo fotografía", p:"$120.000", por:"Por persona", inc:["7 fotografías editadas en digital","Cobertura de la ceremonia","Fotos antes o después, con calma"], pdf:"pdf/Grados_Bucaramanga.pdf?v=10"}
  ]},
  {id:"deportivo", nav:"Deportes", titulo:"Deportes y carreras", linea:"Los corredores compran sus fotos en línea, encontrándose por reconocimiento de rostro.", tipo:"copias", items:[
@@ -1407,7 +1407,7 @@ function copias(c){
       ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
-        ${it.img ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=3" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+        ${it.img ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=4" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
     </article>`).join("")}</div>${c.items.length > 1 ? `<button class="mas" type="button" aria-label="Ver más opciones">${FLECHA}</button>` : ""}</div>`
     + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
@@ -1609,7 +1609,7 @@ if (RESENAS.length) {
     const ruta = a.getAttribute("href").split("?")[0], slugPdf = ruta.replace(/^pdf\//, "").replace(/\.pdf$/, "");
     const card = a.closest(".copia");
     tit.textContent = card ? card.querySelector("h3").textContent : "Paquete";
-    img.src = `pdf/ver/${slugPdf}.webp?v=3`;
+    img.src = `pdf/ver/${slugPdf}.webp?v=4`;
     desc.href = a.getAttribute("href");
     const btn = card && card.querySelector(".btn-ambar"); wa.href = btn ? btn.href : "https://wa.me/573133469261";
     hoja.classList.add("abierta"); document.body.style.overflow = "hidden"; abierta = true;

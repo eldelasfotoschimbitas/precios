@@ -1281,15 +1281,15 @@ const WA = "https://wa.me/573133469261?text=";
 
 /* Cada categoría: tipo "copias" (paquetes con foto) o "lista" (filas de precio). */
 const CATS = [
- {id:"xv", nav:"Combos completos", titulo:"Combos Completos", linea:"Para XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete. Todos traen video previo con dron y todas las fotos sin editar.", tipo:"copias", items:[
-  {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$3.220.000", p:"$2.740.000", inc:["Sesión previa de 35 fotos editadas", "250 fotos editadas del evento", "Video principal 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "70 impresas 10×15 + retablo 100×80", "Invitación virtual temática incluida: $150.000 en el paquete (normal $170.000)", "Todas las fotos sin editar"]},
+ {id:"xv", nav:"Combos completos", titulo:"Combos Completos", linea:"Para XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete. Todos traen video previo con dron, y los combos con fotos de más de $1.000.000 incluyen también todas las fotos sin editar.", tipo:"copias", items:[
+  {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$3.220.000", p:"$2.740.000", inc:["Sesión previa de 35 fotos editadas", "250 fotos editadas del evento", "Video principal 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "70 impresas 10×15 + retablo 100×80", "Invitación virtual temática incluida: $130.000 en el paquete (normal $170.000)", "Todas las fotos sin editar"]},
   {img:"rosa", n:"Completo Foto + Video", t:"Fotografía + video", d:"-12%", s:"$2.630.000", p:"$2.310.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"roja", n:"Fotografía Completa", t:"Fotografía + video previo", d:"-12%", s:"$1.660.000", p:"$1.460.000", inc:["Sesión previa de 30 fotos editadas (1–3 horas)", "200 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "60 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"celeste", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento", "Video: tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "Todas las fotos sin editar"]},
   {img:"sombrero2", n:"Combo Premium", t:"Fotografía + video previo", d:"-11%", s:"$1.375.000", p:"$1.215.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "50 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"celeste", n:"Combo Plus", t:"Fotografía + video previo", d:"-9%", s:"$1.190.000", p:"$1.080.000", inc:["Sesión previa de 20 fotos editadas", "100 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"v_xv_evento", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento", "Tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Tomas aéreas con dron", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)"]},
-  {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video previo", d:"-6%", s:"$910.000", p:"$855.000", inc:["Sesión previa de 15 fotos editadas", "50 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "20 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]}
+  {img:"sombrero1", n:"Combo Básico", t:"Fotografía + video previo", d:"-6%", s:"$910.000", p:"$855.000", inc:["Sesión previa de 15 fotos editadas", "50 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "20 impresas 10×15 + retablo 100×80"]}
  ]},
  {id:"sesiones", nav:"Sesiones", titulo:"Sesiones de fotos", linea:"De 1 a 3 horas, con retoque de piel, color y luz. Entrega por Google Drive, lista para redes.", tipo:"copias", items:[
   {img:"m_ses_basic", n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
@@ -1409,7 +1409,7 @@ function copias(c){
       ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
-        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=10" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=11" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
     </article>`).join("")}</div>${c.items.length > 1 ? `<button class="mas" type="button" aria-label="Ver más opciones">${FLECHA}</button>` : ""}</div>`
     + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
@@ -1611,7 +1611,7 @@ if (RESENAS.length) {
     const ruta = a.getAttribute("href").split("?")[0], slugPdf = ruta.replace(/^pdf\//, "").replace(/\.pdf$/, "");
     const card = a.closest(".copia");
     tit.textContent = card ? card.querySelector("h3").textContent : "Paquete";
-    img.src = `pdf/ver/${slugPdf}.webp?v=10`;
+    img.src = `pdf/ver/${slugPdf}.webp?v=11`;
     desc.href = a.getAttribute("href");
     const btn = card && card.querySelector(".btn-ambar"); wa.href = btn ? btn.href : "https://wa.me/573133469261";
     hoja.classList.add("abierta"); document.body.style.overflow = "hidden"; abierta = true;

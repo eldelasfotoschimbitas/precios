@@ -1341,8 +1341,8 @@ const CATS = [
   ]},
  {id:"invitaciones", nav:"Invitaciones", titulo:"Invitaciones digitales", linea:"Hechas a tu medida para compartir por WhatsApp y redes. Mira ejemplos en @invitando.web.", tipo:"copias", items:[
   {img:"m_inv_digital", vid:"i_digital", n:"Digital sencilla", d:"-15%", s:"$70.000", p:"$60.000", desc:"Nombres, fecha, hora y lugar con una pequeña animación tipo video o GIF. Para eventos íntimos o si buscas algo práctico y económico."},
-  {img:"i_video_db", vid:"i_video_db", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Video corto para WhatsApp y estados, con animaciones de tu temática, nombre, fecha, hora y lugar, música y opción de narración con voz de IA."},
-  {img:"i_sencilla_ac", vid:"i_sencilla_ac", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva sobre plantilla: portada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
+  {img:"i_video_ele", vid:"i_video_ele", n:"Video-invitación", d:"-15%", s:"$117.000", p:"$100.000", desc:"Video corto para WhatsApp y estados, con animaciones de tu temática, nombre, fecha, hora y lugar, música y opción de narración con voz de IA."},
+  {img:"i_sencilla_ele", vid:"i_sencilla_ele", n:"Virtual sencilla", d:"-15%", s:"$152.000", p:"$130.000", desc:"Página interactiva sobre plantilla: portada, música, cuenta regresiva, itinerario, mapa con ubicaciones y confirmación de asistencia."},
   {img:"i_tematica", vid:"i_tematica", n:"Virtual temática", d:"-15%", s:"$200.000", p:"$170.000", desc:"Diseño hecho a tu medida: colores, letras, entrada y animaciones de la temática de tu evento, más todo lo de la virtual."},
   {img:"i_fotos", vid:"i_fotos", n:"Virtual con fotografías", d:"-15%", s:"$200.000", p:"$170.000", desc:"Todo lo de la virtual, con tus fotos integradas en la portada y mapa interactivo."}
  ], link:{href:"https://www.instagram.com/invitando.web/", txt:"Ver ejemplos en Instagram @invitando.web"}},
@@ -1409,7 +1409,7 @@ function copias(c){
       ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
-        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=9" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=10" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
     </article>`).join("")}</div>${c.items.length > 1 ? `<button class="mas" type="button" aria-label="Ver más opciones">${FLECHA}</button>` : ""}</div>`
     + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
@@ -1611,7 +1611,7 @@ if (RESENAS.length) {
     const ruta = a.getAttribute("href").split("?")[0], slugPdf = ruta.replace(/^pdf\//, "").replace(/\.pdf$/, "");
     const card = a.closest(".copia");
     tit.textContent = card ? card.querySelector("h3").textContent : "Paquete";
-    img.src = `pdf/ver/${slugPdf}.webp?v=9`;
+    img.src = `pdf/ver/${slugPdf}.webp?v=10`;
     desc.href = a.getAttribute("href");
     const btn = card && card.querySelector(".btn-ambar"); wa.href = btn ? btn.href : "https://wa.me/573133469261";
     hoja.classList.add("abierta"); document.body.style.overflow = "hidden"; abierta = true;

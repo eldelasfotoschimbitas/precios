@@ -1295,7 +1295,7 @@ const CATS = [
   {img:"m_ses_basic", n:"Basic · 10 fotos digitales", d:"-10%", s:"$222.000", p:"$200.000", desc:"10 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
   {img:"m_ses_essential", n:"Essential · 18 fotos digitales", d:"-15%", s:"$355.000", p:"$300.000", desc:"18 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
   {img:"m_ses_premium", n:"Premium · 30 fotos digitales", d:"-20%", s:"$600.000", p:"$480.000", desc:"30 fotos editadas (color, retoque de piel y luminosidad), optimizadas para redes sociales."},
-  {img:"m_ses_predron", n:"Video pre-sesión con dron", d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV o boda. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
+  {img:"m_ses_predron", n:"Video pre-sesión con dron", extra:true, d:"-20%", s:"$150.000", p:"$120.000", desc:"Extra para cualquier paquete de XV o boda. Llevo el dron solo para tu sesión.", inc:["3 fotos extra tomadas con dron","Tomas aéreas de video","Video pre-15 de unos 30 segundos con dron y cámara profesional","Video en 4K"]}
  ], nota:"Hora adicional de sesión: $30.000 por cada hora después de las 3 horas."},
  {id:"eventos", nav:"Eventos", titulo:"Fotos de eventos", linea:"Eucaristía y fiesta. Siempre voy con asistente de iluminación.", tipo:"copias", items:[
   {img:"e_memories", n:"Memories · 30 fotos", p:"$330.000", desc:"30 fotos digitales del evento, editadas en color y luz, entregadas por Google Drive."},
@@ -1449,7 +1449,8 @@ const PANEL = {
 };
 const num = t => parseInt(String(t).replace(/[^\d]/g, ""), 10) || 0;
 const pesos = n => "$" + n.toLocaleString("es-CO");
-function preciosDe(c){ return (c.items || c.grupos.flatMap(g => g.items.map(([, p]) => ({p})))).map(it => num(it.p)).filter(Boolean); }
+/* los extras (ej. dron para la pre-sesión) no cuentan para el "Desde" */
+function preciosDe(c){ return (c.items || c.grupos.flatMap(g => g.items.map(([, p]) => ({p})))).filter(it => !it.extra).map(it => num(it.p)).filter(Boolean); }
 function cuantos(c){ return c.items ? c.items.length : c.grupos.reduce((a, g) => a + g.items.length, 0); }
 const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
 function botones(){

@@ -173,7 +173,7 @@ main section.cat{border-top:1px solid rgba(240,162,46,.25);margin-top:40px}
 .redes a{font-weight:600;min-height:44px;display:inline-flex;align-items:center}
 .redes-logos{display:flex;flex-wrap:wrap;gap:18px 22px;margin-top:32px}
 .redes-logos a{display:grid;justify-items:center;gap:8px;text-decoration:none;color:var(--mesa);min-width:64px}
-.redes-logos .logo{width:60px;height:60px;border-radius:18px;display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.18);transition:transform .2s}
+.redes-logos .logo{width:60px;height:60px;border-radius:50%;display:grid;place-items:center;color:#fff;box-shadow:0 8px 18px rgba(0,0,0,.18);transition:transform .2s}
 .redes-logos .logo svg{width:28px;height:28px;fill:currentColor}
 .redes-logos a:hover .logo{transform:translateY(-4px)}
 .redes-logos .nom{font-size:.85rem;font-weight:600}
@@ -999,6 +999,193 @@ main section.cat{border-top:0}
 .visor.con-video img{display:none}
 </style>
 <script>document.documentElement.classList.add('js');try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches){document.documentElement.classList.add('intro')}}catch(e){}</script>
+<style>
+/* ===== panel en cuadrícula: base común de las variantes ===== */
+.cats{grid-template-columns:repeat(2,minmax(0,1fr));gap:12px}
+@media (min-width:1000px){.cats{grid-template-columns:repeat(5,minmax(0,1fr));gap:18px}}
+.cats .cat-btn.tile{grid-column:auto;display:block;position:relative;min-height:0;padding:0;gap:0;border-radius:20px;overflow:hidden;isolation:isolate;color:#fff;text-align:center}
+.cats .cat-btn.tile .foto{display:block;position:relative;aspect-ratio:4/5;overflow:hidden;background:#14090d}
+.cats .cat-btn.tile .foto img{display:block;width:100%;height:100%;object-fit:cover;border:0;border-radius:0;transition:transform .7s cubic-bezier(.2,.8,.2,1)}
+@media (hover:hover){.cats .cat-btn.tile:hover .foto img{transform:scale(1.06)}}
+.cats .cat-btn.tile .tx{display:grid;justify-items:center;gap:3px}
+.cats .cat-btn.tile b{font-family:'Poppins',system-ui,sans-serif;font-weight:700;letter-spacing:-.01em;text-shadow:none}
+.cats .cat-btn.tile small{display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
+.cats .cat-btn.tile em{font-stretch:100%}
+.cats .cat-btn.tile .sello{position:absolute;top:10px;left:10px;z-index:2;margin:0}
+.cats .cat-btn.tile .chip-n{display:none}
+.cats .cat-btn.tile .flecha{display:none}
+/* V4 · final: foto completa que se funde con la ficha, descripción de 2 líneas y el "Desde" como botón */
+.cats .cat-btn.tile{display:flex;flex-direction:column;background:var(--vidrio);border:1px solid var(--borde-vidrio);box-shadow:0 14px 34px rgba(0,0,0,.4)}
+.cats .cat-btn.tile .foto{-webkit-mask-image:linear-gradient(180deg,#000 74%,transparent 100%);mask-image:linear-gradient(180deg,#000 74%,transparent 100%)}
+.cats .cat-btn.tile .tx{position:relative;z-index:2;flex:1;display:flex;flex-direction:column;align-items:center;margin-top:-30px;padding:0 9px 4px;gap:3px}
+.cats .cat-btn.tile .tx small{margin-bottom:7px}
+.cats .cat-btn.tile .tx em{margin-top:auto}
+.cats .cat-btn.tile b{font-size:1rem;line-height:1.18;text-shadow:0 2px 10px rgba(0,0,0,.6)}
+.cats .cat-btn.tile small{font-size:.75rem;line-height:1.32;color:#d6d1c9}
+.cats .cat-btn.tile em{display:inline-flex;align-items:center;padding:6px 11px 6px 13px;border-radius:999px;background:linear-gradient(135deg,#c50337,#8c0024);color:#fff;font-size:.76rem;line-height:1.2;box-shadow:0 6px 16px rgba(197,3,55,.4)}
+.cats .cat-btn.tile em::after{content:"";width:6px;height:6px;margin-left:8px;border-right:2px solid #fff;border-top:2px solid #fff;transform:rotate(45deg);transition:transform .25s}
+.cats .cat-btn.tile em .n{display:none}
+.cats .cat-btn.tile .chip-n{display:block;order:3;margin:4px 0 11px;color:#a8a39b;font-size:.7rem;font-weight:600}
+/* brillo que cruza la tarjeta al pasar el mouse */
+.cats .cat-btn.tile::before{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.16) 50%,transparent 65%);transform:translateX(-120%)}
+@media (hover:hover){
+  .cats .cat-btn.tile:hover::before{animation:brillo .9s ease}
+  .cats .cat-btn.tile:hover em{background:linear-gradient(135deg,#d80a42,#a1002a)}
+  .cats .cat-btn.tile:hover em::after{transform:translateX(3px) rotate(45deg)}
+}
+@media (min-width:1000px){
+  .cats .cat-btn.tile .tx{margin-top:-36px;padding:0 12px 6px}
+  .cats .cat-btn.tile b{font-size:1.18rem}
+  .cats .cat-btn.tile small{font-size:.85rem}
+  .cats .cat-btn.tile em{font-size:.84rem;padding:7px 13px 7px 15px}
+  .cats .cat-btn.tile .chip-n{font-size:.78rem;margin-bottom:14px}
+}
+/* ===== las tarjetas pares entran desde la derecha (entra-lado2): antes de entrar ensanchaban la página a ~401 px en celular.
+   Recortar solo esta sección (de borde a borde) deja la animación igual y la página queda en 375 ===== */
+#categorias{overflow-x:clip}
+
+/* ===== I1 · invitaciones con colores más tranquilos ===== */
+/* zona neutra: el fondo carmesí se apaga detrás de esta sección */
+/* border-image con outset pinta de borde a borde sin ensanchar la página (no genera scroll lateral) */
+#invitaciones{border-image:linear-gradient(180deg,transparent,rgba(4,4,7,.82) 12%,rgba(4,4,7,.82) 88%,transparent) fill 0/0/0 100vw}
+/* tarjetas grafito en vez de vidrio carmesí */
+#invitaciones .copia{background:linear-gradient(160deg,rgba(28,26,31,.95),rgba(16,15,19,.95));border-color:rgba(255,255,255,.09)}
+/* cada demo dentro de un paspartú oscuro, con el color un poco más suave */
+#invitaciones .copia .foto{padding:9px;background:#0b0a0d;border-radius:22px 22px 0 0}
+#invitaciones .copia .recorte{border-radius:14px;box-shadow:0 0 0 1px rgba(255,255,255,.07)}
+#invitaciones .copia .recorte img,#invitaciones .copia .demo{filter:saturate(.7) brightness(.9);transition:filter .5s,opacity .5s}
+@media (hover:hover){#invitaciones .copia:hover .recorte img,#invitaciones .copia:hover .demo{filter:none}}
+#invitaciones .copia.reco .foto{outline:1px solid rgba(255,255,255,.28);outline-offset:3px}
+#invitaciones .copia .etq{background:rgba(255,255,255,.06);border-color:rgba(255,255,255,.14);color:#d6d1c9}
+@media (max-width:640px){#invitaciones .copia .foto{border-radius:16px}#invitaciones .copia .recorte{border-radius:10px}}
+</style>
+<style>
+/* ===== I2 · portada guiada: "¿Qué celebras?" lleva directo a la sección ===== */
+.atajos{margin:20px 0 6px;text-align:center}
+.atajos > span{display:block;margin-bottom:10px;color:#f87882;font-family:'Poppins',system-ui,sans-serif;font-weight:600;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase}
+.atajos div{display:flex;flex-wrap:wrap;justify-content:center;gap:8px}
+.atajos a{display:inline-flex;align-items:center;gap:7px;min-height:42px;padding:0 15px 0 6px;border-radius:999px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.16);color:#fff;font-weight:600;font-size:.92rem;text-decoration:none;transition:background .2s,border-color .2s,transform .2s}
+.atajos a img{width:30px;height:30px;border-radius:50%;object-fit:cover}
+.atajos a:active{transform:scale(.97)}
+@media (hover:hover){.atajos a:hover{background:rgba(197,3,55,.32);border-color:#f34c5f;transform:translateY(-2px)}}
+.intro .hero .atajos{opacity:0}
+.intro.listo .hero .atajos{animation:aparece-h .6s .7s ease-out forwards}
+@media (min-width:900px){.atajos{margin-top:24px}.atajos a{font-size:1rem;min-height:46px}
+  /* PC: toda la columna de la portada centrada como en celular (antes título y botones a la izquierda y "¿Qué celebras?" al centro) */
+  .hero .hero-grid.wrap{text-align:center}
+  .hero p.lead{margin-inline:auto}
+  .hero .ctas,.hero .prueba,.hero .redes-top{justify-content:center}}
+/* tablet y PC: los 4 botones en 2 x 2 del mismo ancho (antes "Escribir por WhatsApp" quedaba solo abajo) */
+@media (min-width:641px){.hero .ctas{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));max-width:520px;margin-inline:auto}}
+/* ===== I2 · menú de "¿Qué celebras?": paquete completo, evento o sesión ===== */
+.menu-ev{width:min(480px,100vw - 20px);max-height:min(90dvh,760px);margin:auto;padding:0;overflow:auto;overscroll-behavior:contain;border:1px solid rgba(255,255,255,.14);border-radius:26px;background:#0e090c;color:#f4f1ea;box-shadow:0 30px 90px rgba(0,0,0,.7)}
+.menu-ev::backdrop{background:rgba(0,0,0,.65)}
+.menu-ev[open]{animation:sube-menu .32s cubic-bezier(.2,.8,.2,1)}
+@keyframes sube-menu{from{opacity:0;transform:translateY(28px)}to{opacity:1;transform:none}}
+.menu-cab{display:flex;align-items:flex-start;gap:10px;padding:20px 12px 4px 20px}
+.menu-cab div{flex:1}
+.menu-cab h3{font-family:'Poppins',system-ui,sans-serif;font-size:1.3rem;line-height:1.2;letter-spacing:-.01em}
+.menu-cab p{margin-top:4px;color:#b3aea6;font-size:.9rem}
+.menu-x{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:1.5rem;cursor:pointer}
+.menu-ops{display:grid;gap:10px;padding:12px 14px 0}
+.menu-op{position:relative;display:flex;align-items:center;gap:14px;padding:10px 14px 10px 10px;border-radius:18px;border:1px solid rgba(255,255,255,.1);background:linear-gradient(135deg,rgba(255,255,255,.06),rgba(255,255,255,.025));color:#fff;text-decoration:none;overflow:hidden;opacity:0;animation:menu-op .45s calc(.08s + var(--i) * .07s) cubic-bezier(.2,.8,.2,1) forwards;transition:transform .25s,border-color .25s,background .25s}
+@keyframes menu-op{from{opacity:0;transform:translateY(14px)}to{opacity:1;transform:none}}
+.menu-op .foto{flex:none;width:76px;aspect-ratio:4/5;border-radius:12px;overflow:hidden;background:#14090d}
+.menu-op img{display:block;width:100%;height:100%;object-fit:cover;transition:transform .6s cubic-bezier(.2,.8,.2,1)}
+.menu-op .tx{flex:1;display:grid;gap:3px;min-width:0}
+.menu-op i{justify-self:start;margin-bottom:1px;padding:2px 8px;border-radius:999px;background:#fff;color:#8c0024;font-style:normal;font-size:.6rem;font-weight:800;letter-spacing:.05em;text-transform:uppercase}
+.menu-op b{font-family:'Poppins',system-ui,sans-serif;font-size:1.05rem;font-weight:700;line-height:1.2}
+.menu-op small{color:#c9c3bb;font-size:.84rem;line-height:1.35}
+.menu-op em{justify-self:start;margin-top:5px;padding:4px 11px;border-radius:999px;background:linear-gradient(135deg,#c50337,#8c0024);font-family:'Poppins',system-ui,sans-serif;font-style:normal;font-weight:600;font-size:.8rem}
+.menu-op .ir{flex:none;width:20px;height:20px;fill:none;stroke:#f87882;stroke-width:2.4;stroke-linecap:round;stroke-linejoin:round;transition:transform .25s}
+.menu-op.reco{border-color:rgba(243,76,95,.55);background:linear-gradient(135deg,rgba(197,3,55,.24),rgba(197,3,55,.06))}
+.menu-op:active{transform:scale(.98)}
+@media (hover:hover){
+  .menu-op:hover{transform:translateY(-2px);border-color:#f34c5f}
+  .menu-op:hover img{transform:scale(1.07)}
+  .menu-op:hover .ir{transform:translateX(4px)}
+  .menu-mas a:hover{border-color:#f34c5f;background:rgba(197,3,55,.25)}
+}
+.menu-mas{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:16px 18px 0;color:#b3aea6;font-size:.84rem}
+.menu-mas a{padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:#fff;font-weight:600;font-size:.82rem;text-decoration:none;transition:border-color .2s,background .2s}
+.menu-todo{display:block;margin:14px 18px 20px;color:#f87882;font-weight:600;font-size:.9rem;text-align:center}
+@media (max-width:640px){
+  .menu-ev{width:100vw;max-width:100vw;max-height:92dvh;margin:auto 0 0;border-bottom:0;border-radius:26px 26px 0 0;padding-bottom:env(safe-area-inset-bottom)}
+  .menu-ev::before{content:"";display:block;width:42px;height:5px;margin:10px auto 0;border-radius:3px;background:rgba(255,255,255,.22)}
+  .menu-cab{padding-top:10px}
+}
+@media (prefers-reduced-motion:reduce){.menu-ev[open],.menu-op{animation:none;opacity:1}}
+
+/* ===== paquetes con animaciones fluidas, como las categorías =====
+   antes en PC iban pegadas al scroll (asienta) y si dejabas de bajar se quedaban a medio camino, chuecas y opacas;
+   ahora entran solas al aparecer, el marco de la foto hace un zoom suave al asentarse y al pasar el mouse suben con brillo.
+   La foto va siempre completa: el zoom es del marco entero, nunca de la imagen dentro (el paralaje la agrandaba 14% y cortaba cabezas) */
+.copias > .copia,.tamanos > .tam{transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s}
+.copia::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:linear-gradient(110deg,transparent 35%,rgba(255,255,255,.12) 50%,transparent 65%);transform:translateX(-120%)}
+.copia .recorte img{animation:none;transform:none;scale:none}
+@media (prefers-reduced-motion:no-preference){
+  .copia .foto{transition:scale 1.1s cubic-bezier(.2,.8,.2,1),opacity .8s ease}
+  .copia:not(.entra) .foto{scale:.9;opacity:.35}
+  @media (min-width:641px){
+    .js .copias > .copia.aparece,.js .tamanos > .tam.aparece{opacity:0;transform:none;transition:transform .4s cubic-bezier(.2,.8,.2,1),box-shadow .4s,border-color .4s;animation:none}
+    .js .copias > .copia.aparece.entra,.js .tamanos > .tam.aparece.entra{animation:entra-copia .8s calc(var(--i,0) * 90ms) cubic-bezier(.2,.8,.2,1) both}
+    @keyframes entra-copia{from{opacity:0;translate:0 44px;scale:.95}to{opacity:1;translate:0 0;scale:1}}
+  }
+  @media (hover:hover){
+    .js .copias > .copia.aparece:hover,.js .tamanos > .tam.aparece:hover{transform:translateY(-6px);box-shadow:0 24px 48px rgba(0,0,0,.5);border-color:rgba(243,76,95,.55)}
+    .js .copias > .copia.aparece:hover{transform:translateY(-6px) scale(1.015)}
+    .copias > .copia:hover::after{animation:brillo .9s ease}
+  }
+}
+/* bandas ("Cada evento se cuenta una sola vez"): la foto entra barriendo y el texto sube línea por línea */
+@media (prefers-reduced-motion:no-preference){
+  .banda img{clip-path:inset(0);transition:clip-path 1.3s cubic-bezier(.65,0,.35,1),opacity 1s ease}
+  .banda:not(.entra) img{clip-path:inset(0 0 0 100%);opacity:.3}
+  .banda .banda-tx > *{transition:opacity .7s ease,translate .9s cubic-bezier(.2,.8,.2,1)}
+  .banda .banda-tx > :nth-child(1){transition-delay:.25s}
+  .banda .banda-tx > :nth-child(2){transition-delay:.4s}
+  .banda .banda-tx > :nth-child(3){transition-delay:.55s}
+  .banda:not(.entra) .banda-tx > *{opacity:0;translate:0 28px}
+  .banda.entra .btn-ambar::after{animation:brillo 1.1s 1.3s ease forwards}
+}
+/* ===== celular: los paquetes en dos columnas (como las categorías) en vez de carrusel ===== */
+@media (max-width:640px){
+  .carrusel .mas,.puntos,.desliza{display:none!important}
+  .copias{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:12px 10px;overflow:visible;margin:0;padding:4px 0 10px;scroll-snap-type:none}
+  .copias > .copia{flex:none;min-width:0;padding-bottom:10px;border-radius:18px;animation:none}
+  .copia .foto{margin:6px 6px 0}
+  .copia .foto,.copia .recorte{border-radius:13px}
+  .copia > *:not(.foto):not(.sello-reco){margin-left:8px;margin-right:8px}
+  .copia .marca{top:7px;right:7px;font-size:.66rem;padding:3px 7px}
+  .sello-reco{top:12px;left:12px;font-size:.6rem;padding:3px 8px}
+  .copia h3{font-size:.95rem;line-height:1.2;margin-top:9px}
+  .claves{gap:3px;margin-top:5px}
+  .claves span{font-size:.62rem;padding:3px 6px;gap:3px;border-radius:8px}
+  .claves svg{width:11px;height:11px}
+  .caja-precio{margin:8px 8px 6px;padding:7px 6px;border-radius:12px}
+  .caja-precio .precio{gap:0 6px;justify-content:center}
+  .caja-precio .precio b{font-size:1.12rem}
+  .caja-precio .precio s{font-size:.7rem}
+  .caja-precio .por{font-size:.66rem}
+  .ahorro{display:block;margin:2px 0 0;font-size:.66rem}
+  .separa{display:block;font-size:.62rem;white-space:normal;line-height:1.3;margin-top:2px}
+  .copia .detalle{--alto-detalle:6.6em}
+  .copia .desc{font-size:.74rem;line-height:1.4}
+  .incluye{margin:2px 8px 3px;font-size:.7rem}
+  .copia ul{gap:3px;margin-bottom:6px}
+  .copia li{font-size:.72rem;line-height:1.35;padding-left:15px}
+  .copia li::before{width:8px;height:5px;border-width:0 0 2px 2px;left:1px}
+  .ver-mas{margin:-2px 8px 8px;font-size:.7rem;min-height:30px;padding:3px 10px}
+  .copias .copia .acciones{display:flex;flex-direction:column;align-items:stretch;gap:6px;margin-left:8px;margin-right:8px}
+  .copias .copia .acciones .btn{width:auto;flex:none;min-height:38px;padding:0 8px;font-size:.8rem;gap:5px}
+  .copia .acciones .btn svg{width:15px;height:15px}
+}
+@media (max-width:640px) and (prefers-reduced-motion:no-preference){
+  .js .copias > .copia.aparece{opacity:0;transform:none}
+  .js .copias > .copia.aparece.entra{animation:entra-copia .7s calc(var(--i,0) * 70ms) cubic-bezier(.2,.8,.2,1) both}
+  @keyframes entra-copia{from{opacity:0;translate:0 34px;scale:.95}to{opacity:1;translate:0 0;scale:1}}
+}
+</style>
 </head>
 <body>
 <div class="progreso" aria-hidden="true"><i id="progreso"></i></div>
@@ -1056,7 +1243,8 @@ main section.cat{border-top:0}
       <a class="btn btn-linea solo-desk" href="#reservar">Cotizar mi fecha</a>
       <a class="btn btn-linea solo-desk" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">Escribir por WhatsApp</a>
     </div>
-    <p class="prueba"><b>7.400+</b> seguidores en Instagram <i></i> <b>400+</b> trabajos publicados</p>
+    <nav class="atajos" aria-label="¿Qué celebras?"><span>¿Qué celebras?</span><div><a href="#xv" data-menu="xv"><img src="img/k/xv.webp?v=1" alt="" width="30" height="30" decoding="async">XV años</a><a href="#xv" data-menu="boda"><img src="img/k/boda-manos.webp?v=1" alt="" width="30" height="30" decoding="async">Boda</a><a href="#grados"><img src="img/k/grados.webp?v=1" alt="" width="30" height="30" decoding="async">Grado</a><a href="#sesiones"><img src="img/k/sesiones.webp?v=1" alt="" width="30" height="30" decoding="async">Sesión de fotos</a><a href="#eventos" data-menu="evento"><img src="img/k/eventos.webp?v=1" alt="" width="30" height="30" decoding="async">Evento</a><a href="#deportivo"><img src="img/k/deportivo.webp?v=1" alt="" width="30" height="30" decoding="async">Carrera</a></div></nav>
+    <p class="prueba"><b data-ig="seguidores">7.400+</b> seguidores en Instagram <i></i> <b data-ig="publicaciones">400+</b> trabajos publicados</p>
     <div class="redes-top">
       <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener" aria-label="Instagram @eldelasfotoschimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 7a5 5 0 1 0 0 10 5 5 0 0 0 0-10zm0 8.2a3.2 3.2 0 1 1 0-6.4 3.2 3.2 0 0 1 0 6.4zM17.3 5.5a1.2 1.2 0 1 0 0 2.4 1.2 1.2 0 0 0 0-2.4zM12 2.2c-2.7 0-3 0-4 .1-3.6.2-5.6 2.2-5.7 5.7-.1 1-.1 1.3-.1 4s0 3 .1 4c.2 3.6 2.2 5.6 5.7 5.7 1 .1 1.3.1 4 .1s3 0 4-.1c3.6-.2 5.6-2.2 5.7-5.7.1-1 .1-1.3.1-4s0-3-.1-4c-.2-3.6-2.2-5.6-5.7-5.7-1-.1-1.3-.1-4-.1zm0 1.8c2.6 0 2.9 0 4 .1 2.5.1 3.8 1.3 3.9 3.9.1 1 .1 1.3.1 4s0 2.9-.1 4c-.1 2.5-1.3 3.8-3.9 3.9-1 .1-1.3.1-4 .1s-2.9 0-4-.1c-2.6-.1-3.8-1.4-3.9-3.9-.1-1-.1-1.3-.1-4s0-2.9.1-4C4.2 5.4 5.4 4.2 8 4.1c1 0 1.3-.1 4-.1z"/></svg></a>
       <a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener" aria-label="TikTok @fotos.chimbitas"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.6 2h-3.3v13.4a2.9 2.9 0 1 1-2.9-2.9c.3 0 .6 0 .9.1V9.2a6.2 6.2 0 1 0 5.3 6.2V8.6a7.6 7.6 0 0 0 4.4 1.4V6.7a4.4 4.4 0 0 1-4.4-4.4z"/></svg></a>
@@ -1281,11 +1469,11 @@ const WA = "https://wa.me/573133469261?text=";
 
 /* Cada categoría: tipo "copias" (paquetes con foto) o "lista" (filas de precio). */
 const CATS = [
- {id:"xv", nav:"Combos completos", titulo:"Combos Completos", linea:"Para XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete. Todos traen video previo con dron, y los combos con fotos de más de $1.000.000 incluyen también todas las fotos sin editar.", tipo:"copias", items:[
+ {id:"xv", nav:"Todo incluido", titulo:"Todo Incluido", linea:"Para XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete. Todos traen video previo con dron, y los combos con fotos de más de $1.000.000 incluyen también todas las fotos sin editar.", tipo:"copias", items:[
   {img:"nocturna", n:"Combo Deluxe", t:"Fotografía + video", d:"-15%", s:"$3.220.000", p:"$2.740.000", inc:["Sesión previa de 35 fotos editadas", "250 fotos editadas del evento", "Video principal 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "70 impresas 10×15 + retablo 100×80", "Invitación virtual temática incluida: $130.000 en el paquete (normal $170.000)", "Todas las fotos sin editar"]},
   {img:"rosa", n:"Completo Foto + Video", t:"Fotografía + video", d:"-12%", s:"$2.630.000", p:"$2.310.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video 4K con dron: tráiler 1 min + resumen 7–15 min", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"roja", n:"Fotografía Completa", t:"Fotografía + video previo", d:"-12%", s:"$1.660.000", p:"$1.460.000", inc:["Sesión previa de 30 fotos editadas (1–3 horas)", "200 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "60 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
-  {img:"celeste", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento", "Video: tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "Todas las fotos sin editar"]},
+  {img:"boda-manos", n:"Combo Video + 60 Fotos", t:"Fotografía + video", d:"-9%", s:"$1.530.000", p:"$1.380.000", inc:["60 fotos editadas del evento", "Video: tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "Todas las fotos sin editar"]},
   {img:"sombrero2", n:"Combo Premium", t:"Fotografía + video previo", d:"-11%", s:"$1.375.000", p:"$1.215.000", inc:["Sesión previa de 25 fotos editadas", "150 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "50 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"celeste", n:"Combo Plus", t:"Fotografía + video previo", d:"-9%", s:"$1.190.000", p:"$1.080.000", inc:["Sesión previa de 20 fotos editadas", "100 fotos editadas del evento", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)", "30 impresas 10×15 + retablo 100×80", "Todas las fotos sin editar"]},
   {img:"v_xv_evento", n:"Video de Evento", t:"Solo video", p:"$1.065.000", inc:["Cobertura completa del evento", "Tráiler 1 min + resumen 7–15 min", "Entrega en 4K, color y audio profesional", "Tomas aéreas con dron", "Video previo con dron (~30 s) + 3 fotos con dron (pre-15 o preboda)"]},
@@ -1311,9 +1499,9 @@ const CATS = [
   {img:"v_cine", n:"Video cinemático · 3 a 5 minutos", p:"$500.000", desc:"Producción avanzada con narrativa cuidada y tomas aéreas con dron incluidas."},
   {img:"v_ext", n:"Video extendido · 5 a 6 minutos", d:"-11%", s:"$705.000", p:"$630.000", desc:"Proyecto audiovisual completo con dron, más tiempo de grabación y postproducción. El precio final depende de duración y complejidad."},
   {img:"v_evento", n:"Video de evento cinemático · 8 a 15 minutos", p:"$950.000", desc:"Grabación en pre-sesión o preboda y en el evento, con iluminación y micrófono. Colorización profesional, apoyo con IA, tomas con dron y tráiler para redes. Para XV con video pre-15 en dron: $1.065.000."},
-  {img:"v_musical3", n:"Video musical", p:"$750.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
+  {img:"v_musical3", n:"Video musical", p:"$950.000", desc:"Para artistas y agrupaciones.", inc:["Tráiler promocional de 1 a 2 minutos","Cámara profesional y dron, todo en 4K","Varias locaciones y planos cinematográficos","Grabación en LOG para máximo rango dinámico","Edición, corrección de color y colorización cinematográfica","Estabilización con gimbal","Archivos originales RAW y LOG si los necesitas"]}
  ]},
- {id:"dron", nav:"Dron", titulo:"Dron", linea:"4K de 60 a 100 fps, con hasta 1 hora 20 minutos de vuelo o más, según el evento.", tipo:"copias", items:[
+ {id:"dron", nav:"Dron", titulo:"Dron", linea:"4K de 60 a 100 fps, con un tiempo máximo de vuelo de 1 hora 10 minutos.", tipo:"copias", items:[
   {img:"m_dron_709", n:"Material en crudo · color natural (Rec. 709)", d:"-15%", s:"$141.000", p:"$120.000", desc:"Cobertura aérea entregada lista para ver. Sin música ni edición, solo lo grabado."},
   {img:"m_dron_log", n:"Material en crudo · logarítmico", d:"-15%", s:"$141.000", p:"$120.000", desc:"Perfil LOG, ideal si vas a hacer tu propia postproducción. Sin música ni edición."},
   {img:"m_dron_color", n:"Clips colorizados", d:"-15%", s:"$211.000", p:"$180.000", desc:"Clips seleccionados con corrección y estilo de color cinematográfico. Sin montaje ni música."}
@@ -1332,7 +1520,7 @@ const CATS = [
   {img:"runningh", n:"Paquete Deportivo", t:"Fotografía + video", d:"-5%", s:"$820.000", p:"$780.000", inc:["50 fotografías base del evento","Video tipo reel (1–2 min)","Dron para tomas aéreas","Transporte incluido, 2 encargados","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Paquete_Deportivo_Reel_Dron_50_fotos.pdf"},
   {img:"running", n:"Fotografía Deportiva", t:"Solo fotografía", p:"$450.000", inc:["50 fotografías base editadas","Transporte incluido","Venta individual online con reconocimiento de rostro"], pdf:"pdf/Fotografia_Deportiva_50_fotos.pdf"},
   {img:"runningd", n:"Video Cámara + Dron", t:"Solo video", p:"$350.000", inc:["Reel de 1–2 min con cámara y dron","Tomas aéreas y en tierra","Entrega en 4K"], pdf:"pdf/Video_Camara_y_Dron.pdf"},
-  {img:"runningn", n:"Alquiler de Dron", t:"Dron con piloto", p:"$120.000", inc:["Videos en D-Log o Rec. 709","4K de 60 a 100 fps","Vuelo máximo de 1 h 10 min"], pdf:"pdf/Alquiler_Dron.pdf"}
+  {img:"runningn", n:"Alquiler de Dron", t:"Dron con piloto", p:"$120.000", inc:["Videos en D-Log o Rec. 709","4K de 60 a 100 fps","Tiempo máximo de vuelo: 1 hora 10 minutos"], pdf:"pdf/Alquiler_Dron.pdf"}
  ]},
  {id:"impresiones", nav:"Impresiones", titulo:"Impresiones y retablos", linea:"Colores vivos y acabado premium, para colgar o regalar.", tipo:"tamanos",
   grupos:[
@@ -1368,7 +1556,8 @@ const ICO = {
   dron:'<svg viewBox="0 0 24 24"><circle cx="5" cy="5" r="2.5"/><circle cx="19" cy="5" r="2.5"/><circle cx="5" cy="19" r="2.5"/><circle cx="19" cy="19" r="2.5"/><path d="M7 7l3 3h4l3-3M7 17l3-3h4l3 3"/></svg>',
   imp:'<svg viewBox="0 0 24 24"><rect x="4" y="4" width="16" height="16" rx="1"/><path d="M4 16l5-5 4 4 3-3 4 4"/></svg>',
   inv:'<svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 8l9 6 9-6"/></svg>',
-  per:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>'
+  per:'<svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="3.5"/><path d="M5 20c1-4 4-6 7-6s6 2 7 6"/></svg>',
+  reloj:'<svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></svg>'
 };
 const ICONO = {
   video:'<svg viewBox="0 0 64 64"><rect x="6" y="16" width="36" height="32" rx="5"/><path d="M42 27l16-9v28l-16-9"/><path d="M18 26l10 6-10 6z"/></svg>',
@@ -1387,7 +1576,7 @@ function claves(it, cat){
   if (/dron/i.test(txt)) out.push([ICO.dron, "Dron"]);
   if (/impres|retablo/i.test(txt)) out.push([ICO.imp, "Impresiones"]);
   if (/invitación virtual/i.test(txt)) out.push([ICO.inv, "Invitación virtual"]);
-  if (cat === "dron" && !out.length) out.push([ICO.dron, "Dron"], [ICO.video, "4K hasta 100 fps"]);
+  if (cat === "dron" && !out.length) out.push([ICO.dron, "Dron"], [ICO.video, "4K hasta 100 fps"], [ICO.reloj, "Vuelo máx. 1 h 10 min"]);
   if (cat === "invitaciones") { out.length = 0; out.push([ICO.inv, /video/i.test(it.n) ? "Invitación en video" : "Invitación digital"]); }
   if (it.por) out.push([ICO.per, it.por]);
   return out.length ? `<div class="claves">${out.map(([i, t]) => `<span>${i}${t}</span>`).join("")}</div>` : "";
@@ -1409,7 +1598,7 @@ function copias(c){
       ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
-        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=11" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=12" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
     </article>`).join("")}</div>${c.items.length > 1 ? `<button class="mas" type="button" aria-label="Ver más opciones">${FLECHA}</button>` : ""}</div>`
     + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
@@ -1429,14 +1618,14 @@ function filas(c){
 }
 function tamanos(c){
   return c.grupos.map(g => `<h3 class="sub">${g.sub}</h3><div class="tamanos">${g.items.map(([m,p,img]) =>
-    `<div class="tam aparece"><img src="img/m/${img}.webp" decoding="async" alt="${g.sub} ${m}" loading="lazy"><span class="medida">${m}</span><b>${p}</b><a class="pedir" href="${waLink(g.sub.replace(/s$/,"") + " " + m, p)}" target="_blank" rel="noopener">Pedir</a></div>`
+    `<div class="tam aparece"><img src="img/m/${img}.webp" decoding="async" alt="${g.sub} ${m}" loading="lazy"><span class="medida">${m}</span><b>${p}</b><a class="pedir" href="${waLink(g.sub.replace(/ones$/,"ón").replace(/s$/,"") + " " + m, p)}" target="_blank" rel="noopener">Pedir</a></div>`
   ).join("")}</div>`).join("")
   + `<p class="aviso">Se manda a imprimir con el 50% y se entrega al pagar el resto. <a href="${waLink("Impresiones / retablos","")}" target="_blank" rel="noopener">Pedir impresiones por WhatsApp</a></p>`;
 }
 
 /* panel de entrada: una tarjeta por categoría, con el texto corto que estaba en Canva */
 const PANEL = {
-  xv:{t:"Combos Completos", txt:"XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete.", sello:"Lo más completo"},
+  xv:{t:"Todo Incluido", txt:"XV años, bodas y eventos grandes: foto, video, dron e impresiones en un solo paquete.", sello:"Lo más completo"},
   sesiones:{t:"Sesiones de fotos", txt:"Sesiones con edición cuidada y resultados de alta calidad."},
   eventos:{t:"Fotos de eventos", txt:"Eucaristía y fiesta, con asistente de iluminación."},
   video:{t:"Videos", txt:"Videos creativos que cuentan historias y destacan tu evento o marca."},
@@ -1453,12 +1642,28 @@ const pesos = n => "$" + n.toLocaleString("es-CO");
 function preciosDe(c){ return (c.items || c.grupos.flatMap(g => g.items.map(([, p]) => ({p})))).filter(it => !it.extra).map(it => num(it.p)).filter(Boolean); }
 function cuantos(c){ return c.items ? c.items.length : c.grupos.reduce((a, g) => a + g.items.length, 0); }
 const FLECHA = '<svg class="flecha" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+/* panel en cuadrícula: reemplaza botones() de precios-repo/index.html (las variantes cambian solo el CSS) */
+const CORTO = {
+  xv:"XV, bodas y eventos: foto, video y dron.",
+  sesiones:"Retratos con edición cuidada.",
+  eventos:"Eucaristía y fiesta, con iluminación.",
+  video:"Videos que cuentan tu historia.",
+  dron:"Tomas aéreas en 4K.",
+  grados:"Pre-grado, ceremonia y retablo.",
+  deportivo:"Fotos, reel y dron para carreras.",
+  impresiones:"Fotos impresas y retablos premium.",
+  invitaciones:"Digitales y elegantes, para WhatsApp.",
+  ia:"Imágenes, videos y chatbots con IA."
+};
 function botones(){
   return CATS.map((c, i) => {
     const k = PANEL[c.id], ps = preciosDe(c), min = ps.length ? Math.min(...ps) : 0;
-    return `<a class="cat-btn${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
-      <img src="img/c_${c.id}.webp?v=6" alt="" width="76" height="95" decoding="async" loading="${i < 4 ? "eager" : "lazy"}">
-      <span class="tx">${k.sello ? `<i class="sello">${k.sello}</i>` : ""}<b>${esc(k.t)}</b><small>${esc(k.txt)}</small><em>${min ? "Desde " + pesos(min) : "A cotizar"} · ${cuantos(c)} opciones</em></span>
+    const desde = min ? "Desde " + pesos(min) : "A cotizar";
+    return `<a class="cat-btn tile${i === 0 ? " top" : ""}" style="--i:${i % 4}" href="#${c.id}">
+      <span class="foto"><img src="img/k/${c.id}.webp?v=1" alt="" width="480" height="600" decoding="async" loading="${i < 4 ? "eager" : "lazy"}"></span>
+      ${k.sello ? `<i class="sello">${k.sello}</i>` : ""}
+      <span class="chip-n">${cuantos(c)} opciones</span>
+      <span class="tx"><b>${esc(k.t)}</b><small>${esc(CORTO[c.id] || k.txt)}</small><em><span class="d">${desde}</span><span class="n"> · ${cuantos(c)} opciones</span></em></span>
       ${FLECHA}
     </a>`;
   }).join("");
@@ -1612,7 +1817,7 @@ if (RESENAS.length) {
     const ruta = a.getAttribute("href").split("?")[0], slugPdf = ruta.replace(/^pdf\//, "").replace(/\.pdf$/, "");
     const card = a.closest(".copia");
     tit.textContent = card ? card.querySelector("h3").textContent : "Paquete";
-    img.src = `pdf/ver/${slugPdf}.webp?v=11`;
+    img.src = `pdf/ver/${slugPdf}.webp?v=12`;
     desc.href = a.getAttribute("href");
     const btn = card && card.querySelector(".btn-ambar"); wa.href = btn ? btn.href : "https://wa.me/573133469261";
     hoja.classList.add("abierta"); document.body.style.overflow = "hidden"; abierta = true;
@@ -1656,13 +1861,18 @@ function medirDetalles(){
   });
 }
 function igualar(){
-  const igual = (sel) => {
-    const els = [...document.querySelectorAll(sel)].filter(e => !e.closest(".copia.abierta"));
+  const igual = (els) => {
+    els = els.filter(e => e && !e.closest(".copia.abierta"));
     els.forEach(e => e.style.minHeight = "");
     const max = Math.max(0, ...els.map(e => e.offsetHeight));   // offsetHeight: sin la escala de las animaciones de entrada
     els.forEach(e => e.style.minHeight = max + "px");
   };
-  igual(".copia h3"); igual(".copia .claves"); igual(".copia .caja-precio"); igual(".copia");
+  /* en PC todas las tarjetas iguales; en celular (dos columnas) de a dos por fila, si no quedan huecos enormes */
+  const grupos = [];
+  if (innerWidth > 640) grupos.push([...document.querySelectorAll(".copia")]);
+  else document.querySelectorAll(".copias").forEach(g => { const c = [...g.children]; for (let i = 0; i < c.length; i += 2) grupos.push(c.slice(i, i + 2)); });
+  grupos.forEach(cards => ["h3", ".claves", ".caja-precio"].forEach(s => igual(cards.map(c => c.querySelector(s)))));
+  grupos.forEach(cards => igual(cards));
 }
 function ajustar(){ medirDetalles(); igualar(); }
 ajustar(); addEventListener("load", ajustar); addEventListener("resize", ajustar);
@@ -1687,6 +1897,11 @@ const ver = new IntersectionObserver(es => es.forEach(e => {
   ver.unobserve(e.target);
 }), {threshold:0, rootMargin:"0px 0px 20% 0px"});
 document.querySelectorAll(".aparece").forEach(el => { if (el.closest("#categorias")) el.classList.add("visto"); ver.observe(el); });
+/* paquetes: la animación de entrada arranca cuando la tarjeta ya se ve (ver() se adelanta un 20% y la gastaría fuera de pantalla) */
+const entra = new IntersectionObserver(es => es.forEach(e => {
+  if (e.isIntersecting) { e.target.classList.add("entra"); entra.unobserve(e.target); }
+}), {rootMargin:"0px 0px -10% 0px"});
+document.querySelectorAll(".copias > .copia, .tamanos > .tam, .banda").forEach(el => entra.observe(el));
 
 /* el precio cuenta hasta su valor */
 function contar(b){
@@ -1782,7 +1997,7 @@ if (location.hash && document.querySelector(location.hash)) {
 /* cotizador: arma el mensaje y abre WhatsApp */
 const sel = document.getElementById("servicio");
 sel.innerHTML = '<option value="">Elige un servicio</option>' + CATS.map(c => {
-  const its = c.items || c.grupos.flatMap(g => g.items.map(([m]) => ({n: g.sub.replace(/s$/, "") + " " + m})));
+  const its = c.items || c.grupos.flatMap(g => g.items.map(([m]) => ({n: g.sub.replace(/ones$/, "ón").replace(/s$/, "") + " " + m})));
   return `<optgroup label="${esc(c.nav)}">${its.map(it => `<option>${esc(it.n)}</option>`).join("")}</optgroup>`;
 }).join("") + "<option>Otro / no estoy seguro</option>";
 document.getElementById("cotiza").addEventListener("submit", e => {
@@ -1802,5 +2017,99 @@ document.querySelectorAll(".copiar").forEach(b => b.addEventListener("click", as
 </script>
 <script src="portafolio.js?v=14" defer></script>
 <script src="portafolio-ui.js?v=10" defer></script>
+<script>
+/* seguidores de Instagram: ig.json lo actualiza tools/seguidores.py (GitHub Actions, una vez al día) */
+fetch("ig.json", {cache: "no-cache"}).then(r => r.ok ? r.json() : null).then(d => {
+  if (!d) return;
+  const redondo = n => (Math.floor(n / 100) * 100).toLocaleString("es-CO") + "+";
+  document.querySelectorAll("[data-ig]").forEach(b => { const n = d[b.dataset.ig]; if (n > 0) b.textContent = redondo(n); });
+}).catch(() => {});
+</script>
+<script>
+/* "¿Qué celebras?": XV, boda y evento abren primero un menú corto (paquete completo, evento, sesión) y luego van a esos precios */
+(() => {
+  const nav = document.querySelector(".atajos");
+  if (!nav) return;
+  const desde = id => { const c = CATS.find(x => x.id === id), ps = c ? preciosDe(c) : []; return ps.length ? "Desde " + pesos(Math.min(...ps)) : ""; };
+  const K = id => `img/k/${id}.webp?v=1`;
+  /* [sección, título, qué incluye, foto, sello] */
+  const MENU = {
+    xv: {q: "¿Qué quieres para tus XV?", sub: "Elige una opción y te muestro los precios.", ops: [
+      ["xv", "Paquete completo", "Sesión previa, fiesta, dron, impresas y retablo. Con video si lo quieres.", K("xv"), "Lo más completo"],
+      ["eventos", "Solo el evento", "Fotos editadas de la eucaristía y la fiesta.", K("eventos")],
+      ["sesiones", "Solo la sesión", "Tu sesión pre-15, con edición cuidada.", K("sesiones")]],
+      mas: ["video", "invitaciones", "impresiones"]},
+    boda: {q: "¿Qué quieres para tu boda?", sub: "Elige una opción y te muestro los precios.", ops: [
+      ["xv", "Paquete completo", "Preboda, el día de la boda, dron, impresas y retablo. Con video si lo quieres.", K("boda-manos"), "Lo más completo"],
+      ["eventos", "Solo el evento", "Fotos editadas de la ceremonia y la fiesta.", K("eventos")],
+      ["sesiones", "Solo la sesión", "Sesión preboda o de pareja, con edición cuidada.", K("sesiones")]],
+      mas: ["video", "invitaciones", "impresiones"]},
+    evento: {q: "¿Qué necesitas para tu evento?", sub: "Cumpleaños, bautizos, comuniones y más.", ops: [
+      ["eventos", "Fotos del evento", "Fotos editadas de todo el evento, con iluminación.", K("eventos")],
+      ["video", "Video", "Desde un video corto para redes hasta el evento completo.", K("video")],
+      ["xv", "Fotos + video", "Paquete completo: sesión previa, evento y dron.", K("xv"), "Lo más completo"]],
+      mas: ["dron", "impresiones", "invitaciones"]}
+  };
+  const IR = '<svg class="ir" viewBox="0 0 24 24" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>';
+
+  const dlg = document.createElement("dialog");
+  dlg.className = "menu-ev"; dlg.setAttribute("aria-labelledby", "menuTit");
+  dlg.innerHTML = `<div class="menu-cab"><div><h3 id="menuTit"></h3><p></p></div><button type="button" class="menu-x" aria-label="Cerrar">×</button></div>
+    <div class="menu-ops"></div><p class="menu-mas"></p><a class="menu-todo" href="#categorias">Ver todas las categorías</a>`;
+  document.body.appendChild(dlg);
+
+  const pintar = m => {
+    const M = MENU[m];
+    dlg.querySelector("h3").textContent = M.q;
+    dlg.querySelector(".menu-cab p").textContent = M.sub;
+    dlg.querySelector(".menu-ops").innerHTML = M.ops.map(([id, t, d, img, sello], i) => `<a class="menu-op${sello ? " reco" : ""}" style="--i:${i}" href="#${id}">
+      <span class="foto"><img src="${img}" alt="" width="480" height="600" decoding="async"></span>
+      <span class="tx">${sello ? `<i>${esc(sello)}</i>` : ""}<b>${esc(t)}</b><small>${esc(d)}</small><em>${desde(id)}</em></span>${IR}</a>`).join("");
+    dlg.querySelector(".menu-mas").innerHTML = "También: " + M.mas.map(id => `<a href="#${id}">${esc(PANEL[id] ? PANEL[id].t : id)}</a>`).join("");
+  };
+
+  /* el botón Atrás del celular cierra el menú; al elegir, esa misma entrada del historial pasa a ser la sección
+     (con history.back() el navegador devolvía la posición vieja y pisaba el desplazamiento) */
+  const ir = d => {
+    const sec = document.querySelector(d);
+    if (!sec) return;
+    if (history.state && history.state.menu) history.replaceState(null, "", d); else history.pushState(null, "", d);
+    dlg.close();
+    scrollTo({top: sec.getBoundingClientRect().top + scrollY - 64});
+    if (sec.classList.contains("cat")) { sec.classList.remove("llegaste"); void sec.offsetWidth; sec.classList.add("llegaste"); }
+  };
+  const abrir = m => { pintar(m); dlg.showModal(); history.pushState({menu: 1}, ""); };
+  const cerrar = () => { if (history.state && history.state.menu) history.back(); else dlg.close(); };
+  addEventListener("popstate", () => { if (dlg.open) dlg.close(); });
+
+  nav.addEventListener("click", e => {
+    const a = e.target.closest("a[data-menu]");
+    if (!a || !MENU[a.dataset.menu]) return;
+    e.preventDefault(); e.stopPropagation();
+    abrir(a.dataset.menu);
+  });
+  dlg.querySelector(".menu-x").addEventListener("click", cerrar);
+  dlg.addEventListener("cancel", e => { e.preventDefault(); cerrar(); });
+  dlg.addEventListener("click", e => {
+    if (e.target === dlg) return cerrar();
+    const a = e.target.closest('a[href^="#"]');
+    if (!a) return;
+    e.preventDefault(); e.stopPropagation();
+    ir(a.getAttribute("href"));
+  });
+
+  /* la misma onda al tocar que tienen los botones de la página */
+  dlg.addEventListener("pointerdown", e => {
+    const el = e.target.closest(".menu-op");
+    if (!el || reducido) return;
+    const r = el.getBoundingClientRect(), d = Math.max(r.width, r.height) * 2.2;
+    const o = document.createElement("span");
+    o.className = "onda";
+    o.style.cssText = `width:${d}px;height:${d}px;left:${e.clientX - r.left - d / 2}px;top:${e.clientY - r.top - d / 2}px`;
+    el.appendChild(o);
+    setTimeout(() => o.remove(), 650);
+  });
+})();
+</script>
 </body>
 </html>

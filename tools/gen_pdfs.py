@@ -2,13 +2,14 @@
 
 Lee los datos directamente del index.html (array CATS) servido en local:
     python -m http.server 8141 --directory precios-repo
-    python tools/gen_pdfs.py [http://localhost:8141]
+    python tools/gen_pdfs.py [http://localhost:8141] [slug1,slug2]   (con slugs solo rehace esos)
 Salida: pdf/<slug>.pdf
 """
 import html, sys, pathlib
 from playwright.sync_api import sync_playwright
 
 BASE = sys.argv[1] if len(sys.argv) > 1 else "http://localhost:8141"
+SOLO = set(sys.argv[2].split(",")) if len(sys.argv) > 2 else None
 OUT = pathlib.Path(__file__).resolve().parent.parent / "pdf"
 OUT.mkdir(exist_ok=True)
 
@@ -126,7 +127,7 @@ with sync_playwright() as pw:
         if c["tipo"] != "copias":
             continue
         for it in c["items"]:
-            if not it.get("img"):
+            if not it.get("img") or (SOLO and slugs[i] not in SOLO):
                 i += 1; continue
             resto = [o for o in c["items"] if o is not it and o["n"] != it["n"] and o.get("img")][:4]
             pg.set_content(page(c, it, resto), wait_until="networkidle")
@@ -143,6 +144,8 @@ try:
     from PIL import Image
     (OUT / "ver").mkdir(exist_ok=True)
     for f in sorted(OUT.glob("*.pdf")):
+        if SOLO and f.stem not in SOLO:
+            continue
         pix = fitz.open(f)[0].get_pixmap(dpi=170)
         Image.open(io.BytesIO(pix.tobytes("png"))).convert("RGB").save(OUT / "ver" / (f.stem + ".webp"), "WEBP", quality=82, method=6)
     print("vistas previas listas")

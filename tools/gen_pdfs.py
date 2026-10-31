@@ -64,6 +64,11 @@ li::before{content:"";position:absolute;left:.5mm;top:.62em;width:3mm;height:.6m
 .contactos::before{top:1.2mm}.contactos::after{bottom:1.2mm}
 .contactos div{display:grid;gap:1mm}
 .contactos img{width:100%;aspect-ratio:4/3;object-fit:cover;display:block}
+.contactos.vertical{padding:4.5mm 9mm;gap:5mm}
+.contactos.vertical img{aspect-ratio:4/5}
+body:has(.contactos.vertical) .cuerpo{grid-template-columns:66mm 1fr}
+body:has(.contactos.vertical) .otras{margin-top:5mm}
+body:has(.contactos.vertical) .cond{margin-top:4mm}
 .contactos b{font-size:8.5pt;font-weight:600;color:#e9e8e1;line-height:1.2}
 .contactos span{font-size:8.5pt;color:#f0a22e;font-stretch:85%;font-weight:700}
 .cond{margin:6mm 16mm 0;border-top:.3mm solid #45463f;padding-top:5mm;display:grid;grid-template-columns:repeat(3,1fr);gap:6mm}
@@ -88,7 +93,8 @@ def page(cat, it, otras):
     otras_html = ""
     if otras:
         celdas = "".join(f'<div><img src="{BASE}/img/{esc(o["img"])}.jpg"><b>{esc(o["n"])}</b><span>{esc(o["p"])}</span></div>' for o in otras)
-        otras_html = f'<div class="otras"><h3>otras opciones de {esc(cat["nav"].lower())}</h3><div class="contactos">{celdas}</div></div>'
+        vertical = " vertical" if cat["id"] == "grados" else ""  # retratos 4:5: no cortar cabezas
+        otras_html = f'<div class="otras"><h3>otras opciones de {esc(cat["nav"].lower())}</h3><div class="contactos{vertical}">{celdas}</div></div>'
 
     return f"""<!doctype html><html lang="es"><head><meta charset="utf-8">
 <link href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,500;6..96,700&family=Archivo:wdth,wght@75..100,400..700&family=Caveat+Brush&display=swap" rel="stylesheet">

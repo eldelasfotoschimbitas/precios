@@ -1598,7 +1598,7 @@ function copias(c){
       ${claves(it, c.id)}${cajaPrecio(it)}<div class="detalle">${it.desc ? `<p class="desc">${esc(it.desc)}</p>` : ""}${it.inc ? `<div class="incluye">Incluye</div>${lista(it.inc)}` : ""}</div><button type="button" class="ver-mas" hidden>Ver más</button>
       <div class="acciones">
         <a class="btn btn-ambar" href="${waLink(it.n, it.p)}" target="_blank" rel="noopener">${icoWA}Lo quiero</a>
-        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=12" target="_blank" rel="noopener">Ver PDF</a>` : ""}
+        ${it.img && !it.nopdf ? `<a class="btn btn-linea" href="pdf/${slug(it.n)}.pdf?v=13" target="_blank" rel="noopener">Ver PDF</a>` : ""}
       </div>
     </article>`).join("")}</div>${c.items.length > 1 ? `<button class="mas" type="button" aria-label="Ver más opciones">${FLECHA}</button>` : ""}</div>`
     + (c.nota ? `<p class="aviso">${esc(c.nota)}</p>` : "")
@@ -1817,7 +1817,7 @@ if (RESENAS.length) {
     const ruta = a.getAttribute("href").split("?")[0], slugPdf = ruta.replace(/^pdf\//, "").replace(/\.pdf$/, "");
     const card = a.closest(".copia");
     tit.textContent = card ? card.querySelector("h3").textContent : "Paquete";
-    img.src = `pdf/ver/${slugPdf}.webp?v=12`;
+    img.src = `pdf/ver/${slugPdf}.webp?v=13`;
     desc.href = a.getAttribute("href");
     const btn = card && card.querySelector(".btn-ambar"); wa.href = btn ? btn.href : "https://wa.me/573133469261";
     hoja.classList.add("abierta"); document.body.style.overflow = "hidden"; abierta = true;

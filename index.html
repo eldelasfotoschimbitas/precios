@@ -1185,6 +1185,30 @@ main section.cat{border-top:0}
   .js .copias > .copia.aparece.entra{animation:entra-copia .7s calc(var(--i,0) * 70ms) cubic-bezier(.2,.8,.2,1) both}
   @keyframes entra-copia{from{opacity:0;translate:0 34px;scale:.95}to{opacity:1;translate:0 0;scale:1}}
 }
+/* menú lateral (botón de tres rayas arriba a la izquierda) */
+.hamb{position:fixed;top:8px;left:10px;z-index:26;width:44px;height:44px;border-radius:50%;border:1px solid rgba(255,255,255,.18);background:rgba(5,5,10,.6);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);display:grid;place-items:center;cursor:pointer;padding:0;box-shadow:0 6px 18px rgba(0,0,0,.35);transition:border-color .2s,transform .2s}
+.hamb i,.hamb i::before,.hamb i::after{display:block;width:18px;height:2px;border-radius:2px;background:#fff;position:relative;content:""}
+.hamb i::before{position:absolute;top:-6px}.hamb i::after{position:absolute;top:6px}
+.hamb:active{transform:scale(.94)}
+@media (hover:hover){.hamb:hover{border-color:#f34c5f}}
+.intro:not(.listo) .hamb{visibility:hidden}
+.indice{padding-left:60px}
+.lado-menu{position:fixed;inset:0 auto 0 0;margin:0;width:min(330px,86vw);max-width:none;height:100dvh;max-height:none;padding:0;border:0;border-right:1px solid rgba(255,255,255,.12);background:linear-gradient(180deg,#14070c,#07060a);color:#f4f1ea;overflow:auto;overscroll-behavior:contain;box-shadow:20px 0 60px rgba(0,0,0,.6)}
+.lado-menu::backdrop{background:rgba(0,0,0,.6)}
+.lado-menu[open]{animation:lado-entra .3s cubic-bezier(.2,.8,.2,1)}
+@keyframes lado-entra{from{transform:translateX(-100%)}}
+.lado-cab{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:16px 12px 10px 20px;border-bottom:1px solid rgba(255,255,255,.09)}
+.lado-cab b{font-family:'Poppins',system-ui,sans-serif;font-size:1.05rem;line-height:1.2}
+.lado-cab small{display:block;color:#f87882;font-size:.78rem;font-weight:600;margin-top:2px}
+.lado-x{flex:none;width:44px;height:44px;border:0;border-radius:50%;background:rgba(255,255,255,.07);color:#fff;font-size:1.5rem;cursor:pointer}
+.lado-menu ul{list-style:none;margin:0;padding:8px 10px}
+.lado-menu li a{display:flex;align-items:center;min-height:41px;padding:0 14px;border-radius:12px;color:#e8e3dc;text-decoration:none;font-weight:600;font-size:1rem;transition:background .2s,color .2s}
+.lado-menu li a.activo{background:linear-gradient(135deg,rgba(197,3,55,.35),rgba(197,3,55,.1));color:#fff;box-shadow:inset 3px 0 0 #f34c5f}
+@media (hover:hover){.lado-menu li a:hover{background:rgba(255,255,255,.07);color:#fff}}
+.lado-pie{display:flex;justify-content:center;gap:10px;padding:10px 20px 24px;border-top:1px solid rgba(255,255,255,.09);margin-top:4px}
+.lado-pie a{padding:8px 14px;border-radius:999px;border:1px solid rgba(255,255,255,.16);color:#fff;font-size:.85rem;font-weight:600;text-decoration:none}
+.lado-pie a.wa{background:#25d366;border-color:#25d366;color:#0b2e17}
+@media (prefers-reduced-motion:reduce){.lado-menu[open]{animation:none}}
 </style>
 </head>
 <body>
@@ -1344,6 +1368,13 @@ main section.cat{border-top:0}
   <button type="button" class="sig" aria-label="Foto siguiente">›</button>
   <div class="cuenta-v"><span id="visorN"></span> · más en <a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">@eldelasfotoschimbitas</a></div>
 </div>
+
+<button type="button" class="hamb" id="menuBtn" aria-label="Abrir menú" aria-controls="menuLado" aria-expanded="false"><i></i></button>
+<dialog class="lado-menu" id="menuLado" aria-label="Menú de la página">
+  <div class="lado-cab"><div><b>Edson Penagos</b><small>El de las Fotos Chimbitas</small></div><button type="button" class="lado-x" aria-label="Cerrar menú">×</button></div>
+  <ul id="ladoLista"></ul>
+  <div class="lado-pie"><a class="wa" href="https://wa.me/573133469261?text=Hola%20Edson%2C%20vi%20tus%20precios%20y%20quiero%20m%C3%A1s%20informaci%C3%B3n." target="_blank" rel="noopener">WhatsApp</a><a href="https://www.instagram.com/eldelasfotoschimbitas/" target="_blank" rel="noopener">Instagram</a><a href="https://www.tiktok.com/@fotos.chimbitas" target="_blank" rel="noopener">TikTok</a></div>
+</dialog>
 
 <nav class="indice" aria-label="Categorías de precios">
   <ul id="indice"></ul>
@@ -1698,6 +1729,23 @@ main.innerHTML = panel() + CATS.map(c => `
 const nav = document.getElementById("indice");
 nav.innerHTML = [["categorias","Categorías"], ...CATS.map(c => [c.id, c.nav]), ["reservar","Reservar"], ["sobre","Sobre mí"], ["como","Cómo trabajo"], ["portafolio","Portafolio"]]
   .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
+
+/* menú lateral: mismas secciones que el índice, con la activa marcada */
+const menuLado = document.getElementById("menuLado"), menuBtn = document.getElementById("menuBtn");
+document.getElementById("ladoLista").innerHTML = [["inicio","Inicio"], ...[...nav.querySelectorAll("a")].map(a => [a.getAttribute("href").slice(1), a.textContent])]
+  .map(([id, t]) => `<li><a href="#${id}">${t}</a></li>`).join("");
+const ladoLinks = [...menuLado.querySelectorAll("li a")];
+const cerrarLado = () => { if (menuLado.open) menuLado.close(); };
+menuBtn.addEventListener("click", () => {
+  const act = nav.querySelector(".activo")?.getAttribute("href");
+  ladoLinks.forEach(a => a.classList.toggle("activo", act ? a.getAttribute("href") === act : a === ladoLinks[0]));
+  menuLado.showModal(); menuBtn.setAttribute("aria-expanded", "true");
+});
+menuLado.addEventListener("close", () => menuBtn.setAttribute("aria-expanded", "false"));
+menuLado.querySelector(".lado-x").addEventListener("click", cerrarLado);
+menuLado.addEventListener("click", e => { if (e.target === menuLado) cerrarLado(); });
+ladoLinks[0].addEventListener("click", e => { e.preventDefault(); cerrarLado(); scrollTo({top: 0, behavior: "smooth"}); });
+ladoLinks.slice(1).forEach(a => a.addEventListener("click", cerrarLado));
 
 /* índice activo según la sección visible */
 const links = [...nav.querySelectorAll("a")];
